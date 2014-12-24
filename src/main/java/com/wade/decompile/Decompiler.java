@@ -7,17 +7,21 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+@SuppressWarnings("unused")
 public class Decompiler {
-    public Decompiler(String[] args) throws IOException {
+	private ClassFileData data;
+
+	public Decompiler(String[] args) throws IOException {
         DataInputStream in = new DataInputStream(new FileInputStream(new File(args[0])));
-        ClassFileData data = new ClassFileData(in);
+        data = new ClassFileData(in);
         in.close();
+        System.out.println(data.toString());
     }
 
     private void disassemble() {
     }
 
-    public void main(String... args){
+    public static void main(String... args){
         try {
             Decompiler dc = new Decompiler(args);
             dc.disassemble();
