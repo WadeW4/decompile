@@ -14,7 +14,7 @@ public class InterfaceMethodRefTagInfo extends TagInfo {
 
 	@Override
 	public String toString() {
-		return null;
+		return String.format("InterfaceMethodRef Tag : class index = %d Name And Type Index = %d", classIndex,nameAndTypeIndex);
 	}
 
 	public short getClassIndex() {

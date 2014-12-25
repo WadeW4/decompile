@@ -12,7 +12,7 @@ public class DoubleTagInfo extends TagInfo {
 
 	@Override
 	public String toString() {
-		return null;
+		return String.format("Double Tag : %d", number);
 	}
 
 	public double getNumber() {

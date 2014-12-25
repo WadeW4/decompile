@@ -14,7 +14,7 @@ public class NameAndTypeTagInfo extends TagInfo {
 
 	@Override
 	public String toString() {
-		return null;
+		return String.format("Name and Type Tag : class index = %d descriptor = %d", classIndex,descriptor);
 	}
 
 	public short getClassIndex() {

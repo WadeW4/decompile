@@ -12,7 +12,7 @@ public class IntegerTagInfo extends TagInfo {
     
 	@Override
 	public String toString() {
-		return null;
+		return String.format("Integer Tag : %d", number);
 	}
 
 	public int getNumber() {

@@ -12,7 +12,7 @@ public class FloatTagInfo extends TagInfo {
 
 	@Override
 	public String toString() {
-		return null;
+		return String.format("Float Tag : %d", number);
 	}
 
 	public float getNumber() {

@@ -12,7 +12,7 @@ public class LongTagInfo extends TagInfo {
 
 	@Override
 	public String toString() {
-		return null;
+		return String.format("Long Tag : %d", number);
 	}
 
 	public long getNumber() {

@@ -12,7 +12,7 @@ public class StringTagInfo extends TagInfo {
 
 	@Override
 	public String toString() {
-		return null;
+		return String.format("String Tag : number = %d", number);
 	}
 
 	public short getNumber() {

@@ -4,19 +4,19 @@ import java.io.DataInputStream;
 import java.io.IOException;
 
 public class ClassFileData {
-	private final int magicNumber;
-	private final short minorVersion;
-	private final short majorVersion;
-	private final ConstantPool pool;
+    private final int magicNumber;
+    private final short minorVersion;
+    private final short majorVersion;
+    private final ConstantPool pool;
 
-	public ClassFileData(DataInputStream in) throws IOException {
+    public ClassFileData(DataInputStream in) throws IOException {
 		magicNumber = in.readInt();
 		minorVersion = in.readShort();
 		majorVersion = in.readShort();
 		pool = new ConstantPool(in);
 	}
 
-	@Override
+    @Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("Magic Number  = 0x" + String.format("%08X", magicNumber) + "\n");
@@ -24,5 +24,4 @@ public class ClassFileData {
 		buffer.append(pool.toString());
 		return buffer.toString();
 	}
-
 }
