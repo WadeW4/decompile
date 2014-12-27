@@ -1,5 +1,12 @@
 package com.wade.decompile.pool;
 
-public abstract  class TagInfo {
-	public abstract String toString();
+import java.util.List;
+
+public abstract class TagInfo {
+    @Override
+    public abstract String toString();
+
+    public abstract void complete(List<ConstantPoolEntry> constantPool);
+
+    public abstract int getSize();
 }
