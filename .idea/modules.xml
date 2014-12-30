@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectModuleManager">
-    <modules />
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/bcel/bcel.iml" filepath="$PROJECT_DIR$/bcel/bcel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/decompile.iml" filepath="$PROJECT_DIR$/decompile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/decompile-sample-app/decompile-sample-app.iml" filepath="$PROJECT_DIR$/decompile-sample-app/decompile-sample-app.iml" />
+    </modules>
   </component>
 </project>
