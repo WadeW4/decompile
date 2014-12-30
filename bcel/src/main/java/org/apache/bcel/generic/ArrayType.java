@@ -18,11 +18,11 @@ package org.apache.bcel.generic;
 
 import org.apache.bcel.Constants;
 
-/** 
+/**
  * Denotes array type, such as int[][]
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ArrayType.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public final class ArrayType extends ReferenceType {
 
@@ -101,23 +101,26 @@ public final class ArrayType extends ReferenceType {
     }
 
 
-    /** @return number of dimensions of array
+    /**
+     * @return number of dimensions of array
      */
     public int getDimensions() {
         return dimensions;
     }
 
 
-    /** @return a hash code value for the object.
+    /**
+     * @return a hash code value for the object.
      */
     public int hashCode() {
         return basic_type.hashCode() ^ dimensions;
     }
 
 
-    /** @return true if both type objects refer to the same array type.
+    /**
+     * @return true if both type objects refer to the same array type.
      */
-    public boolean equals( Object _type ) {
+    public boolean equals(Object _type) {
         if (_type instanceof ArrayType) {
             ArrayType array = (ArrayType) _type;
             return (array.dimensions == dimensions) && array.basic_type.equals(basic_type);

@@ -20,10 +20,10 @@ package org.apache.bcel.generic;
  * Imnplement this interface if you're interested in changes to a FieldGen object
  * and register yourself with addObserver().
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: FieldObserver.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public interface FieldObserver {
 
-    public void notify( FieldGen field );
+    public void notify(FieldGen field);
 }

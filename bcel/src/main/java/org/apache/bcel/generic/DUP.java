@@ -16,12 +16,12 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * DUP - Duplicate top operand stack word
  * <PRE>Stack: ..., word -&gt; ..., word, word</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: DUP.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class DUP extends StackInstruction implements PushInstruction {
 
@@ -38,7 +38,7 @@ public class DUP extends StackInstruction implements PushInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackProducer(this);
         v.visitPushInstruction(this);
         v.visitStackInstruction(this);

@@ -16,16 +16,17 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * F2D - Convert float to double
  * <PRE>Stack: ..., value -&gt; ..., result.word1, result.word2</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: F2D.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class F2D extends ConversionInstruction {
 
-    /** Convert float to double
+    /**
+     * Convert float to double
      */
     public F2D() {
         super(org.apache.bcel.Constants.F2D);
@@ -40,7 +41,7 @@ public class F2D extends ConversionInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitTypedInstruction(this);
         v.visitStackProducer(this);
         v.visitStackConsumer(this);

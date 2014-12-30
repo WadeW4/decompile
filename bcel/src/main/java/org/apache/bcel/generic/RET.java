@@ -16,17 +16,18 @@
  */
 package org.apache.bcel.generic;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 import org.apache.bcel.util.ByteSequence;
 
-/** 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+/**
  * RET - Return from subroutine
- *
+ * <p/>
  * <PRE>Stack: ... -&gt; ...</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: RET.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class RET extends Instruction implements IndexedInstruction, TypedInstruction {
 
@@ -50,9 +51,10 @@ public class RET extends Instruction implements IndexedInstruction, TypedInstruc
 
     /**
      * Dump instruction as byte code to stream out.
+     *
      * @param out Output stream
      */
-    public void dump( DataOutputStream out ) throws IOException {
+    public void dump(DataOutputStream out) throws IOException {
         if (wide) {
             out.writeByte(org.apache.bcel.Constants.WIDE);
         }
@@ -78,7 +80,7 @@ public class RET extends Instruction implements IndexedInstruction, TypedInstruc
     /**
      * Read needed data (e.g. index) from file.
      */
-    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
+    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
         this.wide = wide;
         if (wide) {
             index = bytes.readUnsignedShort();
@@ -101,7 +103,7 @@ public class RET extends Instruction implements IndexedInstruction, TypedInstruc
     /**
      * Set index of local variable containg the return address
      */
-    public final void setIndex( int n ) {
+    public final void setIndex(int n) {
         if (n < 0) {
             throw new ClassGenException("Negative index value: " + n);
         }
@@ -113,14 +115,15 @@ public class RET extends Instruction implements IndexedInstruction, TypedInstruc
     /**
      * @return mnemonic for instruction
      */
-    public String toString( boolean verbose ) {
+    public String toString(boolean verbose) {
         return super.toString(verbose) + " " + index;
     }
 
 
-    /** @return return address type
+    /**
+     * @return return address type
      */
-    public Type getType( ConstantPoolGen cp ) {
+    public Type getType(ConstantPoolGen cp) {
         return ReturnaddressType.NO_TARGET;
     }
 
@@ -133,7 +136,7 @@ public class RET extends Instruction implements IndexedInstruction, TypedInstruc
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitRET(this);
     }
 }

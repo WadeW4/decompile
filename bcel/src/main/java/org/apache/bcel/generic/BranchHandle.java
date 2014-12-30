@@ -22,11 +22,11 @@ package org.apache.bcel.generic;
  * instruction is not known at time of creation and must be set later
  * via setTarget().
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
+ * @version $Id: BranchHandle.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @see InstructionHandle
  * @see Instruction
  * @see InstructionList
- * @version $Id: BranchHandle.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public final class BranchHandle extends InstructionHandle {
 
@@ -38,12 +38,13 @@ public final class BranchHandle extends InstructionHandle {
         bi = i;
     }
 
-    /** Factory methods.
+    /**
+     * Factory methods.
      */
     private static BranchHandle bh_list = null; // List of reusable handles
 
 
-    static final BranchHandle getBranchHandle( BranchInstruction i ) {
+    static final BranchHandle getBranchHandle(BranchInstruction i) {
         if (bh_list == null) {
             return new BranchHandle(i);
         }
@@ -54,7 +55,8 @@ public final class BranchHandle extends InstructionHandle {
     }
 
 
-    /** Handle adds itself to the list of resuable handles.
+    /**
+     * Handle adds itself to the list of resuable handles.
      */
     protected void addHandle() {
         next = bh_list;
@@ -71,12 +73,12 @@ public final class BranchHandle extends InstructionHandle {
     }
 
 
-    void setPosition( int pos ) {
+    void setPosition(int pos) {
         i_position = bi.position = pos;
     }
 
 
-    protected int updatePosition( int offset, int max_offset ) {
+    protected int updatePosition(int offset, int max_offset) {
         int x = bi.updatePosition(offset, max_offset);
         i_position = bi.position;
         return x;
@@ -86,7 +88,7 @@ public final class BranchHandle extends InstructionHandle {
     /**
      * Pass new target to instruction.
      */
-    public void setTarget( InstructionHandle ih ) {
+    public void setTarget(InstructionHandle ih) {
         bi.setTarget(ih);
     }
 
@@ -94,7 +96,7 @@ public final class BranchHandle extends InstructionHandle {
     /**
      * Update target of instruction.
      */
-    public void updateTarget( InstructionHandle old_ih, InstructionHandle new_ih ) {
+    public void updateTarget(InstructionHandle old_ih, InstructionHandle new_ih) {
         bi.updateTarget(old_ih, new_ih);
     }
 
@@ -107,10 +109,10 @@ public final class BranchHandle extends InstructionHandle {
     }
 
 
-    /** 
+    /**
      * Set new contents. Old instruction is disposed and may not be used anymore.
      */
-    public void setInstruction( Instruction i ) {
+    public void setInstruction(Instruction i) {
         super.setInstruction(i);
         if (!(i instanceof BranchInstruction)) {
             throw new ClassGenException("Assigning " + i

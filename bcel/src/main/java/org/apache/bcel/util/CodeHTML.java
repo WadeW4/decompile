@@ -16,10 +16,6 @@
  */
 package org.apache.bcel.util;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.BitSet;
 import org.apache.bcel.classfile.Attribute;
 import org.apache.bcel.classfile.Code;
 import org.apache.bcel.classfile.CodeException;
@@ -33,12 +29,16 @@ import org.apache.bcel.classfile.LocalVariableTable;
 import org.apache.bcel.classfile.Method;
 import org.apache.bcel.classfile.Utility;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.BitSet;
+
 /**
  * Convert code into HTML file.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: CodeHTML.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * 
  */
 final class CodeHTML implements org.apache.bcel.Constants {
 
@@ -52,7 +52,7 @@ final class CodeHTML implements org.apache.bcel.Constants {
 
 
     CodeHTML(String dir, String class_name, Method[] methods, ConstantPool constant_pool,
-            ConstantHTML constant_html) throws IOException {
+             ConstantHTML constant_html) throws IOException {
         this.class_name = class_name;
         this.methods = methods;
         this.constant_pool = constant_pool;
@@ -71,10 +71,10 @@ final class CodeHTML implements org.apache.bcel.Constants {
      * Disassemble a stream of byte codes and return the
      * string representation.
      *
-     * @param  stream data input stream
+     * @param stream data input stream
      * @return String representation of byte code
      */
-    private final String codeToHTML( ByteSequence bytes, int method_number ) throws IOException {
+    private final String codeToHTML(ByteSequence bytes, int method_number) throws IOException {
         short opcode = (short) bytes.readUnsignedByte();
         StringBuffer buf;
         String name, signature;
@@ -277,7 +277,7 @@ final class CodeHTML implements org.apache.bcel.Constants {
                 String type = Utility.methodSignatureReturnType(signature, false);
                 buf.append(name).append(".<A HREF=\"").append(class_name).append("_cp.html#cp")
                         .append(m_index).append("\" TARGET=ConstantPool>").append(str).append(
-                                "</A>").append("(");
+                        "</A>").append("(");
                 // List arguments
                 for (int i = 0; i < args.length; i++) {
                     buf.append(Class2HTML.referenceType(args[i]));
@@ -295,15 +295,15 @@ final class CodeHTML implements org.apache.bcel.Constants {
                 index = bytes.readShort();
                 buf.append("<A HREF=\"").append(class_name).append("_cp.html#cp").append(index)
                         .append("\" TARGET=\"ConstantPool\">").append(
-                                Class2HTML.toHTML(constant_pool.constantToString(index,
-                                        constant_pool.getConstant(index).getTag()))).append("</a>");
+                        Class2HTML.toHTML(constant_pool.constantToString(index,
+                                constant_pool.getConstant(index).getTag()))).append("</a>");
                 break;
             case LDC:
                 index = bytes.readUnsignedByte();
                 buf.append("<A HREF=\"").append(class_name).append("_cp.html#cp").append(index)
                         .append("\" TARGET=\"ConstantPool\">").append(
-                                Class2HTML.toHTML(constant_pool.constantToString(index,
-                                        constant_pool.getConstant(index).getTag()))).append("</a>");
+                        Class2HTML.toHTML(constant_pool.constantToString(index,
+                                constant_pool.getConstant(index).getTag()))).append("</a>");
                 break;
             /* Array of references.
              */
@@ -362,7 +362,7 @@ final class CodeHTML implements org.apache.bcel.Constants {
      * Find all target addresses in code, so that they can be marked
      * with &lt;A NAME = ...&gt;. Target addresses are kept in an BitSet object.
      */
-    private final void findGotos( ByteSequence bytes, Method method, Code code ) throws IOException {
+    private final void findGotos(ByteSequence bytes, Method method, Code code) throws IOException {
         int index;
         goto_set = new BitSet(bytes.available());
         int opcode;
@@ -404,7 +404,7 @@ final class CodeHTML implements org.apache.bcel.Constants {
                     int remainder = bytes.getIndex() % 4;
                     int no_pad_bytes = (remainder == 0) ? 0 : 4 - remainder;
                     int default_offset,
-                    offset;
+                            offset;
                     for (int j = 0; j < no_pad_bytes; j++) {
                         bytes.readByte();
                     }
@@ -471,7 +471,7 @@ final class CodeHTML implements org.apache.bcel.Constants {
     /**
      * Write a single method with the byte code associated with it.
      */
-    private void writeMethod( Method method, int method_number ) throws IOException {
+    private void writeMethod(Method method, int method_number) throws IOException {
         // Get raw signature
         String signature = method.getSignature();
         // Get array of strings containing the argument types

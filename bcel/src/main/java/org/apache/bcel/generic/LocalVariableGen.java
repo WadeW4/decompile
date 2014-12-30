@@ -19,16 +19,16 @@ package org.apache.bcel.generic;
 import org.apache.bcel.Constants;
 import org.apache.bcel.classfile.LocalVariable;
 
-/** 
+/**
  * This class represents a local variable within a method. It contains its
  * scope, name and type. The generated LocalVariable object can be obtained
  * with getLocalVariable which needs the instruction list and the constant
  * pool as parameters.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: LocalVariableGen.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     LocalVariable
- * @see     MethodGen
+ * @see LocalVariable
+ * @see MethodGen
  */
 public class LocalVariableGen implements InstructionTargeter, NamedAndTyped, Cloneable,
         java.io.Serializable {
@@ -44,13 +44,13 @@ public class LocalVariableGen implements InstructionTargeter, NamedAndTyped, Clo
      * variables need two indexs. Index indices have to be provided by the user.
      *
      * @param index index of local variable
-     * @param name its name
-     * @param type its type
+     * @param name  its name
+     * @param type  its type
      * @param start from where the instruction is valid (null means from the start)
-     * @param end until where the instruction is valid (null means to the end)
+     * @param end   until where the instruction is valid (null means to the end)
      */
     public LocalVariableGen(int index, String name, Type type, InstructionHandle start,
-            InstructionHandle end) {
+                            InstructionHandle end) {
         if ((index < 0) || (index > Constants.MAX_SHORT)) {
             throw new ClassGenException("Invalid index index: " + index);
         }
@@ -64,10 +64,10 @@ public class LocalVariableGen implements InstructionTargeter, NamedAndTyped, Clo
 
     /**
      * Get LocalVariable object.
-     *
+     * <p/>
      * This relies on that the instruction list has already been dumped to byte code or
      * or that the `setPositions' methods has been called for the instruction list.
-     *
+     * <p/>
      * Note that for local variables whose scope end at the last
      * instruction of the method's code, the JVM specification is ambiguous:
      * both a start_pc+length ending at the last instruction and
@@ -76,7 +76,7 @@ public class LocalVariableGen implements InstructionTargeter, NamedAndTyped, Clo
      *
      * @param cp constant pool
      */
-    public LocalVariable getLocalVariable( ConstantPoolGen cp ) {
+    public LocalVariable getLocalVariable(ConstantPoolGen cp) {
         int start_pc = start.getPosition();
         int length = end.getPosition() - start_pc;
         if (length > 0) {
@@ -89,7 +89,7 @@ public class LocalVariableGen implements InstructionTargeter, NamedAndTyped, Clo
     }
 
 
-    public void setIndex( int index ) {
+    public void setIndex(int index) {
         this.index = index;
     }
 
@@ -99,7 +99,7 @@ public class LocalVariableGen implements InstructionTargeter, NamedAndTyped, Clo
     }
 
 
-    public void setName( String name ) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -109,7 +109,7 @@ public class LocalVariableGen implements InstructionTargeter, NamedAndTyped, Clo
     }
 
 
-    public void setType( Type type ) {
+    public void setType(Type type) {
         this.type = type;
     }
 
@@ -129,13 +129,13 @@ public class LocalVariableGen implements InstructionTargeter, NamedAndTyped, Clo
     }
 
 
-    public void setStart( InstructionHandle start ) {
+    public void setStart(InstructionHandle start) {
         BranchInstruction.notifyTarget(this.start, start, this);
         this.start = start;
     }
 
 
-    public void setEnd( InstructionHandle end ) {
+    public void setEnd(InstructionHandle end) {
         BranchInstruction.notifyTarget(this.end, end, this);
         this.end = end;
     }
@@ -145,7 +145,7 @@ public class LocalVariableGen implements InstructionTargeter, NamedAndTyped, Clo
      * @param old_ih old target, either start or end
      * @param new_ih new target
      */
-    public void updateTarget( InstructionHandle old_ih, InstructionHandle new_ih ) {
+    public void updateTarget(InstructionHandle old_ih, InstructionHandle new_ih) {
         boolean targeted = false;
         if (start == old_ih) {
             targeted = true;
@@ -165,12 +165,13 @@ public class LocalVariableGen implements InstructionTargeter, NamedAndTyped, Clo
     /**
      * @return true, if ih is target of this variable
      */
-    public boolean containsTarget( InstructionHandle ih ) {
+    public boolean containsTarget(InstructionHandle ih) {
         return (start == ih) || (end == ih);
     }
 
 
-    /** @return a hash code value for the object.
+    /**
+     * @return a hash code value for the object.
      */
     public int hashCode() {
         //If the user changes the name or type, problems with the targeter hashmap will occur
@@ -183,7 +184,7 @@ public class LocalVariableGen implements InstructionTargeter, NamedAndTyped, Clo
      * We consider to local variables to be equal, if the use the same index and
      * are valid in the same range.
      */
-    public boolean equals( Object o ) {
+    public boolean equals(Object o) {
         if (!(o instanceof LocalVariableGen)) {
             return false;
         }

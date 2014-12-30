@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License. 
  *
- */ 
+ */
 package org.apache.bcel.verifier.exc;
 
 /**
@@ -21,20 +21,21 @@ package org.apache.bcel.verifier.exc;
  * a class file does not pass the verification pass 3. Note that the pass 3 used by
  * "JustIce" involves verification that is usually delayed to pass 4.
  *
- * @version $Id: CodeConstraintException.java 371539 2006-01-23 14:08:00Z tcurdt $
  * @author Enver Haase
+ * @version $Id: CodeConstraintException.java 371539 2006-01-23 14:08:00Z tcurdt $
  */
-public abstract class CodeConstraintException extends VerificationException{
-	/**
-	 * Constructs a new CodeConstraintException with null as its error message string.
-	 */
-	CodeConstraintException(){
-		super();
-	}
-	/**
-	 * Constructs a new CodeConstraintException with the specified error message.
-	 */
-	CodeConstraintException(String message){
-		super(message);
-	}	
+public abstract class CodeConstraintException extends VerificationException {
+    /**
+     * Constructs a new CodeConstraintException with null as its error message string.
+     */
+    CodeConstraintException() {
+        super();
+    }
+
+    /**
+     * Constructs a new CodeConstraintException with the specified error message.
+     */
+    CodeConstraintException(String message) {
+        super(message);
+    }
 }

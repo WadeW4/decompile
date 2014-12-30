@@ -19,9 +19,8 @@ package org.apache.bcel.generic;
 /**
  * Denotes an instruction to perform an unconditional branch, i.e., GOTO, JSR.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: UnconditionalBranch.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
-
  * @see GOTO
  * @see JSR
  */

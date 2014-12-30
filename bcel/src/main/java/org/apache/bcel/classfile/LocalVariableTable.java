@@ -16,18 +16,19 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.apache.bcel.Constants;
 
 /**
  * This class represents colection of local variables in a
  * method. This attribute is contained in the <em>Code</em> attribute.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: LocalVariableTable.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     Code
+ * @see Code
  * @see LocalVariable
  */
 public class LocalVariableTable extends Attribute {
@@ -46,13 +47,13 @@ public class LocalVariableTable extends Attribute {
 
 
     /**
-     * @param name_index Index in constant pool to `LocalVariableTable'
-     * @param length Content length in bytes
+     * @param name_index           Index in constant pool to `LocalVariableTable'
+     * @param length               Content length in bytes
      * @param local_variable_table Table of local variables
-     * @param constant_pool Array of constants
+     * @param constant_pool        Array of constants
      */
     public LocalVariableTable(int name_index, int length, LocalVariable[] local_variable_table,
-            ConstantPool constant_pool) {
+                              ConstantPool constant_pool) {
         super(Constants.ATTR_LOCAL_VARIABLE_TABLE, name_index, length, constant_pool);
         setLocalVariableTable(local_variable_table);
     }
@@ -60,9 +61,10 @@ public class LocalVariableTable extends Attribute {
 
     /**
      * Construct object from file stream.
-     * @param name_index Index in constant pool
-     * @param length Content length in bytes
-     * @param file Input stream
+     *
+     * @param name_index    Index in constant pool
+     * @param length        Content length in bytes
+     * @param file          Input stream
      * @param constant_pool Array of constants
      * @throws IOException
      */
@@ -84,7 +86,7 @@ public class LocalVariableTable extends Attribute {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitLocalVariableTable(this);
     }
 
@@ -95,7 +97,7 @@ public class LocalVariableTable extends Attribute {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         super.dump(file);
         file.writeShort(local_variable_table_length);
         for (int i = 0; i < local_variable_table_length; i++) {
@@ -112,17 +114,13 @@ public class LocalVariableTable extends Attribute {
     }
 
 
-    /** 
-     * @return first matching variable using index
-     * 
+    /**
      * @param index the variable slot
-     * 
      * @return the first LocalVariable that matches the slot or null if not found
-     * 
      * @deprecated since 5.2 because multiple variables can share the
-     *             same slot, use getLocalVariable(int index, int pc) instead.
+     * same slot, use getLocalVariable(int index, int pc) instead.
      */
-    public final LocalVariable getLocalVariable( int index ) {
+    public final LocalVariable getLocalVariable(int index) {
         for (int i = 0; i < local_variable_table_length; i++) {
             if (local_variable_table[i].getIndex() == index) {
                 return local_variable_table[i];
@@ -132,15 +130,12 @@ public class LocalVariableTable extends Attribute {
     }
 
 
-    /** 
-     * @return matching variable using index when variable is used at supplied pc
-     * 
+    /**
      * @param index the variable slot
-     * @param pc the current pc that this variable is alive
-     * 
+     * @param pc    the current pc that this variable is alive
      * @return the LocalVariable that matches or null if not found
      */
-    public final LocalVariable getLocalVariable( int index, int pc ) {
+    public final LocalVariable getLocalVariable(int index, int pc) {
         for (int i = 0; i < local_variable_table_length; i++) {
             if (local_variable_table[i].getIndex() == index) {
                 int start_pc = local_variable_table[i].getStartPC();
@@ -154,7 +149,7 @@ public class LocalVariableTable extends Attribute {
     }
 
 
-    public final void setLocalVariableTable( LocalVariable[] local_variable_table ) {
+    public final void setLocalVariableTable(LocalVariable[] local_variable_table) {
         this.local_variable_table = local_variable_table;
         local_variable_table_length = (local_variable_table == null)
                 ? 0
@@ -180,7 +175,7 @@ public class LocalVariableTable extends Attribute {
     /**
      * @return deep copy of this attribute
      */
-    public Attribute copy( ConstantPool _constant_pool ) {
+    public Attribute copy(ConstantPool _constant_pool) {
         LocalVariableTable c = (LocalVariableTable) clone();
         c.local_variable_table = new LocalVariable[local_variable_table_length];
         for (int i = 0; i < local_variable_table_length; i++) {

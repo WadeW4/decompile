@@ -16,12 +16,12 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * LRETURN -  Return long from method
  * <PRE>Stack: ..., value.word1, value.word2 -&gt; &lt;empty&gt;</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: LRETURN.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class LRETURN extends ReturnInstruction {
 
@@ -38,7 +38,7 @@ public class LRETURN extends ReturnInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitExceptionThrower(this);
         v.visitTypedInstruction(this);
         v.visitStackConsumer(this);

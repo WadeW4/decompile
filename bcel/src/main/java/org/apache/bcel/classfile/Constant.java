@@ -16,33 +16,34 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+import org.apache.bcel.util.BCELComparator;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
-import org.apache.bcel.Constants;
-import org.apache.bcel.util.BCELComparator;
 
 /**
  * Abstract superclass for classes to represent the different constant types
  * in the constant pool of a class file. The classes keep closely to
  * the JVM specification.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: Constant.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class Constant implements Cloneable, Node, Serializable {
 
     private static BCELComparator _cmp = new BCELComparator() {
 
-        public boolean equals( Object o1, Object o2 ) {
+        public boolean equals(Object o1, Object o2) {
             Constant THIS = (Constant) o1;
             Constant THAT = (Constant) o2;
             return THIS.toString().equals(THAT.toString());
         }
 
 
-        public int hashCode( Object o ) {
+        public int hashCode(Object o) {
             Constant THIS = (Constant) o;
             return THIS.toString().hashCode();
         }
@@ -70,10 +71,10 @@ public abstract class Constant implements Cloneable, Node, Serializable {
      *
      * @param v Visitor object
      */
-    public abstract void accept( Visitor v );
+    public abstract void accept(Visitor v);
 
 
-    public abstract void dump( DataOutputStream file ) throws IOException;
+    public abstract void dump(DataOutputStream file) throws IOException;
 
 
     /**
@@ -116,7 +117,7 @@ public abstract class Constant implements Cloneable, Node, Serializable {
      * @param file Input stream
      * @return Constant object
      */
-    static final Constant readConstant( DataInputStream file ) throws IOException,
+    static final Constant readConstant(DataInputStream file) throws IOException,
             ClassFormatException {
         byte b = file.readByte(); // Read tag byte
         switch (b) {
@@ -159,7 +160,7 @@ public abstract class Constant implements Cloneable, Node, Serializable {
     /**
      * @param comparator Comparison strategy object
      */
-    public static void setComparator( BCELComparator comparator ) {
+    public static void setComparator(BCELComparator comparator) {
         _cmp = comparator;
     }
 
@@ -168,10 +169,10 @@ public abstract class Constant implements Cloneable, Node, Serializable {
      * Return value as defined by given BCELComparator strategy.
      * By default two Constant objects are said to be equal when
      * the result of toString() is equal.
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
-    public boolean equals( Object obj ) {
+    public boolean equals(Object obj) {
         return _cmp.equals(this, obj);
     }
 
@@ -179,7 +180,7 @@ public abstract class Constant implements Cloneable, Node, Serializable {
     /**
      * Return value as defined by given BCELComparator strategy.
      * By default return the hashcode of the result of toString().
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     public int hashCode() {

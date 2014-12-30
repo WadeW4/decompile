@@ -21,20 +21,20 @@ package org.apache.bcel.generic;
  * exception (or both) during execution.  This is not quite the truth
  * as such; because all instructions may throw an
  * java.lang.VirtualMachineError. These exceptions are omitted.
- * 
+ * <p/>
  * The Lava Language Specification specifies exactly which
  * <i>RUN-TIME</i> and which <i>LINKING</i> exceptions each
  * instruction may throw which is reflected by the implementers.  Due
  * to the structure of the JVM specification, it may be possible that
  * an Instruction implementing this interface returns a Class[] of
  * size 0.
- *
+ * <p/>
  * Please note that we speak of an "exception" here when we mean any
  * "Throwable" object; so this term is equally used for "Exception"
  * and "Error" objects.
  *
+ * @author Enver Haase
  * @version $Id: ExceptionThrower.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  Enver Haase
  */
 public interface ExceptionThrower {
 

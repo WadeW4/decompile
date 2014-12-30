@@ -28,8 +28,8 @@ import java.util.Vector;
  * operate on. That means, for every class (represented by a unique fully qualified
  * class name) there is exactly one Verifier.
  *
- * @version $Id: VerifierFactory.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @author Enver Haase
+ * @version $Id: VerifierFactory.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @see org.apache.bcel.verifier.Verifier
  */
 public class VerifierFactory {
@@ -54,9 +54,10 @@ public class VerifierFactory {
     /**
      * Returns the (only) verifier responsible for the class with the given name.
      * Possibly a new Verifier object is transparently created.
+     *
      * @return the (only) verifier responsible for the class with the given name.
      */
-    public static Verifier getVerifier( String fully_qualified_classname ) {
+    public static Verifier getVerifier(String fully_qualified_classname) {
         Verifier v = (Verifier) (hashMap.get(fully_qualified_classname));
         if (v == null) {
             v = new Verifier(fully_qualified_classname);
@@ -70,7 +71,7 @@ public class VerifierFactory {
     /**
      * Notifies the observers of a newly generated Verifier.
      */
-    private static void notify( String fully_qualified_classname ) {
+    private static void notify(String fully_qualified_classname) {
         // notify the observers
         Iterator i = observers.iterator();
         while (i.hasNext()) {
@@ -96,7 +97,7 @@ public class VerifierFactory {
     /**
      * Adds the VerifierFactoryObserver o to the list of observers.
      */
-    public static void attach( VerifierFactoryObserver o ) {
+    public static void attach(VerifierFactoryObserver o) {
         observers.add(o);
     }
 
@@ -104,7 +105,7 @@ public class VerifierFactory {
     /**
      * Removes the VerifierFactoryObserver o from the list of observers.
      */
-    public static void detach( VerifierFactoryObserver o ) {
+    public static void detach(VerifierFactoryObserver o) {
         observers.remove(o);
     }
 }

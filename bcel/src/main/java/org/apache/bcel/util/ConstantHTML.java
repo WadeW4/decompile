@@ -16,9 +16,6 @@
  */
 package org.apache.bcel.util;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
 import org.apache.bcel.classfile.Constant;
 import org.apache.bcel.classfile.ConstantClass;
 import org.apache.bcel.classfile.ConstantFieldref;
@@ -30,12 +27,15 @@ import org.apache.bcel.classfile.ConstantString;
 import org.apache.bcel.classfile.Method;
 import org.apache.bcel.classfile.Utility;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 /**
  * Convert constant pool into HTML file.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ConstantHTML.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * 
  */
 final class ConstantHTML implements org.apache.bcel.Constants {
 
@@ -49,7 +49,7 @@ final class ConstantHTML implements org.apache.bcel.Constants {
 
 
     ConstantHTML(String dir, String class_name, String class_package, Method[] methods,
-            ConstantPool constant_pool) throws IOException {
+                 ConstantPool constant_pool) throws IOException {
         this.class_name = class_name;
         this.class_package = class_package;
         this.constant_pool = constant_pool;
@@ -76,12 +76,12 @@ final class ConstantHTML implements org.apache.bcel.Constants {
     }
 
 
-    String referenceConstant( int index ) {
+    String referenceConstant(int index) {
         return constant_ref[index];
     }
 
 
-    private void writeConstant( int index ) {
+    private void writeConstant(int index) {
         byte tag = constants[index].getTag();
         int class_index, name_index;
         String ref;
@@ -222,7 +222,7 @@ final class ConstantHTML implements org.apache.bcel.Constants {
     }
 
 
-    private final int getMethodNumber( String str ) {
+    private final int getMethodNumber(String str) {
         for (int i = 0; i < methods.length; i++) {
             String cmp = methods[i].getName() + methods[i].getSignature();
             if (cmp.equals(str)) {

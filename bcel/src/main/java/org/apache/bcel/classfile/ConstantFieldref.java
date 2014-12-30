@@ -16,15 +16,16 @@
  */
 package org.apache.bcel.classfile;
 
-import java.io.DataInputStream;
-import java.io.IOException;
 import org.apache.bcel.Constants;
 
-/** 
+import java.io.DataInputStream;
+import java.io.IOException;
+
+/**
  * This class represents a constant pool reference to a field.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ConstantFieldref.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public final class ConstantFieldref extends ConstantCP {
 
@@ -48,7 +49,7 @@ public final class ConstantFieldref extends ConstantCP {
 
 
     /**
-     * @param class_index Reference to the class containing the Field
+     * @param class_index         Reference to the class containing the Field
      * @param name_and_type_index and the Field signature
      */
     public ConstantFieldref(int class_index, int name_and_type_index) {
@@ -63,7 +64,7 @@ public final class ConstantFieldref extends ConstantCP {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitConstantFieldref(this);
     }
 }

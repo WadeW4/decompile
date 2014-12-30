@@ -20,12 +20,13 @@ package org.apache.bcel.generic;
  * FSUB - Substract floats
  * <PRE>Stack: ..., value1, value2 -&gt; result</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: FSUB.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class FSUB extends ArithmeticInstruction {
 
-    /** Substract floats
+    /**
+     * Substract floats
      */
     public FSUB() {
         super(org.apache.bcel.Constants.FSUB);
@@ -40,7 +41,7 @@ public class FSUB extends ArithmeticInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitTypedInstruction(this);
         v.visitStackProducer(this);
         v.visitStackConsumer(this);

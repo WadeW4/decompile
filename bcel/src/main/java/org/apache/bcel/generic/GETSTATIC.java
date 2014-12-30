@@ -19,14 +19,14 @@ package org.apache.bcel.generic;
 import org.apache.bcel.Constants;
 import org.apache.bcel.ExceptionConstants;
 
-/** 
+/**
  * GETSTATIC - Fetch static field from class
  * <PRE>Stack: ..., -&gt; ..., value</PRE>
  * OR
  * <PRE>Stack: ..., -&gt; ..., value.word1, value.word2</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: GETSTATIC.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class GETSTATIC extends FieldInstruction implements PushInstruction, ExceptionThrower {
 
@@ -43,7 +43,7 @@ public class GETSTATIC extends FieldInstruction implements PushInstruction, Exce
     }
 
 
-    public int produceStack( ConstantPoolGen cpg ) {
+    public int produceStack(ConstantPoolGen cpg) {
         return getFieldSize(cpg);
     }
 
@@ -65,7 +65,7 @@ public class GETSTATIC extends FieldInstruction implements PushInstruction, Exce
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackProducer(this);
         v.visitPushInstruction(this);
         v.visitExceptionThrower(this);

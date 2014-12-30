@@ -16,12 +16,12 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * DNEG - Negate double
  * <PRE>Stack: ..., value.word1, value.word2 -&gt; ..., result.word1, result.word2</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: DNEG.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class DNEG extends ArithmeticInstruction {
 
@@ -38,7 +38,7 @@ public class DNEG extends ArithmeticInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitTypedInstruction(this);
         v.visitStackProducer(this);
         v.visitStackConsumer(this);

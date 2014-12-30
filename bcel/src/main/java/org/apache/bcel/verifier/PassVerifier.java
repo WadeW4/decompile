@@ -40,16 +40,20 @@ import java.util.List;
  * That means, if you really want a new verification run of a certain
  * pass you must use a new instance of a given PassVerifier.
  *
- * @version $Id: PassVerifier.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @author Enver Haase
+ * @version $Id: PassVerifier.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @see org.apache.bcel.verifier.Verifier
  * @see #verify()
  */
 public abstract class PassVerifier {
 
-    /** The (warning) messages. */
+    /**
+     * The (warning) messages.
+     */
     private List messages = new ArrayList(); //Type of elements: String
-    /** The VerificationResult cache. */
+    /**
+     * The VerificationResult cache.
+     */
     private VerificationResult verificationResult = null;
 
 
@@ -74,7 +78,9 @@ public abstract class PassVerifier {
     }
 
 
-    /** Does the real verification work, uncached. */
+    /**
+     * Does the real verification work, uncached.
+     */
     public abstract VerificationResult do_verify();
 
 
@@ -82,11 +88,11 @@ public abstract class PassVerifier {
      * This method adds a (warning) message to the message pool of this
      * PassVerifier. This method is normally only internally used by
      * BCEL's class file verifier "JustIce" and should not be used from
-     * the outside. 
+     * the outside.
      *
      * @see #getMessages()
      */
-    public void addMessage( String message ) {
+    public void addMessage(String message) {
         messages.add(message);
     }
 

@@ -19,13 +19,13 @@ package org.apache.bcel.generic;
 import org.apache.bcel.Constants;
 import org.apache.bcel.ExceptionConstants;
 
-/** 
+/**
  * INVOKESTATIC - Invoke a class (static) method
- *
+ * <p/>
  * <PRE>Stack: ..., [arg1, [arg2 ...]] -&gt; ...</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: INVOKESTATIC.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class INVOKESTATIC extends InvokeInstruction {
 
@@ -60,7 +60,7 @@ public class INVOKESTATIC extends InvokeInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitExceptionThrower(this);
         v.visitTypedInstruction(this);
         v.visitStackConsumer(this);

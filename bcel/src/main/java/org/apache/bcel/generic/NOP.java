@@ -19,8 +19,8 @@ package org.apache.bcel.generic;
 /**
  * NOP - Do nothing
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: NOP.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class NOP extends Instruction {
 
@@ -37,7 +37,7 @@ public class NOP extends Instruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitNOP(this);
     }
 }

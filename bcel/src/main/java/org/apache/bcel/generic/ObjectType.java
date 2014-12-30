@@ -20,11 +20,11 @@ import org.apache.bcel.Constants;
 import org.apache.bcel.Repository;
 import org.apache.bcel.classfile.JavaClass;
 
-/** 
+/**
  * Denotes reference such as java.lang.String.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ObjectType.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class ObjectType extends ReferenceType {
 
@@ -40,23 +40,26 @@ public class ObjectType extends ReferenceType {
     }
 
 
-    /** @return name of referenced class
+    /**
+     * @return name of referenced class
      */
     public String getClassName() {
         return class_name;
     }
 
 
-    /** @return a hash code value for the object.
+    /**
+     * @return a hash code value for the object.
      */
     public int hashCode() {
         return class_name.hashCode();
     }
 
 
-    /** @return true if both type objects refer to the same class.
+    /**
+     * @return true if both type objects refer to the same class.
      */
-    public boolean equals( Object type ) {
+    public boolean equals(Object type) {
         return (type instanceof ObjectType)
                 ? ((ObjectType) type).class_name.equals(class_name)
                 : false;
@@ -66,9 +69,10 @@ public class ObjectType extends ReferenceType {
     /**
      * If "this" doesn't reference a class, it references an interface
      * or a non-existant entity.
+     *
      * @deprecated this method returns an inaccurate result
-     *   if the class or interface referenced cannot
-     *   be found: use referencesClassExact() instead
+     * if the class or interface referenced cannot
+     * be found: use referencesClassExact() instead
      */
     public boolean referencesClass() {
         try {
@@ -83,9 +87,10 @@ public class ObjectType extends ReferenceType {
     /**
      * If "this" doesn't reference an interface, it references a class
      * or a non-existant entity.
+     *
      * @deprecated this method returns an inaccurate result
-     *   if the class or interface referenced cannot
-     *   be found: use referencesInterfaceExact() instead
+     * if the class or interface referenced cannot
+     * be found: use referencesInterfaceExact() instead
      */
     public boolean referencesInterface() {
         try {
@@ -100,10 +105,11 @@ public class ObjectType extends ReferenceType {
     /**
      * Return true if this type references a class,
      * false if it references an interface.
+     *
      * @return true if the type references a class, false if
-     *   it references an interface
+     * it references an interface
      * @throws ClassNotFoundException if the class or interface
-     *   referenced by this type can't be found
+     *                                referenced by this type can't be found
      */
     public boolean referencesClassExact() throws ClassNotFoundException {
         JavaClass jc = Repository.lookupClass(class_name);
@@ -114,10 +120,11 @@ public class ObjectType extends ReferenceType {
     /**
      * Return true if this type references an interface,
      * false if it references a class.
+     *
      * @return true if the type references an interface, false if
-     *   it references a class
+     * it references a class
      * @throws ClassNotFoundException if the class or interface
-     *   referenced by this type can't be found
+     *                                referenced by this type can't be found
      */
     public boolean referencesInterfaceExact() throws ClassNotFoundException {
         JavaClass jc = Repository.lookupClass(class_name);
@@ -127,10 +134,11 @@ public class ObjectType extends ReferenceType {
 
     /**
      * Return true if this type is a subclass of given ObjectType.
+     *
      * @throws ClassNotFoundException if any of this class's superclasses
-     *  can't be found
+     *                                can't be found
      */
-    public boolean subclassOf( ObjectType superclass ) throws ClassNotFoundException {
+    public boolean subclassOf(ObjectType superclass) throws ClassNotFoundException {
         if (this.referencesInterface() || superclass.referencesInterface()) {
             return false;
         }
@@ -140,10 +148,11 @@ public class ObjectType extends ReferenceType {
 
     /**
      * Java Virtual Machine Specification edition 2, � 5.4.4 Access Control
+     *
      * @throws ClassNotFoundException if the class referenced by this type
-     *   can't be found
+     *                                can't be found
      */
-    public boolean accessibleTo( ObjectType accessor ) throws ClassNotFoundException {
+    public boolean accessibleTo(ObjectType accessor) throws ClassNotFoundException {
         JavaClass jc = Repository.lookupClass(class_name);
         if (jc.isPublic()) {
             return true;

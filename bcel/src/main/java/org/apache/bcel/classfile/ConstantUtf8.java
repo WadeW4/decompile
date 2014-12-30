@@ -16,19 +16,20 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.apache.bcel.Constants;
 
-/** 
- * This class is derived from the abstract 
- * <A HREF="org.apache.bcel.classfile.Constant.html">Constant</A> class 
+/**
+ * This class is derived from the abstract
+ * <A HREF="org.apache.bcel.classfile.Constant.html">Constant</A> class
  * and represents a reference to a Utf8 encoded string.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ConstantUtf8.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     Constant
+ * @see Constant
  */
 public final class ConstantUtf8 extends Constant {
 
@@ -74,7 +75,7 @@ public final class ConstantUtf8 extends Constant {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitConstantUtf8(this);
     }
 
@@ -85,7 +86,7 @@ public final class ConstantUtf8 extends Constant {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         file.writeByte(tag);
         file.writeUTF(bytes);
     }
@@ -102,7 +103,7 @@ public final class ConstantUtf8 extends Constant {
     /**
      * @param bytes the raw bytes of this Utf-8
      */
-    public final void setBytes( String bytes ) {
+    public final void setBytes(String bytes) {
         this.bytes = bytes;
     }
 

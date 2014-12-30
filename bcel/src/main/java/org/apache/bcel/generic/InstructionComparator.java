@@ -25,15 +25,15 @@ package org.apache.bcel.generic;
  * (if any) in the constant pool or the same local variable index. Branch
  * instructions must have the same target.
  *
- * @see Instruction
- * @version $Id: InstructionComparator.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
+ * @version $Id: InstructionComparator.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @see Instruction
  */
 public interface InstructionComparator {
 
     public static final InstructionComparator DEFAULT = new InstructionComparator() {
 
-        public boolean equals( Instruction i1, Instruction i2 ) {
+        public boolean equals(Instruction i1, Instruction i2) {
             if (i1.opcode == i2.opcode) {
                 if (i1 instanceof Select) {
                     InstructionHandle[] t1 = ((Select) i1).getTargets();
@@ -65,5 +65,5 @@ public interface InstructionComparator {
     };
 
 
-    public boolean equals( Instruction i1, Instruction i2 );
+    public boolean equals(Instruction i1, Instruction i2);
 }

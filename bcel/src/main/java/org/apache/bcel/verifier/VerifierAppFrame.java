@@ -16,35 +16,21 @@
  */
 package org.apache.bcel.verifier;
 
-import java.awt.AWTEvent;
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowEvent;
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTextPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
 import org.apache.bcel.Repository;
 import org.apache.bcel.classfile.JavaClass;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
 
 /**
  * This class implements a machine-generated frame for use with
  * the GraphicalVerfifier.
  *
- * @version $Id: VerifierAppFrame.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @author Enver Haase
+ * @version $Id: VerifierAppFrame.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @see GraphicalVerifier
  */
 public class VerifierAppFrame extends JFrame {
@@ -89,7 +75,9 @@ public class VerifierAppFrame extends JFrame {
     JMenuItem aboutMenuItem = new JMenuItem();
 
 
-    /** Constructor. */
+    /**
+     * Constructor.
+     */
     public VerifierAppFrame() {
         enableEvents(AWTEvent.WINDOW_EVENT_MASK);
         try {
@@ -100,7 +88,9 @@ public class VerifierAppFrame extends JFrame {
     }
 
 
-    /** Initizalization of the components. */
+    /**
+     * Initizalization of the components.
+     */
     private void jbInit() throws Exception {
         //setIconImage(Toolkit.getDefaultToolkit().createImage(Frame1.class.getResource("[Ihr Symbol]")));
         contentPane = (JPanel) this.getContentPane();
@@ -125,7 +115,7 @@ public class VerifierAppFrame extends JFrame {
         messagesScrollPane.setPreferredSize(new Dimension(10, 10));
         classNamesJList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
 
-            public void valueChanged( ListSelectionEvent e ) {
+            public void valueChanged(ListSelectionEvent e) {
                 classNamesJList_valueChanged(e);
             }
         });
@@ -149,7 +139,7 @@ public class VerifierAppFrame extends JFrame {
                 java.awt.event.KeyEvent.CTRL_MASK, true));
         newFileMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
-            public void actionPerformed( ActionEvent e ) {
+            public void actionPerformed(ActionEvent e) {
                 newFileMenuItem_actionPerformed(e);
             }
         });
@@ -157,13 +147,13 @@ public class VerifierAppFrame extends JFrame {
         pass3bTextPane.setEditable(false);
         pass3aJList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
 
-            public void valueChanged( ListSelectionEvent e ) {
+            public void valueChanged(ListSelectionEvent e) {
                 pass3aJList_valueChanged(e);
             }
         });
         pass3bJList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
 
-            public void valueChanged( ListSelectionEvent e ) {
+            public void valueChanged(ListSelectionEvent e) {
                 pass3bJList_valueChanged(e);
             }
         });
@@ -171,14 +161,14 @@ public class VerifierAppFrame extends JFrame {
         whatisMenuItem.setText("What is...");
         whatisMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
-            public void actionPerformed( ActionEvent e ) {
+            public void actionPerformed(ActionEvent e) {
                 whatisMenuItem_actionPerformed(e);
             }
         });
         aboutMenuItem.setText("About");
         aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
-            public void actionPerformed( ActionEvent e ) {
+            public void actionPerformed(ActionEvent e) {
                 aboutMenuItem_actionPerformed(e);
             }
         });
@@ -217,8 +207,10 @@ public class VerifierAppFrame extends JFrame {
     }
 
 
-    /** Overridden to stop the application on a closing window. */
-    protected void processWindowEvent( WindowEvent e ) {
+    /**
+     * Overridden to stop the application on a closing window.
+     */
+    protected void processWindowEvent(WindowEvent e) {
         super.processWindowEvent(e);
         if (e.getID() == WindowEvent.WINDOW_CLOSING) {
             System.exit(0);
@@ -226,7 +218,7 @@ public class VerifierAppFrame extends JFrame {
     }
 
 
-    synchronized void classNamesJList_valueChanged( ListSelectionEvent e ) {
+    synchronized void classNamesJList_valueChanged(ListSelectionEvent e) {
         if (e.getValueIsAdjusting()) {
             return;
         }
@@ -304,7 +296,7 @@ public class VerifierAppFrame extends JFrame {
     }
 
 
-    void newFileMenuItem_actionPerformed( ActionEvent e ) {
+    void newFileMenuItem_actionPerformed(ActionEvent e) {
         String classname = JOptionPane
                 .showInputDialog("Please enter the fully qualified name of a class or interface to verify:");
         if ((classname == null) || (classname.equals(""))) {
@@ -315,7 +307,7 @@ public class VerifierAppFrame extends JFrame {
     }
 
 
-    synchronized void pass3aJList_valueChanged( ListSelectionEvent e ) {
+    synchronized void pass3aJList_valueChanged(ListSelectionEvent e) {
         if (e.getValueIsAdjusting()) {
             return;
         }
@@ -346,7 +338,7 @@ public class VerifierAppFrame extends JFrame {
     }
 
 
-    synchronized void pass3bJList_valueChanged( ListSelectionEvent e ) {
+    synchronized void pass3bJList_valueChanged(ListSelectionEvent e) {
         if (e.getValueIsAdjusting()) {
             return;
         }
@@ -377,7 +369,7 @@ public class VerifierAppFrame extends JFrame {
     }
 
 
-    void aboutMenuItem_actionPerformed( ActionEvent e ) {
+    void aboutMenuItem_actionPerformed(ActionEvent e) {
         JOptionPane
                 .showMessageDialog(
                         this,
@@ -386,7 +378,7 @@ public class VerifierAppFrame extends JFrame {
     }
 
 
-    void whatisMenuItem_actionPerformed( ActionEvent e ) {
+    void whatisMenuItem_actionPerformed(ActionEvent e) {
         JOptionPane
                 .showMessageDialog(
                         this,

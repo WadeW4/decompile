@@ -25,22 +25,26 @@ import org.apache.bcel.classfile.JavaClass;
  * all class files encountered; this may take up a lot of time and,
  * more notably, memory.
  *
- * @version $Id: TransitiveHull.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @author Enver Haase
+ * @version $Id: TransitiveHull.java 386056 2006-03-15 11:31:56Z tcurdt $
  */
 public class TransitiveHull implements VerifierFactoryObserver {
 
-    /** Used for indentation. */
+    /**
+     * Used for indentation.
+     */
     private int indent = 0;
 
 
-    /** Not publicly instantiable. */
+    /**
+     * Not publicly instantiable.
+     */
     private TransitiveHull() {
     }
 
 
     /* Implementing VerifierFactoryObserver. */
-    public void update( String classname ) {
+    public void update(String classname) {
         System.gc(); // avoid swapping if possible.
         for (int i = 0; i < indent; i++) {
             System.out.print(" ");
@@ -86,7 +90,7 @@ public class TransitiveHull implements VerifierFactoryObserver {
      * all class files encountered; this may take up a lot of time and,
      * more notably, memory.
      */
-    public static void main( String[] args ) {
+    public static void main(String[] args) {
         if (args.length != 1) {
             System.out.println("Need exactly one argument: The root class to verify.");
             System.exit(1);

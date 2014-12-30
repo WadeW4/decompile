@@ -21,8 +21,8 @@ import org.apache.bcel.Constants;
 /**
  * Super class for the family of arithmetic instructions.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ArithmeticInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class ArithmeticInstruction extends Instruction implements TypedInstruction,
         StackProducer, StackConsumer {
@@ -43,9 +43,10 @@ public abstract class ArithmeticInstruction extends Instruction implements Typed
     }
 
 
-    /** @return type associated with the instruction
+    /**
+     * @return type associated with the instruction
      */
-    public Type getType( ConstantPoolGen cp ) {
+    public Type getType(ConstantPoolGen cp) {
         switch (opcode) {
             case Constants.DADD:
             case Constants.DDIV:

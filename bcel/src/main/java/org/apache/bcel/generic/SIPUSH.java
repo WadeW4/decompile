@@ -16,17 +16,18 @@
  */
 package org.apache.bcel.generic;
 
+import org.apache.bcel.util.ByteSequence;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.apache.bcel.util.ByteSequence;
 
 /**
  * SIPUSH - Push short
- *
+ * <p/>
  * <PRE>Stack: ... -&gt; ..., value</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: SIPUSH.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class SIPUSH extends Instruction implements ConstantPushInstruction {
 
@@ -50,7 +51,7 @@ public class SIPUSH extends Instruction implements ConstantPushInstruction {
     /**
      * Dump instruction as short code to stream out.
      */
-    public void dump( DataOutputStream out ) throws IOException {
+    public void dump(DataOutputStream out) throws IOException {
         super.dump(out);
         out.writeShort(b);
     }
@@ -59,7 +60,7 @@ public class SIPUSH extends Instruction implements ConstantPushInstruction {
     /**
      * @return mnemonic for instruction
      */
-    public String toString( boolean verbose ) {
+    public String toString(boolean verbose) {
         return super.toString(verbose) + " " + b;
     }
 
@@ -67,7 +68,7 @@ public class SIPUSH extends Instruction implements ConstantPushInstruction {
     /**
      * Read needed data (e.g. index) from file.
      */
-    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
+    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
         length = 3;
         b = bytes.readShort();
     }
@@ -78,9 +79,10 @@ public class SIPUSH extends Instruction implements ConstantPushInstruction {
     }
 
 
-    /** @return Type.SHORT
+    /**
+     * @return Type.SHORT
      */
-    public Type getType( ConstantPoolGen cp ) {
+    public Type getType(ConstantPoolGen cp) {
         return Type.SHORT;
     }
 
@@ -93,7 +95,7 @@ public class SIPUSH extends Instruction implements ConstantPushInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitPushInstruction(this);
         v.visitStackProducer(this);
         v.visitTypedInstruction(this);

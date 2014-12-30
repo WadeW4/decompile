@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License. 
  *
- */ 
+ */
 package org.apache.bcel.verifier.statics;
 
 
@@ -23,29 +23,40 @@ import java.util.List;
 /**
  * A small utility class representing a set of basic int values.
  *
- * @version $Id: IntList.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @author Enver Haase
+ * @version $Id: IntList.java 386056 2006-03-15 11:31:56Z tcurdt $
  */
-public class IntList{
-	/** The int are stored as Integer objects here. */
-	private List theList;
-	/** This constructor creates an empty list. */
-	IntList(){
-		theList = new ArrayList();
-	}
-	/** Adds an element to the list. */
-	void add(int i){
-		theList.add(new Integer(i));
-	}
-	/** Checks if the specified int is already in the list. */
-	boolean contains(int i){
-		Integer[] ints = new Integer[theList.size()];
-		theList.toArray(ints);
-		for (int j=0; j<ints.length; j++){
-			if (i == ints[j].intValue()) {
+public class IntList {
+    /**
+     * The int are stored as Integer objects here.
+     */
+    private List theList;
+
+    /**
+     * This constructor creates an empty list.
+     */
+    IntList() {
+        theList = new ArrayList();
+    }
+
+    /**
+     * Adds an element to the list.
+     */
+    void add(int i) {
+        theList.add(new Integer(i));
+    }
+
+    /**
+     * Checks if the specified int is already in the list.
+     */
+    boolean contains(int i) {
+        Integer[] ints = new Integer[theList.size()];
+        theList.toArray(ints);
+        for (int j = 0; j < ints.length; j++) {
+            if (i == ints[j].intValue()) {
                 return true;
             }
-		}
-		return false;
-	}
+        }
+        return false;
+    }
 }

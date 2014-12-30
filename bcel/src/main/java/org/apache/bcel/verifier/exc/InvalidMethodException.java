@@ -13,20 +13,22 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License. 
  *
- */ 
+ */
 package org.apache.bcel.verifier.exc;
 
 /**
  * Instances of this class are thrown by BCEL's class file verifier "JustIce"
  * when the verification of a method is requested that does not exist.
  *
- * @version $Id: InvalidMethodException.java 371539 2006-01-23 14:08:00Z tcurdt $
  * @author Enver Haase
+ * @version $Id: InvalidMethodException.java 371539 2006-01-23 14:08:00Z tcurdt $
  */
-public class InvalidMethodException extends RuntimeException{
-	
-	/** Constructs an InvalidMethodException with the specified detail message. */
-	public InvalidMethodException(String message){
-		super(message);
-	}
+public class InvalidMethodException extends RuntimeException {
+
+    /**
+     * Constructs an InvalidMethodException with the specified detail message.
+     */
+    public InvalidMethodException(String message) {
+        super(message);
+    }
 }

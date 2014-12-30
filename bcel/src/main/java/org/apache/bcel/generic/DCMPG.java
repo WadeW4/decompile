@@ -16,13 +16,13 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * DCMPG - Compare doubles: value1 > value2
  * <PRE>Stack: ..., value1.word1, value1.word2, value2.word1, value2.word2 -&gt;</PRE>
- *        ..., result
+ * ..., result
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: DCMPG.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class DCMPG extends Instruction implements TypedInstruction, StackProducer, StackConsumer {
 
@@ -31,9 +31,10 @@ public class DCMPG extends Instruction implements TypedInstruction, StackProduce
     }
 
 
-    /** @return Type.DOUBLE
+    /**
+     * @return Type.DOUBLE
      */
-    public Type getType( ConstantPoolGen cp ) {
+    public Type getType(ConstantPoolGen cp) {
         return Type.DOUBLE;
     }
 
@@ -46,7 +47,7 @@ public class DCMPG extends Instruction implements TypedInstruction, StackProduce
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitTypedInstruction(this);
         v.visitStackProducer(this);
         v.visitStackConsumer(this);

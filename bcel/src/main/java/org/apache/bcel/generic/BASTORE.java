@@ -16,16 +16,17 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * BASTORE -  Store into byte or boolean array
  * <PRE>Stack: ..., arrayref, index, value -&gt; ...</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: BASTORE.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class BASTORE extends ArrayInstruction implements StackConsumer {
 
-    /** Store byte or boolean into array
+    /**
+     * Store byte or boolean into array
      */
     public BASTORE() {
         super(org.apache.bcel.Constants.BASTORE);
@@ -40,7 +41,7 @@ public class BASTORE extends ArrayInstruction implements StackConsumer {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackConsumer(this);
         v.visitExceptionThrower(this);
         v.visitTypedInstruction(this);

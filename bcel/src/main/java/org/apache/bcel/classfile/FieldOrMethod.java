@@ -16,16 +16,17 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.apache.bcel.Constants;
 
-/** 
+/**
  * Abstract super class for fields and methods.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: FieldOrMethod.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class FieldOrMethod extends AccessFlags implements Cloneable, Node {
 
@@ -52,6 +53,7 @@ public abstract class FieldOrMethod extends AccessFlags implements Cloneable, No
 
     /**
      * Construct object from file stream.
+     *
      * @param file Input stream
      * @throws IOException
      * @throws ClassFormatException
@@ -69,14 +71,14 @@ public abstract class FieldOrMethod extends AccessFlags implements Cloneable, No
 
 
     /**
-     * @param access_flags Access rights of method
-     * @param name_index Points to field name in constant pool
+     * @param access_flags    Access rights of method
+     * @param name_index      Points to field name in constant pool
      * @param signature_index Points to encoded signature
-     * @param attributes Collection of attributes
-     * @param constant_pool Array of constants
+     * @param attributes      Collection of attributes
+     * @param constant_pool   Array of constants
      */
     protected FieldOrMethod(int access_flags, int name_index, int signature_index,
-            Attribute[] attributes, ConstantPool constant_pool) {
+                            Attribute[] attributes, ConstantPool constant_pool) {
         this.access_flags = access_flags;
         this.name_index = name_index;
         this.signature_index = signature_index;
@@ -91,7 +93,7 @@ public abstract class FieldOrMethod extends AccessFlags implements Cloneable, No
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         file.writeShort(access_flags);
         file.writeShort(name_index);
         file.writeShort(signature_index);
@@ -113,7 +115,7 @@ public abstract class FieldOrMethod extends AccessFlags implements Cloneable, No
     /**
      * @param attributes Collection of object attributes.
      */
-    public final void setAttributes( Attribute[] attributes ) {
+    public final void setAttributes(Attribute[] attributes) {
         this.attributes = attributes;
         attributes_count = (attributes == null) ? 0 : attributes.length;
     }
@@ -130,7 +132,7 @@ public abstract class FieldOrMethod extends AccessFlags implements Cloneable, No
     /**
      * @param constant_pool Constant pool to be used for this object.
      */
-    public final void setConstantPool( ConstantPool constant_pool ) {
+    public final void setConstantPool(ConstantPool constant_pool) {
         this.constant_pool = constant_pool;
     }
 
@@ -146,7 +148,7 @@ public abstract class FieldOrMethod extends AccessFlags implements Cloneable, No
     /**
      * @param name_index Index in constant pool of object's name.
      */
-    public final void setNameIndex( int name_index ) {
+    public final void setNameIndex(int name_index) {
         this.name_index = name_index;
     }
 
@@ -162,7 +164,7 @@ public abstract class FieldOrMethod extends AccessFlags implements Cloneable, No
     /**
      * @param signature_index Index in constant pool of field signature.
      */
-    public final void setSignatureIndex( int signature_index ) {
+    public final void setSignatureIndex(int signature_index) {
         this.signature_index = signature_index;
     }
 
@@ -190,7 +192,7 @@ public abstract class FieldOrMethod extends AccessFlags implements Cloneable, No
     /**
      * @return deep copy of this field
      */
-    protected FieldOrMethod copy_( ConstantPool _constant_pool ) {
+    protected FieldOrMethod copy_(ConstantPool _constant_pool) {
         try {
             FieldOrMethod c = (FieldOrMethod) clone();
             c.constant_pool = _constant_pool;

@@ -16,19 +16,20 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.apache.bcel.Constants;
 
 /**
  * This class is derived from <em>Attribute</em> and represents a reference
  * to a GJ attribute.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: Signature.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     Attribute
+ * @see Attribute
  */
 public final class Signature extends Attribute {
 
@@ -46,9 +47,10 @@ public final class Signature extends Attribute {
 
     /**
      * Construct object from file stream.
-     * @param name_index Index in constant pool to CONSTANT_Utf8
-     * @param length Content length in bytes
-     * @param file Input stream
+     *
+     * @param name_index    Index in constant pool to CONSTANT_Utf8
+     * @param length        Content length in bytes
+     * @param file          Input stream
      * @param constant_pool Array of constants
      * @throws IOException
      */
@@ -59,10 +61,10 @@ public final class Signature extends Attribute {
 
 
     /**
-     * @param name_index Index in constant pool to CONSTANT_Utf8
-     * @param length Content length in bytes
+     * @param name_index      Index in constant pool to CONSTANT_Utf8
+     * @param length          Content length in bytes
      * @param signature_index Index in constant pool to CONSTANT_Utf8
-     * @param constant_pool Array of constants
+     * @param constant_pool   Array of constants
      */
     public Signature(int name_index, int length, int signature_index, ConstantPool constant_pool) {
         super(Constants.ATTR_SIGNATURE, name_index, length, constant_pool);
@@ -77,7 +79,7 @@ public final class Signature extends Attribute {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         //System.err.println("Visiting non-standard Signature object");
         v.visitSignature(this);
     }
@@ -89,7 +91,7 @@ public final class Signature extends Attribute {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         super.dump(file);
         file.writeShort(signature_index);
     }
@@ -106,7 +108,7 @@ public final class Signature extends Attribute {
     /**
      * @param signature_index the index info the constant pool of this signature
      */
-    public final void setSignatureIndex( int signature_index ) {
+    public final void setSignatureIndex(int signature_index) {
         this.signature_index = signature_index;
     }
 
@@ -140,7 +142,7 @@ public final class Signature extends Attribute {
         }
 
 
-        final void reset( int p ) {
+        final void reset(int p) {
             pos = p;
         }
 
@@ -153,12 +155,12 @@ public final class Signature extends Attribute {
     }
 
 
-    private static boolean identStart( int ch ) {
+    private static boolean identStart(int ch) {
         return ch == 'T' || ch == 'L';
     }
 
 
-    private static final void matchIdent( MyByteArrayInputStream in, StringBuffer buf ) {
+    private static final void matchIdent(MyByteArrayInputStream in, StringBuffer buf) {
         int ch;
         if ((ch = in.read()) == -1) {
             throw new RuntimeException("Illegal signature: " + in.getData()
@@ -201,7 +203,7 @@ public final class Signature extends Attribute {
     }
 
 
-    private static final void matchGJIdent( MyByteArrayInputStream in, StringBuffer buf ) {
+    private static final void matchGJIdent(MyByteArrayInputStream in, StringBuffer buf) {
         int ch;
         matchIdent(in, buf);
         ch = in.read();
@@ -237,7 +239,7 @@ public final class Signature extends Attribute {
     }
 
 
-    public static String translate( String s ) {
+    public static String translate(String s) {
         //System.out.println("Sig:" + s);
         StringBuffer buf = new StringBuffer();
         matchGJIdent(new MyByteArrayInputStream(s), buf);
@@ -245,12 +247,12 @@ public final class Signature extends Attribute {
     }
 
 
-    public static final boolean isFormalParameterList( String s ) {
+    public static final boolean isFormalParameterList(String s) {
         return s.startsWith("<") && (s.indexOf(':') > 0);
     }
 
 
-    public static final boolean isActualParameterList( String s ) {
+    public static final boolean isActualParameterList(String s) {
         return s.startsWith("L") && s.endsWith(">;");
     }
 
@@ -267,7 +269,7 @@ public final class Signature extends Attribute {
     /**
      * @return deep copy of this attribute
      */
-    public Attribute copy( ConstantPool _constant_pool ) {
+    public Attribute copy(ConstantPool _constant_pool) {
         return (Signature) clone();
     }
 }

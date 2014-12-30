@@ -18,12 +18,12 @@ package org.apache.bcel.generic;
 
 import org.apache.bcel.ExceptionConstants;
 
-/** 
+/**
  * ANEWARRAY -  Create new array of references
  * <PRE>Stack: ..., count -&gt; ..., arrayref</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ANEWARRAY.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class ANEWARRAY extends CPInstruction implements LoadClass, AllocationInstruction,
         ExceptionThrower, StackConsumer, StackProducer {
@@ -58,7 +58,7 @@ public class ANEWARRAY extends CPInstruction implements LoadClass, AllocationIns
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitLoadClass(this);
         v.visitAllocationInstruction(this);
         v.visitExceptionThrower(this);
@@ -69,7 +69,7 @@ public class ANEWARRAY extends CPInstruction implements LoadClass, AllocationIns
     }
 
 
-    public ObjectType getLoadClassType( ConstantPoolGen cpg ) {
+    public ObjectType getLoadClassType(ConstantPoolGen cpg) {
         Type t = getType(cpg);
         if (t instanceof ArrayType) {
             t = ((ArrayType) t).getBasicType();

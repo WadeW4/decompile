@@ -20,8 +20,8 @@ package org.apache.bcel.generic;
  * Denotes an unparameterized instruction to load a value from a local
  * variable, e.g. ILOAD.
  *
- * @version $Id: LoadInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
+ * @version $Id: LoadInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
  */
 public abstract class LoadInstruction extends LocalVariableInstruction implements PushInstruction {
 
@@ -37,8 +37,8 @@ public abstract class LoadInstruction extends LocalVariableInstruction implement
 
     /**
      * @param opcode Instruction opcode
-     * @param c_tag Instruction number for compact version, ALOAD_0, e.g.
-     * @param n local variable index (unsigned short)
+     * @param c_tag  Instruction number for compact version, ALOAD_0, e.g.
+     * @param n      local variable index (unsigned short)
      */
     protected LoadInstruction(short opcode, short c_tag, int n) {
         super(opcode, c_tag, n);
@@ -53,7 +53,7 @@ public abstract class LoadInstruction extends LocalVariableInstruction implement
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackProducer(this);
         v.visitPushInstruction(this);
         v.visitTypedInstruction(this);

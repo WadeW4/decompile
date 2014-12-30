@@ -16,11 +16,6 @@
  */
 package org.apache.bcel.generic;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Stack;
 import org.apache.bcel.Constants;
 import org.apache.bcel.classfile.Attribute;
 import org.apache.bcel.classfile.Code;
@@ -34,21 +29,27 @@ import org.apache.bcel.classfile.Method;
 import org.apache.bcel.classfile.Utility;
 import org.apache.bcel.util.BCELComparator;
 
-/** 
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Stack;
+
+/**
  * Template class for building up a method. This is done by defining exception
  * handlers, adding thrown exceptions, local variables and attributes, whereas
  * the `LocalVariableTable' and `LineNumberTable' attributes will be set
  * automatically for the code. Use stripAttributes() if you don't like this.
- *
+ * <p/>
  * While generating code it may be necessary to insert NOP operations. You can
  * use the `removeNOPs' method to get rid off them.
  * The resulting method object can be obtained via the `getMethod()' method.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
+ * @author <A HREF="http://www.vmeng.com/beard">Patrick C. Beard</A> [setMaxStack()]
  * @version $Id: MethodGen.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @author  <A HREF="http://www.vmeng.com/beard">Patrick C. Beard</A> [setMaxStack()]
- * @see     InstructionList
- * @see     Method
+ * @see InstructionList
+ * @see Method
  */
 public class MethodGen extends FieldGenOrMethodGen {
 
@@ -66,7 +67,7 @@ public class MethodGen extends FieldGenOrMethodGen {
     private List code_attrs_vec = new ArrayList();
     private static BCELComparator _cmp = new BCELComparator() {
 
-        public boolean equals( Object o1, Object o2 ) {
+        public boolean equals(Object o1, Object o2) {
             MethodGen THIS = (MethodGen) o1;
             MethodGen THAT = (MethodGen) o2;
             return THIS.getName().equals(THAT.getName())
@@ -74,7 +75,7 @@ public class MethodGen extends FieldGenOrMethodGen {
         }
 
 
-        public int hashCode( Object o ) {
+        public int hashCode(Object o) {
             MethodGen THIS = (MethodGen) o;
             return THIS.getSignature().hashCode() ^ THIS.getName().hashCode();
         }
@@ -87,24 +88,24 @@ public class MethodGen extends FieldGenOrMethodGen {
      * actual code is contained in the `il' parameter, which may further
      * manipulated by the user. But he must take care not to remove any
      * instruction (handles) that are still referenced from this object.
-     *
+     * <p/>
      * For example one may not add a local variable and later remove the
      * instructions it refers to without causing havoc. It is safe
      * however if you remove that local variable, too.
      *
      * @param access_flags access qualifiers
      * @param return_type  method type
-     * @param arg_types argument types
-     * @param arg_names argument names (if this is null, default names will be provided
-     * for them)
-     * @param method_name name of method
-     * @param class_name class name containing this method (may be null, if you don't care)
-     * @param il instruction list associated with this method, may be null only for
-     * abstract or native methods
-     * @param cp constant pool
+     * @param arg_types    argument types
+     * @param arg_names    argument names (if this is null, default names will be provided
+     *                     for them)
+     * @param method_name  name of method
+     * @param class_name   class name containing this method (may be null, if you don't care)
+     * @param il           instruction list associated with this method, may be null only for
+     *                     abstract or native methods
+     * @param cp           constant pool
      */
     public MethodGen(int access_flags, Type return_type, Type[] arg_types, String[] arg_names,
-            String method_name, String class_name, InstructionList il, ConstantPoolGen cp) {
+                     String method_name, String class_name, InstructionList il, ConstantPoolGen cp) {
         setAccessFlags(access_flags);
         setType(return_type);
         setArgumentTypes(arg_types);
@@ -156,14 +157,14 @@ public class MethodGen extends FieldGenOrMethodGen {
     /**
      * Instantiate from existing method.
      *
-     * @param m method
+     * @param m          method
      * @param class_name class name containing this method
-     * @param cp constant pool
+     * @param cp         constant pool
      */
     public MethodGen(Method m, String class_name, ConstantPoolGen cp) {
         this(m.getAccessFlags(), Type.getReturnType(m.getSignature()), Type.getArgumentTypes(m
-                .getSignature()), null /* may be overridden anyway */
-        , m.getName(), class_name,
+                        .getSignature()), null /* may be overridden anyway */
+                , m.getName(), class_name,
                 ((m.getAccessFlags() & (Constants.ACC_ABSTRACT | Constants.ACC_NATIVE)) == 0)
                         ? new InstructionList(m.getCode().getCode())
                         : null, cp);
@@ -246,17 +247,17 @@ public class MethodGen extends FieldGenOrMethodGen {
     /**
      * Adds a local variable to this method.
      *
-     * @param name variable name
-     * @param type variable type
-     * @param slot the index of the local variable, if type is long or double, the next available
-     * index is slot+2
+     * @param name  variable name
+     * @param type  variable type
+     * @param slot  the index of the local variable, if type is long or double, the next available
+     *              index is slot+2
      * @param start from where the variable is valid
-     * @param end until where the variable is valid
+     * @param end   until where the variable is valid
      * @return new local variable object
      * @see LocalVariable
      */
-    public LocalVariableGen addLocalVariable( String name, Type type, int slot,
-            InstructionHandle start, InstructionHandle end ) {
+    public LocalVariableGen addLocalVariable(String name, Type type, int slot,
+                                             InstructionHandle start, InstructionHandle end) {
         byte t = type.getType();
         if (t != Constants.T_ADDRESS) {
             int add = type.getSize();
@@ -281,17 +282,17 @@ public class MethodGen extends FieldGenOrMethodGen {
     /**
      * Adds a local variable to this method and assigns an index automatically.
      *
-     * @param name variable name
-     * @param type variable type
+     * @param name  variable name
+     * @param type  variable type
      * @param start from where the variable is valid, if this is null,
-     * it is valid from the start
-     * @param end until where the variable is valid, if this is null,
-     * it is valid to the end
+     *              it is valid from the start
+     * @param end   until where the variable is valid, if this is null,
+     *              it is valid to the end
      * @return new local variable object
      * @see LocalVariable
      */
-    public LocalVariableGen addLocalVariable( String name, Type type, InstructionHandle start,
-            InstructionHandle end ) {
+    public LocalVariableGen addLocalVariable(String name, Type type, InstructionHandle start,
+                                             InstructionHandle end) {
         return addLocalVariable(name, type, max_locals, start, end);
     }
 
@@ -300,7 +301,7 @@ public class MethodGen extends FieldGenOrMethodGen {
      * Remove a local variable, its slot will not be reused, if you do not use addLocalVariable
      * with an explicit index argument.
      */
-    public void removeLocalVariable( LocalVariableGen l ) {
+    public void removeLocalVariable(LocalVariableGen l) {
         variable_vec.remove(l);
     }
 
@@ -316,7 +317,7 @@ public class MethodGen extends FieldGenOrMethodGen {
     /**
      * Sort local variables by index
      */
-    private static final void sort( LocalVariableGen[] vars, int l, int r ) {
+    private static final void sort(LocalVariableGen[] vars, int l, int r) {
         int i = l, j = r;
         int m = vars[(l + r) / 2].getIndex();
         LocalVariableGen h;
@@ -372,7 +373,7 @@ public class MethodGen extends FieldGenOrMethodGen {
     /**
      * @return `LocalVariableTable' attribute of all the local variables of this method.
      */
-    public LocalVariableTable getLocalVariableTable( ConstantPoolGen cp ) {
+    public LocalVariableTable getLocalVariableTable(ConstantPoolGen cp) {
         LocalVariableGen[] lg = getLocalVariables();
         int size = lg.length;
         LocalVariable[] lv = new LocalVariable[size];
@@ -391,7 +392,7 @@ public class MethodGen extends FieldGenOrMethodGen {
      * @return new line number object
      * @see LineNumber
      */
-    public LineNumberGen addLineNumber( InstructionHandle ih, int src_line ) {
+    public LineNumberGen addLineNumber(InstructionHandle ih, int src_line) {
         LineNumberGen l = new LineNumberGen(ih, src_line);
         line_number_vec.add(l);
         return l;
@@ -401,7 +402,7 @@ public class MethodGen extends FieldGenOrMethodGen {
     /**
      * Remove a line number.
      */
-    public void removeLineNumber( LineNumberGen l ) {
+    public void removeLineNumber(LineNumberGen l) {
         line_number_vec.remove(l);
     }
 
@@ -427,7 +428,7 @@ public class MethodGen extends FieldGenOrMethodGen {
     /**
      * @return `LineNumberTable' attribute of all the local variables of this method.
      */
-    public LineNumberTable getLineNumberTable( ConstantPoolGen cp ) {
+    public LineNumberTable getLineNumberTable(ConstantPoolGen cp) {
         int size = line_number_vec.size();
         LineNumber[] ln = new LineNumber[size];
         try {
@@ -445,15 +446,15 @@ public class MethodGen extends FieldGenOrMethodGen {
      * Add an exception handler, i.e., specify region where a handler is active and an
      * instruction where the actual handling is done.
      *
-     * @param start_pc Start of region (inclusive)
-     * @param end_pc End of region (inclusive)
+     * @param start_pc   Start of region (inclusive)
+     * @param end_pc     End of region (inclusive)
      * @param handler_pc Where handling is done
      * @param catch_type class type of handled exception or null if any
-     * exception is handled
+     *                   exception is handled
      * @return new exception handler object
      */
-    public CodeExceptionGen addExceptionHandler( InstructionHandle start_pc,
-            InstructionHandle end_pc, InstructionHandle handler_pc, ObjectType catch_type ) {
+    public CodeExceptionGen addExceptionHandler(InstructionHandle start_pc,
+                                                InstructionHandle end_pc, InstructionHandle handler_pc, ObjectType catch_type) {
         if ((start_pc == null) || (end_pc == null) || (handler_pc == null)) {
             throw new ClassGenException("Exception handler target is null instruction");
         }
@@ -466,7 +467,7 @@ public class MethodGen extends FieldGenOrMethodGen {
     /**
      * Remove an exception handler.
      */
-    public void removeExceptionHandler( CodeExceptionGen c ) {
+    public void removeExceptionHandler(CodeExceptionGen c) {
         exception_vec.remove(c);
     }
 
@@ -511,7 +512,7 @@ public class MethodGen extends FieldGenOrMethodGen {
      *
      * @param class_name (fully qualified) name of exception
      */
-    public void addException( String class_name ) {
+    public void addException(String class_name) {
         throws_vec.add(class_name);
     }
 
@@ -519,7 +520,7 @@ public class MethodGen extends FieldGenOrMethodGen {
     /**
      * Remove an exception.
      */
-    public void removeException( String c ) {
+    public void removeException(String c) {
         throws_vec.remove(c);
     }
 
@@ -545,7 +546,7 @@ public class MethodGen extends FieldGenOrMethodGen {
     /**
      * @return `Exceptions' attribute of all the exceptions thrown by this method.
      */
-    private ExceptionTable getExceptionTable( ConstantPoolGen cp ) {
+    private ExceptionTable getExceptionTable(ConstantPoolGen cp) {
         int size = throws_vec.size();
         int[] ex = new int[size];
         try {
@@ -567,7 +568,7 @@ public class MethodGen extends FieldGenOrMethodGen {
      *
      * @param a attribute to be added
      */
-    public void addCodeAttribute( Attribute a ) {
+    public void addCodeAttribute(Attribute a) {
         code_attrs_vec.add(a);
     }
 
@@ -575,7 +576,7 @@ public class MethodGen extends FieldGenOrMethodGen {
     /**
      * Remove a code attribute.
      */
-    public void removeCodeAttribute( Attribute a ) {
+    public void removeCodeAttribute(Attribute a) {
         code_attrs_vec.remove(a);
     }
 
@@ -706,7 +707,7 @@ public class MethodGen extends FieldGenOrMethodGen {
     /**
      * Set maximum number of local variables.
      */
-    public void setMaxLocals( int m ) {
+    public void setMaxLocals(int m) {
         max_locals = m;
     }
 
@@ -719,7 +720,7 @@ public class MethodGen extends FieldGenOrMethodGen {
     /**
      * Set maximum stack size for this method.
      */
-    public void setMaxStack( int m ) {
+    public void setMaxStack(int m) {
         max_stack = m;
     }
 
@@ -729,19 +730,20 @@ public class MethodGen extends FieldGenOrMethodGen {
     }
 
 
-    /** @return class that contains this method
+    /**
+     * @return class that contains this method
      */
     public String getClassName() {
         return class_name;
     }
 
 
-    public void setClassName( String class_name ) {
+    public void setClassName(String class_name) {
         this.class_name = class_name;
     }
 
 
-    public void setReturnType( Type return_type ) {
+    public void setReturnType(Type return_type) {
         setType(return_type);
     }
 
@@ -751,7 +753,7 @@ public class MethodGen extends FieldGenOrMethodGen {
     }
 
 
-    public void setArgumentTypes( Type[] arg_types ) {
+    public void setArgumentTypes(Type[] arg_types) {
         this.arg_types = arg_types;
     }
 
@@ -761,17 +763,17 @@ public class MethodGen extends FieldGenOrMethodGen {
     }
 
 
-    public void setArgumentType( int i, Type type ) {
+    public void setArgumentType(int i, Type type) {
         arg_types[i] = type;
     }
 
 
-    public Type getArgumentType( int i ) {
+    public Type getArgumentType(int i) {
         return arg_types[i];
     }
 
 
-    public void setArgumentNames( String[] arg_names ) {
+    public void setArgumentNames(String[] arg_names) {
         this.arg_names = arg_names;
     }
 
@@ -781,12 +783,12 @@ public class MethodGen extends FieldGenOrMethodGen {
     }
 
 
-    public void setArgumentName( int i, String name ) {
+    public void setArgumentName(int i, String name) {
         arg_names[i] = name;
     }
 
 
-    public String getArgumentName( int i ) {
+    public String getArgumentName(int i) {
         return arg_names[i];
     }
 
@@ -796,7 +798,7 @@ public class MethodGen extends FieldGenOrMethodGen {
     }
 
 
-    public void setInstructionList( InstructionList il ) {
+    public void setInstructionList(InstructionList il) {
         this.il = il;
     }
 
@@ -847,10 +849,11 @@ public class MethodGen extends FieldGenOrMethodGen {
     }
 
 
-    /** Do not/Do produce attributes code attributesLineNumberTable and
+    /**
+     * Do not/Do produce attributes code attributesLineNumberTable and
      * LocalVariableTable, like javac -O
      */
-    public void stripAttributes( boolean flag ) {
+    public void stripAttributes(boolean flag) {
         strip_attributes = flag;
     }
 
@@ -872,7 +875,7 @@ public class MethodGen extends FieldGenOrMethodGen {
         Hashtable visitedTargets = new Hashtable();
 
 
-        public void push( InstructionHandle target, int stackDepth ) {
+        public void push(InstructionHandle target, int stackDepth) {
             if (visited(target)) {
                 return;
             }
@@ -889,14 +892,14 @@ public class MethodGen extends FieldGenOrMethodGen {
         }
 
 
-        private final BranchTarget visit( InstructionHandle target, int stackDepth ) {
+        private final BranchTarget visit(InstructionHandle target, int stackDepth) {
             BranchTarget bt = new BranchTarget(target, stackDepth);
             visitedTargets.put(target, bt);
             return bt;
         }
 
 
-        private final boolean visited( InstructionHandle target ) {
+        private final boolean visited(InstructionHandle target) {
             return (visitedTargets.get(target) != null);
         }
     }
@@ -907,7 +910,7 @@ public class MethodGen extends FieldGenOrMethodGen {
      *
      * @return maximum stack depth used by method
      */
-    public static int getMaxStack( ConstantPoolGen cp, InstructionList il, CodeExceptionGen[] et ) {
+    public static int getMaxStack(ConstantPoolGen cp, InstructionList il, CodeExceptionGen[] et) {
         BranchStack branchTargets = new BranchStack();
         /* Initially, populate the branch stack with the exception
          * handlers, because these aren't (necessarily) branched to
@@ -980,9 +983,10 @@ public class MethodGen extends FieldGenOrMethodGen {
     private List observers;
 
 
-    /** Add observer for this object.
+    /**
+     * Add observer for this object.
      */
-    public void addObserver( MethodObserver o ) {
+    public void addObserver(MethodObserver o) {
         if (observers == null) {
             observers = new ArrayList();
         }
@@ -990,22 +994,24 @@ public class MethodGen extends FieldGenOrMethodGen {
     }
 
 
-    /** Remove observer for this object.
+    /**
+     * Remove observer for this object.
      */
-    public void removeObserver( MethodObserver o ) {
+    public void removeObserver(MethodObserver o) {
         if (observers != null) {
             observers.remove(o);
         }
     }
 
 
-    /** Call notify() method on all observers. This method is not called
+    /**
+     * Call notify() method on all observers. This method is not called
      * automatically whenever the state has changed, but has to be
      * called by the user after he has finished editing the object.
      */
     public void update() {
         if (observers != null) {
-            for (Iterator e = observers.iterator(); e.hasNext();) {
+            for (Iterator e = observers.iterator(); e.hasNext(); ) {
                 ((MethodObserver) e.next()).notify(this);
             }
         }
@@ -1025,7 +1031,7 @@ public class MethodGen extends FieldGenOrMethodGen {
                 getLocalVariableTable(cp));
         StringBuffer buf = new StringBuffer(signature);
         if (throws_vec.size() > 0) {
-            for (Iterator e = throws_vec.iterator(); e.hasNext();) {
+            for (Iterator e = throws_vec.iterator(); e.hasNext(); ) {
                 buf.append("\n\t\tthrows ").append(e.next());
             }
         }
@@ -1033,9 +1039,10 @@ public class MethodGen extends FieldGenOrMethodGen {
     }
 
 
-    /** @return deep copy of this method
+    /**
+     * @return deep copy of this method
      */
-    public MethodGen copy( String class_name, ConstantPoolGen cp ) {
+    public MethodGen copy(String class_name, ConstantPoolGen cp) {
         Method m = ((MethodGen) clone()).getMethod();
         MethodGen mg = new MethodGen(m, class_name, this.cp);
         if (this.cp != cp) {
@@ -1057,7 +1064,7 @@ public class MethodGen extends FieldGenOrMethodGen {
     /**
      * @param comparator Comparison strategy object
      */
-    public static void setComparator( BCELComparator comparator ) {
+    public static void setComparator(BCELComparator comparator) {
         _cmp = comparator;
     }
 
@@ -1066,10 +1073,10 @@ public class MethodGen extends FieldGenOrMethodGen {
      * Return value as defined by given BCELComparator strategy.
      * By default two MethodGen objects are said to be equal when
      * their names and signatures are equal.
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
-    public boolean equals( Object obj ) {
+    public boolean equals(Object obj) {
         return _cmp.equals(this, obj);
     }
 
@@ -1077,7 +1084,7 @@ public class MethodGen extends FieldGenOrMethodGen {
     /**
      * Return value as defined by given BCELComparator strategy.
      * By default return the hashcode of the method's name XOR signature.
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     public int hashCode() {

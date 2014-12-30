@@ -20,12 +20,13 @@ package org.apache.bcel.generic;
  * FMUL - Multiply floats
  * <PRE>Stack: ..., value1, value2 -&gt; result</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: FMUL.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class FMUL extends ArithmeticInstruction {
 
-    /** Multiply floats
+    /**
+     * Multiply floats
      */
     public FMUL() {
         super(org.apache.bcel.Constants.FMUL);
@@ -40,7 +41,7 @@ public class FMUL extends ArithmeticInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitTypedInstruction(this);
         v.visitStackProducer(this);
         v.visitStackConsumer(this);

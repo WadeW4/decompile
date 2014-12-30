@@ -19,13 +19,13 @@ package org.apache.bcel.generic;
 import org.apache.bcel.Constants;
 import org.apache.bcel.ExceptionConstants;
 
-/** 
+/**
  * INVOKEVIRTUAL - Invoke instance method; dispatch based on class
- *
+ * <p/>
  * <PRE>Stack: ..., objectref, [arg1, [arg2 ...]] -&gt; ...</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: INVOKEVIRTUAL.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class INVOKEVIRTUAL extends InvokeInstruction {
 
@@ -62,7 +62,7 @@ public class INVOKEVIRTUAL extends InvokeInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitExceptionThrower(this);
         v.visitTypedInstruction(this);
         v.visitStackConsumer(this);

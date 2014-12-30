@@ -16,10 +16,6 @@
  */
 package org.apache.bcel.util;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
 import org.apache.bcel.Constants;
 import org.apache.bcel.classfile.Attribute;
 import org.apache.bcel.classfile.ClassParser;
@@ -28,12 +24,17 @@ import org.apache.bcel.classfile.JavaClass;
 import org.apache.bcel.classfile.Method;
 import org.apache.bcel.classfile.Utility;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 /**
  * Read class file(s) and convert them into HTML files.
- *
+ * <p/>
  * Given a JavaClass object "class" that is in package "package" five files
  * will be created in the specified directory.
- *
+ * <p/>
  * <OL>
  * <LI> "package"."class".html as the main file which defines the frames for
  * the following subfiles.
@@ -42,13 +43,13 @@ import org.apache.bcel.classfile.Utility;
  * <LI>  "package"."class"_code.html contains the byte code
  * <LI>  "package"."class"_methods.html contains references to all methods and fields of the class
  * </OL>
- *
+ * <p/>
  * All subfiles reference each other appropiately, e.g. clicking on a
  * method in the Method's frame will jump to the appropiate method in
  * the Code frame.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: Class2HTML.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A> 
  */
 public class Class2HTML implements Constants {
 
@@ -61,9 +62,9 @@ public class Class2HTML implements Constants {
 
     /**
      * Write contents of the given JavaClass into HTML files.
-     * 
+     *
      * @param java_class The class to write
-     * @param dir The directory to put the files in
+     * @param dir        The directory to put the files in
      */
     public Class2HTML(JavaClass java_class, String dir) throws IOException {
         Method[] methods = java_class.getMethods();
@@ -94,7 +95,7 @@ public class Class2HTML implements Constants {
     }
 
 
-    public static void main( String argv[] ) {
+    public static void main(String argv[]) {
         String[] file_name = new String[argv.length];
         int files = 0;
         ClassParser parser = null;
@@ -148,7 +149,7 @@ public class Class2HTML implements Constants {
      * Utility method that converts a class reference in the constant pool,
      * i.e., an index to a string.
      */
-    static String referenceClass( int index ) {
+    static String referenceClass(int index) {
         String str = constant_pool.getConstantString(index, CONSTANT_Class);
         str = Utility.compactClassName(str);
         str = Utility.compactClassName(str, class_package + ".", true);
@@ -157,7 +158,7 @@ public class Class2HTML implements Constants {
     }
 
 
-    static final String referenceType( String type ) {
+    static final String referenceType(String type) {
         String short_type = Utility.compactClassName(type);
         short_type = Utility.compactClassName(short_type, class_package + ".", true);
         int index = type.indexOf('['); // Type is an array?
@@ -177,7 +178,7 @@ public class Class2HTML implements Constants {
     }
 
 
-    static String toHTML( String str ) {
+    static String toHTML(String str) {
         StringBuffer buf = new StringBuffer();
         try { // Filter any characters HTML doesn't like such as < and > in particular
             for (int i = 0; i < str.length(); i++) {
@@ -205,7 +206,7 @@ public class Class2HTML implements Constants {
     }
 
 
-    private void writeMainHTML( AttributeHTML attribute_html ) throws IOException {
+    private void writeMainHTML(AttributeHTML attribute_html) throws IOException {
         PrintWriter file = new PrintWriter(new FileOutputStream(dir + class_name + ".html"));
         Attribute[] attributes = java_class.getAttributes();
         file.println("<HTML>\n" + "<HEAD><TITLE>Documentation for " + class_name + "</TITLE>"

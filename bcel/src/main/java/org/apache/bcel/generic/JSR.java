@@ -19,11 +19,11 @@ package org.apache.bcel.generic;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-/** 
+/**
  * JSR - Jump to subroutine
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: JSR.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class JSR extends JsrInstruction implements VariableLengthInstruction {
 
@@ -42,9 +42,10 @@ public class JSR extends JsrInstruction implements VariableLengthInstruction {
 
     /**
      * Dump instruction as byte code to stream out.
+     *
      * @param out Output stream
      */
-    public void dump( DataOutputStream out ) throws IOException {
+    public void dump(DataOutputStream out) throws IOException {
         index = getTargetOffset();
         if (opcode == org.apache.bcel.Constants.JSR) {
             super.dump(out);
@@ -56,7 +57,7 @@ public class JSR extends JsrInstruction implements VariableLengthInstruction {
     }
 
 
-    protected int updatePosition( int offset, int max_offset ) {
+    protected int updatePosition(int offset, int max_offset) {
         int i = getTargetOffset(); // Depending on old position value
         position += offset; // Position may be shifted by preceding expansions
         if (Math.abs(i) >= (32767 - max_offset)) { // to large for short (estimate)
@@ -76,7 +77,7 @@ public class JSR extends JsrInstruction implements VariableLengthInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackProducer(this);
         v.visitVariableLengthInstruction(this);
         v.visitBranchInstruction(this);

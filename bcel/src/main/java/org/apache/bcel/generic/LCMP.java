@@ -19,10 +19,10 @@ package org.apache.bcel.generic;
 /**
  * LCMP - Compare longs:
  * <PRE>Stack: ..., value1.word1, value1.word2, value2.word1, value2.word2 -&gt;</PRE>
- *        ..., result <= -1, 0, 1>
+ * ..., result <= -1, 0, 1>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: LCMP.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class LCMP extends Instruction implements TypedInstruction, StackProducer, StackConsumer {
 
@@ -31,9 +31,10 @@ public class LCMP extends Instruction implements TypedInstruction, StackProducer
     }
 
 
-    /** @return Type.LONG
+    /**
+     * @return Type.LONG
      */
-    public Type getType( ConstantPoolGen cp ) {
+    public Type getType(ConstantPoolGen cp) {
         return Type.LONG;
     }
 
@@ -46,7 +47,7 @@ public class LCMP extends Instruction implements TypedInstruction, StackProducer
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitTypedInstruction(this);
         v.visitStackProducer(this);
         v.visitStackConsumer(this);

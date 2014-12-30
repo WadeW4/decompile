@@ -16,16 +16,17 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * F2I - Convert float to int
  * <PRE>Stack: ..., value -&gt; ..., result</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: F2I.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class F2I extends ConversionInstruction {
 
-    /** Convert float to int
+    /**
+     * Convert float to int
      */
     public F2I() {
         super(org.apache.bcel.Constants.F2I);
@@ -40,7 +41,7 @@ public class F2I extends ConversionInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitTypedInstruction(this);
         v.visitStackProducer(this);
         v.visitStackConsumer(this);

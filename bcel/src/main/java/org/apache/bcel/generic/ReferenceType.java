@@ -23,8 +23,8 @@ import org.apache.bcel.classfile.JavaClass;
 /**
  * Super class for object and array types.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ReferenceType.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class ReferenceType extends Type {
 
@@ -33,7 +33,8 @@ public abstract class ReferenceType extends Type {
     }
 
 
-    /** Class is non-abstract but not instantiable from the outside
+    /**
+     * Class is non-abstract but not instantiable from the outside
      */
     ReferenceType() {
         super(Constants.T_OBJECT, "<null object>");
@@ -49,9 +50,9 @@ public abstract class ReferenceType extends Type {
      * true is returned in this case.
      *
      * @throws ClassNotFoundException if any classes or interfaces required
-     *  to determine assignment compatibility can't be found
+     *                                to determine assignment compatibility can't be found
      */
-    public boolean isCastableTo( Type t ) throws ClassNotFoundException {
+    public boolean isCastableTo(Type t) throws ClassNotFoundException {
         if (this.equals(Type.NULL)) {
             return true; // If this is ever changed in isAssignmentCompatible()
         }
@@ -66,10 +67,11 @@ public abstract class ReferenceType extends Type {
      * Return true iff this is assignment compatible with another type t
      * as defined in the JVM specification; see the AASTORE definition
      * there.
+     *
      * @throws ClassNotFoundException if any classes or interfaces required
-     *  to determine assignment compatibility can't be found
+     *                                to determine assignment compatibility can't be found
      */
-    public boolean isAssignmentCompatibleWith( Type t ) throws ClassNotFoundException {
+    public boolean isAssignmentCompatibleWith(Type t) throws ClassNotFoundException {
         if (!(t instanceof ReferenceType)) {
             return false;
         }
@@ -188,9 +190,9 @@ public abstract class ReferenceType extends Type {
      * See the JVM specification edition 2, "�4.9.2 The Bytecode Verifier".
      *
      * @throws ClassNotFoundException on failure to find superclasses of this
-     *  type, or the type passed as a parameter
+     *                                type, or the type passed as a parameter
      */
-    public ReferenceType getFirstCommonSuperclass( ReferenceType t ) throws ClassNotFoundException {
+    public ReferenceType getFirstCommonSuperclass(ReferenceType t) throws ClassNotFoundException {
         if (this.equals(Type.NULL)) {
             return t;
         }
@@ -269,12 +271,12 @@ public abstract class ReferenceType extends Type {
      * If not all of the two classes' superclasses cannot be found, "null" is returned.
      * See the JVM specification edition 2, "�4.9.2 The Bytecode Verifier".
      *
-     * @deprecated use getFirstCommonSuperclass(ReferenceType t) which has
-     *             slightly changed semantics.
      * @throws ClassNotFoundException on failure to find superclasses of this
-     *  type, or the type passed as a parameter
+     *                                type, or the type passed as a parameter
+     * @deprecated use getFirstCommonSuperclass(ReferenceType t) which has
+     * slightly changed semantics.
      */
-    public ReferenceType firstCommonSuperclass( ReferenceType t ) throws ClassNotFoundException {
+    public ReferenceType firstCommonSuperclass(ReferenceType t) throws ClassNotFoundException {
         if (this.equals(Type.NULL)) {
             return t;
         }

@@ -18,12 +18,12 @@ package org.apache.bcel.generic;
 
 import org.apache.bcel.ExceptionConstants;
 
-/** 
+/**
  * CHECKCAST - Check whether object is of given type
  * <PRE>Stack: ..., objectref -&gt; ..., objectref</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: CHECKCAST.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class CHECKCAST extends CPInstruction implements LoadClass, ExceptionThrower, StackProducer,
         StackConsumer {
@@ -36,7 +36,9 @@ public class CHECKCAST extends CPInstruction implements LoadClass, ExceptionThro
     }
 
 
-    /** Check whether object is of given type
+    /**
+     * Check whether object is of given type
+     *
      * @param index index to class in constant pool
      */
     public CHECKCAST(int index) {
@@ -44,7 +46,8 @@ public class CHECKCAST extends CPInstruction implements LoadClass, ExceptionThro
     }
 
 
-    /** @return exceptions this instruction may cause
+    /**
+     * @return exceptions this instruction may cause
      */
     public Class[] getExceptions() {
         Class[] cs = new Class[1 + ExceptionConstants.EXCS_CLASS_AND_INTERFACE_RESOLUTION.length];
@@ -55,7 +58,7 @@ public class CHECKCAST extends CPInstruction implements LoadClass, ExceptionThro
     }
 
 
-    public ObjectType getLoadClassType( ConstantPoolGen cpg ) {
+    public ObjectType getLoadClassType(ConstantPoolGen cpg) {
         Type t = getType(cpg);
         if (t instanceof ArrayType) {
             t = ((ArrayType) t).getBasicType();
@@ -72,7 +75,7 @@ public class CHECKCAST extends CPInstruction implements LoadClass, ExceptionThro
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitLoadClass(this);
         v.visitExceptionThrower(this);
         v.visitStackProducer(this);

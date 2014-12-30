@@ -19,8 +19,8 @@ package org.apache.bcel.generic;
 /**
  * Super class for stack operations like DUP and POP.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: StackInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class StackInstruction extends Instruction {
 
@@ -40,9 +40,10 @@ public abstract class StackInstruction extends Instruction {
     }
 
 
-    /** @return Type.UNKNOWN
+    /**
+     * @return Type.UNKNOWN
      */
-    public Type getType( ConstantPoolGen cp ) {
+    public Type getType(ConstantPoolGen cp) {
         return Type.UNKNOWN;
     }
 }

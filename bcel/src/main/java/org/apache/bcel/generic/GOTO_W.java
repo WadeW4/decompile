@@ -16,15 +16,16 @@
  */
 package org.apache.bcel.generic;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 import org.apache.bcel.util.ByteSequence;
 
-/** 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+/**
  * GOTO_W - Branch always (to relative offset, not absolute address)
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: GOTO_W.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class GOTO_W extends GotoInstruction {
 
@@ -44,9 +45,10 @@ public class GOTO_W extends GotoInstruction {
 
     /**
      * Dump instruction as byte code to stream out.
+     *
      * @param out Output stream
      */
-    public void dump( DataOutputStream out ) throws IOException {
+    public void dump(DataOutputStream out) throws IOException {
         index = getTargetOffset();
         out.writeByte(opcode);
         out.writeInt(index);
@@ -56,7 +58,7 @@ public class GOTO_W extends GotoInstruction {
     /**
      * Read needed data (e.g. index) from file.
      */
-    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
+    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
         index = bytes.readInt();
         length = 5;
     }
@@ -70,7 +72,7 @@ public class GOTO_W extends GotoInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitUnconditionalBranch(this);
         v.visitBranchInstruction(this);
         v.visitGotoInstruction(this);

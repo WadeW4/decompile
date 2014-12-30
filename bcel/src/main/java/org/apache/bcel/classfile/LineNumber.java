@@ -26,9 +26,9 @@ import java.io.Serializable;
  * the source that corresponds to a relative address in the byte code. This
  * is used for debugging purposes.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: LineNumber.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     LineNumberTable
+ * @see LineNumberTable
  */
 public final class LineNumber implements Cloneable, Node, Serializable {
 
@@ -46,6 +46,7 @@ public final class LineNumber implements Cloneable, Node, Serializable {
 
     /**
      * Construct object from file stream.
+     *
      * @param file Input stream
      * @throws IOException
      */
@@ -55,7 +56,7 @@ public final class LineNumber implements Cloneable, Node, Serializable {
 
 
     /**
-     * @param start_pc Program Counter (PC) corresponds to
+     * @param start_pc    Program Counter (PC) corresponds to
      * @param line_number line number in source file
      */
     public LineNumber(int start_pc, int line_number) {
@@ -71,7 +72,7 @@ public final class LineNumber implements Cloneable, Node, Serializable {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitLineNumber(this);
     }
 
@@ -82,7 +83,7 @@ public final class LineNumber implements Cloneable, Node, Serializable {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         file.writeShort(start_pc);
         file.writeShort(line_number);
     }
@@ -107,7 +108,7 @@ public final class LineNumber implements Cloneable, Node, Serializable {
     /**
      * @param line_number the source line number
      */
-    public final void setLineNumber( int line_number ) {
+    public final void setLineNumber(int line_number) {
         this.line_number = line_number;
     }
 
@@ -115,7 +116,7 @@ public final class LineNumber implements Cloneable, Node, Serializable {
     /**
      * @param start_pc the pc for this line number
      */
-    public final void setStartPC( int start_pc ) {
+    public final void setStartPC(int start_pc) {
         this.start_pc = start_pc;
     }
 

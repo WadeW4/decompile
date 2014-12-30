@@ -18,12 +18,12 @@ package org.apache.bcel.generic;
 
 import org.apache.bcel.ExceptionConstants;
 
-/** 
+/**
  * NEW - Create new object
  * <PRE>Stack: ... -&gt; ..., objectref</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: NEW.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class NEW extends CPInstruction implements LoadClass, AllocationInstruction,
         ExceptionThrower, StackProducer {
@@ -51,7 +51,7 @@ public class NEW extends CPInstruction implements LoadClass, AllocationInstructi
     }
 
 
-    public ObjectType getLoadClassType( ConstantPoolGen cpg ) {
+    public ObjectType getLoadClassType(ConstantPoolGen cpg) {
         return (ObjectType) getType(cpg);
     }
 
@@ -64,7 +64,7 @@ public class NEW extends CPInstruction implements LoadClass, AllocationInstructi
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitLoadClass(this);
         v.visitAllocationInstruction(this);
         v.visitExceptionThrower(this);

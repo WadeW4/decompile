@@ -16,20 +16,21 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.apache.bcel.Constants;
 
-/** 
- * This class is derived from the abstract 
- * <A HREF="org.apache.bcel.classfile.Constant.html">Constant</A> class 
+/**
+ * This class is derived from the abstract
+ * <A HREF="org.apache.bcel.classfile.Constant.html">Constant</A> class
  * and represents a reference to the name and signature
  * of a field or method.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ConstantNameAndType.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     Constant
+ * @see Constant
  */
 public final class ConstantNameAndType extends Constant {
 
@@ -57,7 +58,7 @@ public final class ConstantNameAndType extends Constant {
 
 
     /**
-     * @param name_index Name of field/method
+     * @param name_index      Name of field/method
      * @param signature_index and its signature
      */
     public ConstantNameAndType(int name_index, int signature_index) {
@@ -74,7 +75,7 @@ public final class ConstantNameAndType extends Constant {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitConstantNameAndType(this);
     }
 
@@ -85,7 +86,7 @@ public final class ConstantNameAndType extends Constant {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         file.writeByte(tag);
         file.writeShort(name_index);
         file.writeShort(signature_index);
@@ -100,9 +101,10 @@ public final class ConstantNameAndType extends Constant {
     }
 
 
-    /** @return name
+    /**
+     * @return name
      */
-    public final String getName( ConstantPool cp ) {
+    public final String getName(ConstantPool cp) {
         return cp.constantToString(getNameIndex(), Constants.CONSTANT_Utf8);
     }
 
@@ -115,9 +117,10 @@ public final class ConstantNameAndType extends Constant {
     }
 
 
-    /** @return signature
+    /**
+     * @return signature
      */
-    public final String getSignature( ConstantPool cp ) {
+    public final String getSignature(ConstantPool cp) {
         return cp.constantToString(getSignatureIndex(), Constants.CONSTANT_Utf8);
     }
 
@@ -125,7 +128,7 @@ public final class ConstantNameAndType extends Constant {
     /**
      * @param name_index the name index of this constant
      */
-    public final void setNameIndex( int name_index ) {
+    public final void setNameIndex(int name_index) {
         this.name_index = name_index;
     }
 
@@ -133,7 +136,7 @@ public final class ConstantNameAndType extends Constant {
     /**
      * @param signature_index the signature index in the constant pool of this type
      */
-    public final void setSignatureIndex( int signature_index ) {
+    public final void setSignatureIndex(int signature_index) {
         this.signature_index = signature_index;
     }
 

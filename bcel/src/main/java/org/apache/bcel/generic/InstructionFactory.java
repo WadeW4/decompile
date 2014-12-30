@@ -18,14 +18,14 @@ package org.apache.bcel.generic;
 
 import org.apache.bcel.Constants;
 
-/** 
+/**
  * Instances of this class may be used, e.g., to generate typed
  * versions of instructions. Its main purpose is to be used as the
  * byte code generating backend of a compiler. You can subclass it to
  * add your own create methods.
  *
- * @version $Id: InstructionFactory.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
+ * @version $Id: InstructionFactory.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @see Constants
  */
 public class InstructionFactory implements InstructionConstants, java.io.Serializable {
@@ -40,32 +40,35 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     }
 
 
-    /** Initialize with ClassGen object
+    /**
+     * Initialize with ClassGen object
      */
     public InstructionFactory(ClassGen cg) {
         this(cg, cg.getConstantPool());
     }
 
 
-    /** Initialize just with ConstantPoolGen object
+    /**
+     * Initialize just with ConstantPoolGen object
      */
     public InstructionFactory(ConstantPoolGen cp) {
         this(null, cp);
     }
 
 
-    /** Create an invoke instruction.
+    /**
+     * Create an invoke instruction.
      *
      * @param class_name name of the called class
-     * @param name name of the called method
-     * @param ret_type return type of method
-     * @param arg_types argument types of method
-     * @param kind how to invoke, i.e., INVOKEINTERFACE, INVOKESTATIC, INVOKEVIRTUAL,
-     * or INVOKESPECIAL
+     * @param name       name of the called method
+     * @param ret_type   return type of method
+     * @param arg_types  argument types of method
+     * @param kind       how to invoke, i.e., INVOKEINTERFACE, INVOKESTATIC, INVOKEVIRTUAL,
+     *                   or INVOKESPECIAL
      * @see Constants
      */
-    public InvokeInstruction createInvoke( String class_name, String name, Type ret_type,
-            Type[] arg_types, short kind ) {
+    public InvokeInstruction createInvoke(String class_name, String name, Type ret_type,
+                                          Type[] arg_types, short kind) {
         int index;
         int nargs = 0;
         String signature = Type.getMethodSignature(ret_type, arg_types);
@@ -92,11 +95,12 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     }
 
 
-    /** Create a call to the most popular System.out.println() method.
+    /**
+     * Create a call to the most popular System.out.println() method.
      *
      * @param s the string to print
      */
-    public InstructionList createPrintln( String s ) {
+    public InstructionList createPrintln(String s) {
         InstructionList il = new InstructionList();
         int out = cp.addFieldref("java.lang.System", "out", "Ljava/io/PrintStream;");
         int println = cp.addMethodref("java.io.PrintStream", "println", "(Ljava/lang/String;)V");
@@ -107,10 +111,12 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     }
 
 
-    /** Uses PUSH to push a constant value onto the stack.
+    /**
+     * Uses PUSH to push a constant value onto the stack.
+     *
      * @param value must be of type Number, Boolean, Character or String
      */
-    public Instruction createConstant( Object value ) {
+    public Instruction createConstant(Object value) {
         PUSH push;
         if (value instanceof Number) {
             push = new PUSH(cp, (Number) value);
@@ -145,55 +151,55 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     }
 
 
-    private InvokeInstruction createInvoke( MethodObject m, short kind ) {
+    private InvokeInstruction createInvoke(MethodObject m, short kind) {
         return createInvoke(m.class_name, m.name, m.result_type, m.arg_types, kind);
     }
 
     private static MethodObject[] append_mos = {
-            new MethodObject("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[] {
-                Type.STRING
+            new MethodObject("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[]{
+                    Type.STRING
             }, Constants.ACC_PUBLIC),
-            new MethodObject("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[] {
-                Type.OBJECT
+            new MethodObject("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[]{
+                    Type.OBJECT
             }, Constants.ACC_PUBLIC),
             null,
             null, // indices 2, 3
-            new MethodObject("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[] {
-                Type.BOOLEAN
+            new MethodObject("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[]{
+                    Type.BOOLEAN
             }, Constants.ACC_PUBLIC),
-            new MethodObject("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[] {
-                Type.CHAR
+            new MethodObject("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[]{
+                    Type.CHAR
             }, Constants.ACC_PUBLIC),
-            new MethodObject("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[] {
-                Type.FLOAT
+            new MethodObject("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[]{
+                    Type.FLOAT
             }, Constants.ACC_PUBLIC),
-            new MethodObject("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[] {
-                Type.DOUBLE
+            new MethodObject("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[]{
+                    Type.DOUBLE
             }, Constants.ACC_PUBLIC),
-            new MethodObject("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[] {
-                Type.INT
+            new MethodObject("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[]{
+                    Type.INT
             }, Constants.ACC_PUBLIC),
             new MethodObject("java.lang.StringBuffer", "append", Type.STRINGBUFFER, // No append(byte)
-                    new Type[] {
-                        Type.INT
+                    new Type[]{
+                            Type.INT
                     }, Constants.ACC_PUBLIC),
             new MethodObject("java.lang.StringBuffer", "append", Type.STRINGBUFFER, // No append(short)
-                    new Type[] {
-                        Type.INT
+                    new Type[]{
+                            Type.INT
                     }, Constants.ACC_PUBLIC),
-            new MethodObject("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[] {
-                Type.LONG
+            new MethodObject("java.lang.StringBuffer", "append", Type.STRINGBUFFER, new Type[]{
+                    Type.LONG
             }, Constants.ACC_PUBLIC)
     };
 
 
-    private static final boolean isString( Type type ) {
+    private static final boolean isString(Type type) {
         return ((type instanceof ObjectType) && ((ObjectType) type).getClassName().equals(
                 "java.lang.String"));
     }
 
 
-    public Instruction createAppend( Type type ) {
+    public Instruction createAppend(Type type) {
         byte t = type.getType();
         if (isString(type)) {
             return createInvoke(append_mos[0], Constants.INVOKEVIRTUAL);
@@ -217,15 +223,16 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     }
 
 
-    /** Create a field instruction.
+    /**
+     * Create a field instruction.
      *
      * @param class_name name of the accessed class
-     * @param name name of the referenced field
-     * @param type  type of field
-     * @param kind how to access, i.e., GETFIELD, PUTFIELD, GETSTATIC, PUTSTATIC
+     * @param name       name of the referenced field
+     * @param type       type of field
+     * @param kind       how to access, i.e., GETFIELD, PUTFIELD, GETSTATIC, PUTSTATIC
      * @see Constants
      */
-    public FieldInstruction createFieldAccess( String class_name, String name, Type type, short kind ) {
+    public FieldInstruction createFieldAccess(String class_name, String name, Type type, short kind) {
         int index;
         String signature = type.getSignature();
         index = cp.addFieldref(class_name, name, signature);
@@ -244,16 +251,18 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     }
 
 
-    /** Create reference to `this'
+    /**
+     * Create reference to `this'
      */
     public static Instruction createThis() {
         return new ALOAD(0);
     }
 
 
-    /** Create typed return
+    /**
+     * Create typed return
      */
-    public static ReturnInstruction createReturn( Type type ) {
+    public static ReturnInstruction createReturn(Type type) {
         switch (type.getType()) {
             case Constants.T_ARRAY:
             case Constants.T_OBJECT:
@@ -278,7 +287,7 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     }
 
 
-    private static final ArithmeticInstruction createBinaryIntOp( char first, String op ) {
+    private static final ArithmeticInstruction createBinaryIntOp(char first, String op) {
         switch (first) {
             case '-':
                 return ISUB;
@@ -308,7 +317,7 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     }
 
 
-    private static final ArithmeticInstruction createBinaryLongOp( char first, String op ) {
+    private static final ArithmeticInstruction createBinaryLongOp(char first, String op) {
         switch (first) {
             case '-':
                 return LSUB;
@@ -338,7 +347,7 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     }
 
 
-    private static final ArithmeticInstruction createBinaryFloatOp( char op ) {
+    private static final ArithmeticInstruction createBinaryFloatOp(char op) {
         switch (op) {
             case '-':
                 return FSUB;
@@ -354,7 +363,7 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     }
 
 
-    private static final ArithmeticInstruction createBinaryDoubleOp( char op ) {
+    private static final ArithmeticInstruction createBinaryDoubleOp(char op) {
         switch (op) {
             case '-':
                 return DSUB;
@@ -375,7 +384,7 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
      *
      * @param op operation, such as "+", "*", "<<", etc.
      */
-    public static ArithmeticInstruction createBinaryOperation( String op, Type type ) {
+    public static ArithmeticInstruction createBinaryOperation(String op, Type type) {
         char first = op.toCharArray()[0];
         switch (type.getType()) {
             case Constants.T_BYTE:
@@ -398,7 +407,7 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     /**
      * @param size size of operand, either 1 (int, e.g.) or 2 (double)
      */
-    public static StackInstruction createPop( int size ) {
+    public static StackInstruction createPop(int size) {
         return (size == 2) ? (StackInstruction) POP2 : (StackInstruction) POP;
     }
 
@@ -406,7 +415,7 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     /**
      * @param size size of operand, either 1 (int, e.g.) or 2 (double)
      */
-    public static StackInstruction createDup( int size ) {
+    public static StackInstruction createDup(int size) {
         return (size == 2) ? (StackInstruction) DUP2 : (StackInstruction) DUP;
     }
 
@@ -414,7 +423,7 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     /**
      * @param size size of operand, either 1 (int, e.g.) or 2 (double)
      */
-    public static StackInstruction createDup_2( int size ) {
+    public static StackInstruction createDup_2(int size) {
         return (size == 2) ? (StackInstruction) DUP2_X2 : (StackInstruction) DUP_X2;
     }
 
@@ -422,7 +431,7 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     /**
      * @param size size of operand, either 1 (int, e.g.) or 2 (double)
      */
-    public static StackInstruction createDup_1( int size ) {
+    public static StackInstruction createDup_1(int size) {
         return (size == 2) ? (StackInstruction) DUP2_X1 : (StackInstruction) DUP_X1;
     }
 
@@ -430,7 +439,7 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     /**
      * @param index index of local variable
      */
-    public static LocalVariableInstruction createStore( Type type, int index ) {
+    public static LocalVariableInstruction createStore(Type type, int index) {
         switch (type.getType()) {
             case Constants.T_BOOLEAN:
             case Constants.T_CHAR:
@@ -456,7 +465,7 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     /**
      * @param index index of local variable
      */
-    public static LocalVariableInstruction createLoad( Type type, int index ) {
+    public static LocalVariableInstruction createLoad(Type type, int index) {
         switch (type.getType()) {
             case Constants.T_BOOLEAN:
             case Constants.T_CHAR:
@@ -482,7 +491,7 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     /**
      * @param type type of elements of array, i.e., array.getElementType()
      */
-    public static ArrayInstruction createArrayLoad( Type type ) {
+    public static ArrayInstruction createArrayLoad(Type type) {
         switch (type.getType()) {
             case Constants.T_BOOLEAN:
             case Constants.T_BYTE:
@@ -511,7 +520,7 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     /**
      * @param type type of elements of array, i.e., array.getElementType()
      */
-    public static ArrayInstruction createArrayStore( Type type ) {
+    public static ArrayInstruction createArrayStore(Type type) {
         switch (type.getType()) {
             case Constants.T_BOOLEAN:
             case Constants.T_BYTE:
@@ -537,10 +546,11 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     }
 
 
-    /** Create conversion operation for two stack operands, this may be an I2C, instruction, e.g.,
+    /**
+     * Create conversion operation for two stack operands, this may be an I2C, instruction, e.g.,
      * if the operands are basic types and CHECKCAST if they are reference types.
      */
-    public Instruction createCast( Type src_type, Type dest_type ) {
+    public Instruction createCast(Type src_type, Type dest_type) {
         if ((src_type instanceof BasicType) && (dest_type instanceof BasicType)) {
             byte dest = dest_type.getType();
             byte src = src_type.getType();
@@ -572,27 +582,27 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     }
 
 
-    public GETFIELD createGetField( String class_name, String name, Type t ) {
+    public GETFIELD createGetField(String class_name, String name, Type t) {
         return new GETFIELD(cp.addFieldref(class_name, name, t.getSignature()));
     }
 
 
-    public GETSTATIC createGetStatic( String class_name, String name, Type t ) {
+    public GETSTATIC createGetStatic(String class_name, String name, Type t) {
         return new GETSTATIC(cp.addFieldref(class_name, name, t.getSignature()));
     }
 
 
-    public PUTFIELD createPutField( String class_name, String name, Type t ) {
+    public PUTFIELD createPutField(String class_name, String name, Type t) {
         return new PUTFIELD(cp.addFieldref(class_name, name, t.getSignature()));
     }
 
 
-    public PUTSTATIC createPutStatic( String class_name, String name, Type t ) {
+    public PUTSTATIC createPutStatic(String class_name, String name, Type t) {
         return new PUTSTATIC(cp.addFieldref(class_name, name, t.getSignature()));
     }
 
 
-    public CHECKCAST createCheckCast( ReferenceType t ) {
+    public CHECKCAST createCheckCast(ReferenceType t) {
         if (t instanceof ArrayType) {
             return new CHECKCAST(cp.addArrayClass((ArrayType) t));
         } else {
@@ -601,7 +611,7 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     }
 
 
-    public INSTANCEOF createInstanceOf( ReferenceType t ) {
+    public INSTANCEOF createInstanceOf(ReferenceType t) {
         if (t instanceof ArrayType) {
             return new INSTANCEOF(cp.addArrayClass((ArrayType) t));
         } else {
@@ -610,20 +620,22 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     }
 
 
-    public NEW createNew( ObjectType t ) {
+    public NEW createNew(ObjectType t) {
         return new NEW(cp.addClass(t));
     }
 
 
-    public NEW createNew( String s ) {
+    public NEW createNew(String s) {
         return createNew(new ObjectType(s));
     }
 
 
-    /** Create new array of given size and type.
+    /**
+     * Create new array of given size and type.
+     *
      * @return an instruction that creates the corresponding array at runtime, i.e. is an AllocationInstruction
      */
-    public Instruction createNewArray( Type t, short dim ) {
+    public Instruction createNewArray(Type t, short dim) {
         if (dim == 1) {
             if (t instanceof ObjectType) {
                 return new ANEWARRAY(cp.addClass((ObjectType) t));
@@ -644,9 +656,10 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     }
 
 
-    /** Create "null" value for reference types, 0 for basic types like int
+    /**
+     * Create "null" value for reference types, 0 for basic types like int
      */
-    public static Instruction createNull( Type type ) {
+    public static Instruction createNull(Type type) {
         switch (type.getType()) {
             case Constants.T_ARRAY:
             case Constants.T_OBJECT:
@@ -671,10 +684,11 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     }
 
 
-    /** Create branch instruction by given opcode, except LOOKUPSWITCH and TABLESWITCH.
+    /**
+     * Create branch instruction by given opcode, except LOOKUPSWITCH and TABLESWITCH.
      * For those you should use the SWITCH compound instruction.
      */
-    public static BranchInstruction createBranchInstruction( short opcode, InstructionHandle target ) {
+    public static BranchInstruction createBranchInstruction(short opcode, InstructionHandle target) {
         switch (opcode) {
             case Constants.IFEQ:
                 return new IFEQ(target);
@@ -722,7 +736,7 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     }
 
 
-    public void setClassGen( ClassGen c ) {
+    public void setClassGen(ClassGen c) {
         cg = c;
     }
 
@@ -732,7 +746,7 @@ public class InstructionFactory implements InstructionConstants, java.io.Seriali
     }
 
 
-    public void setConstantPool( ConstantPoolGen c ) {
+    public void setConstantPool(ConstantPoolGen c) {
         cp = c;
     }
 

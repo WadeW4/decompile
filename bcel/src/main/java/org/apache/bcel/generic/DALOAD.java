@@ -16,16 +16,17 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * DALOAD - Load double from array
  * <PRE>Stack: ..., arrayref, index -&gt; ..., result.word1, result.word2</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: DALOAD.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class DALOAD extends ArrayInstruction implements StackProducer {
 
-    /** Load double from array
+    /**
+     * Load double from array
      */
     public DALOAD() {
         super(org.apache.bcel.Constants.DALOAD);
@@ -40,7 +41,7 @@ public class DALOAD extends ArrayInstruction implements StackProducer {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackProducer(this);
         v.visitExceptionThrower(this);
         v.visitTypedInstruction(this);

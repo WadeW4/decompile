@@ -16,17 +16,18 @@
  */
 package org.apache.bcel.generic;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 import org.apache.bcel.util.ByteSequence;
 
-/** 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+/**
  * Select - Abstract super class for LOOKUPSWITCH and TABLESWITCH instructions.
- * 
+ * <p/>
  * <p>We use our super's <code>target</code> property as the default target.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: Select.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @see LOOKUPSWITCH
  * @see TABLESWITCH
  * @see InstructionList
@@ -54,8 +55,8 @@ public abstract class Select extends BranchInstruction implements VariableLength
      * (Match, target) pairs for switch.
      * `Match' and `targets' must have the same length of course.
      *
-     * @param match array of matching values
-     * @param targets instruction targets
+     * @param match         array of matching values
+     * @param targets       instruction targets
      * @param defaultTarget default instruction target
      */
     Select(short opcode, int[] match, InstructionHandle[] targets, InstructionHandle defaultTarget) {
@@ -75,17 +76,17 @@ public abstract class Select extends BranchInstruction implements VariableLength
     /**
      * Since this is a variable length instruction, it may shift the following
      * instructions which then need to update their position.
-     *
+     * <p/>
      * Called by InstructionList.setPositions when setting the position for every
      * instruction. In the presence of variable length instructions `setPositions'
      * performs multiple passes over the instruction list to calculate the
      * correct (byte) positions and offsets by calling this function.
      *
-     * @param offset additional offset caused by preceding (variable length) instructions
+     * @param offset     additional offset caused by preceding (variable length) instructions
      * @param max_offset the maximum offset that may be caused by these instructions
      * @return additional offset caused by possible change of this instruction's length
      */
-    protected int updatePosition( int offset, int max_offset ) {
+    protected int updatePosition(int offset, int max_offset) {
         position += offset; // Additional offset caused by preceding SWITCHs, GOTOs, etc.
         short old_length = length;
         /* Alignment on 4-byte-boundary, + 1, because of tag byte.
@@ -98,9 +99,10 @@ public abstract class Select extends BranchInstruction implements VariableLength
 
     /**
      * Dump instruction as byte code to stream out.
+     *
      * @param out Output stream
      */
-    public void dump( DataOutputStream out ) throws IOException {
+    public void dump(DataOutputStream out) throws IOException {
         out.writeByte(opcode);
         for (int i = 0; i < padding; i++) {
             out.writeByte(0);
@@ -113,7 +115,7 @@ public abstract class Select extends BranchInstruction implements VariableLength
     /**
      * Read needed data (e.g. index) from file.
      */
-    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
+    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
         padding = (4 - (bytes.getIndex() % 4)) % 4; // Compute number of pad bytes
         for (int i = 0; i < padding; i++) {
             bytes.readByte();
@@ -126,7 +128,7 @@ public abstract class Select extends BranchInstruction implements VariableLength
     /**
      * @return mnemonic for instruction
      */
-    public String toString( boolean verbose ) {
+    public String toString(boolean verbose) {
         StringBuffer buf = new StringBuffer(super.toString(verbose));
         if (verbose) {
             for (int i = 0; i < match_length; i++) {
@@ -147,7 +149,7 @@ public abstract class Select extends BranchInstruction implements VariableLength
     /**
      * Set branch target for `i'th case
      */
-    public void setTarget( int i, InstructionHandle target ) {
+    public void setTarget(int i, InstructionHandle target) {
         notifyTarget(targets[i], target, this);
         targets[i] = target;
     }
@@ -157,7 +159,7 @@ public abstract class Select extends BranchInstruction implements VariableLength
      * @param old_ih old target
      * @param new_ih new target
      */
-    public void updateTarget( InstructionHandle old_ih, InstructionHandle new_ih ) {
+    public void updateTarget(InstructionHandle old_ih, InstructionHandle new_ih) {
         boolean targeted = false;
         if (target == old_ih) {
             targeted = true;
@@ -178,7 +180,7 @@ public abstract class Select extends BranchInstruction implements VariableLength
     /**
      * @return true, if ih is target of this instruction
      */
-    public boolean containsTarget( InstructionHandle ih ) {
+    public boolean containsTarget(InstructionHandle ih) {
         if (target == ih) {
             return true;
         }

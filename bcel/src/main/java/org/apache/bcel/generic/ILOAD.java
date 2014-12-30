@@ -16,12 +16,12 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * ILOAD - Load int from local variable onto stack
  * <PRE>Stack: ... -&gt; ..., result</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ILOAD.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class ILOAD extends LoadInstruction {
 
@@ -34,7 +34,9 @@ public class ILOAD extends LoadInstruction {
     }
 
 
-    /** Load int from local variable
+    /**
+     * Load int from local variable
+     *
      * @param n index of local variable
      */
     public ILOAD(int n) {
@@ -50,7 +52,7 @@ public class ILOAD extends LoadInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         super.accept(v);
         v.visitILOAD(this);
     }

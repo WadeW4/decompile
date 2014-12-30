@@ -16,16 +16,16 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * ARETURN -  Return reference from method
  * <PRE>Stack: ..., objectref -&gt; &lt;empty&gt;</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ARETURN.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class ARETURN extends ReturnInstruction {
 
-    /** 
+    /**
      * Return reference from method
      */
     public ARETURN() {
@@ -41,7 +41,7 @@ public class ARETURN extends ReturnInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitExceptionThrower(this);
         v.visitTypedInstruction(this);
         v.visitStackConsumer(this);

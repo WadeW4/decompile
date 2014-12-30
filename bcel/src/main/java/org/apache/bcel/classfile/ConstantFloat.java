@@ -16,26 +16,27 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.apache.bcel.Constants;
 
-/** 
- * This class is derived from the abstract 
- * <A HREF="org.apache.bcel.classfile.Constant.html">Constant</A> class 
+/**
+ * This class is derived from the abstract
+ * <A HREF="org.apache.bcel.classfile.Constant.html">Constant</A> class
  * and represents a reference to a float object.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ConstantFloat.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     Constant
+ * @see Constant
  */
 public final class ConstantFloat extends Constant implements ConstantObject {
 
     private float bytes;
 
 
-    /** 
+    /**
      * @param bytes Data
      */
     public ConstantFloat(float bytes) {
@@ -53,7 +54,7 @@ public final class ConstantFloat extends Constant implements ConstantObject {
     }
 
 
-    /** 
+    /**
      * Initialize instance from file data.
      *
      * @param file Input stream
@@ -71,7 +72,7 @@ public final class ConstantFloat extends Constant implements ConstantObject {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitConstantFloat(this);
     }
 
@@ -82,7 +83,7 @@ public final class ConstantFloat extends Constant implements ConstantObject {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         file.writeByte(tag);
         file.writeFloat(bytes);
     }
@@ -99,7 +100,7 @@ public final class ConstantFloat extends Constant implements ConstantObject {
     /**
      * @param bytes the raw bytes that represent this float
      */
-    public final void setBytes( float bytes ) {
+    public final void setBytes(float bytes) {
         this.bytes = bytes;
     }
 
@@ -112,9 +113,10 @@ public final class ConstantFloat extends Constant implements ConstantObject {
     }
 
 
-    /** @return Float object
+    /**
+     * @return Float object
      */
-    public Object getConstantValue( ConstantPool cp ) {
+    public Object getConstantValue(ConstantPool cp) {
         return new Float(bytes);
     }
 }

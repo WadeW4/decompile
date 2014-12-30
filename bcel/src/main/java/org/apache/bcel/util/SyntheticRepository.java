@@ -16,13 +16,14 @@
  */
 package org.apache.bcel.util;
 
+import org.apache.bcel.classfile.ClassParser;
+import org.apache.bcel.classfile.JavaClass;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.bcel.classfile.ClassParser;
-import org.apache.bcel.classfile.JavaClass;
 
 /**
  * This repository is used in situations where a Class is created
@@ -33,17 +34,16 @@ import org.apache.bcel.classfile.JavaClass;
  * <br>
  * It is designed to be used as a singleton, however it
  * can also be used with custom classpaths.
- *
- /**
+ * <p/>
+ * /**
  * Abstract definition of a class repository. Instances may be used
  * to load classes from different sources and may be used in the
  * Repository.setRepository method.
  *
- * @see org.apache.bcel.Repository
- *
- * @version $Id: SyntheticRepository.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @author David Dixon-Peugh
+ * @version $Id: SyntheticRepository.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @see org.apache.bcel.Repository
  */
 public class SyntheticRepository implements Repository {
 
@@ -63,7 +63,7 @@ public class SyntheticRepository implements Repository {
     }
 
 
-    public static SyntheticRepository getInstance( ClassPath classPath ) {
+    public static SyntheticRepository getInstance(ClassPath classPath) {
         SyntheticRepository rep = (SyntheticRepository) _instances.get(classPath);
         if (rep == null) {
             rep = new SyntheticRepository(classPath);
@@ -76,7 +76,7 @@ public class SyntheticRepository implements Repository {
     /**
      * Store a new JavaClass instance into this Repository.
      */
-    public void storeClass( JavaClass clazz ) {
+    public void storeClass(JavaClass clazz) {
         _loadedClasses.put(clazz.getClassName(), new SoftReference(clazz));
         clazz.setRepository(this);
     }
@@ -85,7 +85,7 @@ public class SyntheticRepository implements Repository {
     /**
      * Remove class from repository
      */
-    public void removeClass( JavaClass clazz ) {
+    public void removeClass(JavaClass clazz) {
         _loadedClasses.remove(clazz.getClassName());
     }
 
@@ -93,7 +93,7 @@ public class SyntheticRepository implements Repository {
     /**
      * Find an already defined (cached) JavaClass object by name.
      */
-    public JavaClass findClass( String className ) {
+    public JavaClass findClass(String className) {
         SoftReference ref = (SoftReference) _loadedClasses.get(className);
         if (ref == null) {
             return null;
@@ -111,9 +111,9 @@ public class SyntheticRepository implements Repository {
      * @param className the name of the class
      * @return the JavaClass object
      * @throws ClassNotFoundException if the class is not in the
-     *   Repository, and could not be found on the classpath
+     *                                Repository, and could not be found on the classpath
      */
-    public JavaClass loadClass( String className ) throws ClassNotFoundException {
+    public JavaClass loadClass(String className) throws ClassNotFoundException {
         if (className == null || className.equals("")) {
             throw new IllegalArgumentException("Invalid class name " + className);
         }
@@ -138,13 +138,13 @@ public class SyntheticRepository implements Repository {
      * is called on the Class object to find the class's representation.
      * If the representation is found, it is added to the Repository.
      *
-     * @see Class
      * @param clazz the runtime Class object
      * @return JavaClass object for given runtime class
      * @throws ClassNotFoundException if the class is not in the
-     *   Repository, and its representation could not be found
+     *                                Repository, and its representation could not be found
+     * @see Class
      */
-    public JavaClass loadClass( Class clazz ) throws ClassNotFoundException {
+    public JavaClass loadClass(Class clazz) throws ClassNotFoundException {
         String className = clazz.getName();
         JavaClass repositoryClass = findClass(className);
         if (repositoryClass != null) {
@@ -159,7 +159,7 @@ public class SyntheticRepository implements Repository {
     }
 
 
-    private JavaClass loadClass( InputStream is, String className ) throws ClassNotFoundException {
+    private JavaClass loadClass(InputStream is, String className) throws ClassNotFoundException {
         try {
             if (is != null) {
                 ClassParser parser = new ClassParser(is, className);
@@ -175,14 +175,16 @@ public class SyntheticRepository implements Repository {
     }
 
 
-    /** ClassPath associated with the Repository.
+    /**
+     * ClassPath associated with the Repository.
      */
     public ClassPath getClassPath() {
         return _path;
     }
 
 
-    /** Clear all entries from cache.
+    /**
+     * Clear all entries from cache.
      */
     public void clear() {
         _loadedClasses.clear();

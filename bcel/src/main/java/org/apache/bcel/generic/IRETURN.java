@@ -16,16 +16,17 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * IRETURN -  Return int from method
  * <PRE>Stack: ..., value -&gt; &lt;empty&gt;</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: IRETURN.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class IRETURN extends ReturnInstruction {
 
-    /** Return int from method
+    /**
+     * Return int from method
      */
     public IRETURN() {
         super(org.apache.bcel.Constants.IRETURN);
@@ -40,7 +41,7 @@ public class IRETURN extends ReturnInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitExceptionThrower(this);
         v.visitTypedInstruction(this);
         v.visitStackConsumer(this);

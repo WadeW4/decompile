@@ -16,19 +16,20 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.apache.bcel.Constants;
 
 /**
  * This class represents a table of line numbers for debugging
  * purposes. This attribute is used by the <em>Code</em> attribute. It
  * contains pairs of PCs and line numbers.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: LineNumberTable.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     Code
+ * @see Code
  * @see LineNumber
  */
 public final class LineNumberTable extends Attribute {
@@ -53,7 +54,7 @@ public final class LineNumberTable extends Attribute {
      * @param constant_pool Array of constants
      */
     public LineNumberTable(int name_index, int length, LineNumber[] line_number_table,
-            ConstantPool constant_pool) {
+                           ConstantPool constant_pool) {
         super(Constants.ATTR_LINE_NUMBER_TABLE, name_index, length, constant_pool);
         setLineNumberTable(line_number_table);
     }
@@ -61,9 +62,10 @@ public final class LineNumberTable extends Attribute {
 
     /**
      * Construct object from file stream.
-     * @param name_index Index of name
-     * @param length Content length in bytes
-     * @param file Input stream
+     *
+     * @param name_index    Index of name
+     * @param length        Content length in bytes
+     * @param file          Input stream
      * @param constant_pool Array of constants
      * @throws IOException
      */
@@ -85,7 +87,7 @@ public final class LineNumberTable extends Attribute {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitLineNumberTable(this);
     }
 
@@ -96,7 +98,7 @@ public final class LineNumberTable extends Attribute {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         super.dump(file);
         file.writeShort(line_number_table_length);
         for (int i = 0; i < line_number_table_length; i++) {
@@ -116,7 +118,7 @@ public final class LineNumberTable extends Attribute {
     /**
      * @param line_number_table the line number entries for this table
      */
-    public final void setLineNumberTable( LineNumber[] line_number_table ) {
+    public final void setLineNumberTable(LineNumber[] line_number_table) {
         this.line_number_table = line_number_table;
         line_number_table_length = (line_number_table == null) ? 0 : line_number_table.length;
     }
@@ -151,7 +153,7 @@ public final class LineNumberTable extends Attribute {
      * @param pos byte code offset
      * @return corresponding line in source code
      */
-    public int getSourceLine( int pos ) {
+    public int getSourceLine(int pos) {
         int l = 0, r = line_number_table_length - 1;
         if (r < 0) {
             return -1;
@@ -191,7 +193,7 @@ public final class LineNumberTable extends Attribute {
     /**
      * @return deep copy of this attribute
      */
-    public Attribute copy( ConstantPool _constant_pool ) {
+    public Attribute copy(ConstantPool _constant_pool) {
         LineNumberTable c = (LineNumberTable) clone();
         c.line_number_table = new LineNumber[line_number_table_length];
         for (int i = 0; i < line_number_table_length; i++) {

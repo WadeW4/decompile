@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License. 
  *
- */ 
+ */
 package org.apache.bcel.verifier.exc;
 
 
@@ -27,11 +27,11 @@ package org.apache.bcel.verifier.exc;
  * pass 3a and are described on page 134-137 in the Java Virtual Machine Specification,
  * Second Edition.
  *
- * @version $Id: StaticCodeInstructionOperandConstraintException.java 371539 2006-01-23 14:08:00Z tcurdt $
  * @author Enver Haase
+ * @version $Id: StaticCodeInstructionOperandConstraintException.java 371539 2006-01-23 14:08:00Z tcurdt $
  */
-public class StaticCodeInstructionOperandConstraintException extends StaticCodeConstraintException{
-	public StaticCodeInstructionOperandConstraintException(String message){
-		super(message);
-	}
+public class StaticCodeInstructionOperandConstraintException extends StaticCodeConstraintException {
+    public StaticCodeInstructionOperandConstraintException(String message) {
+        super(message);
+    }
 }

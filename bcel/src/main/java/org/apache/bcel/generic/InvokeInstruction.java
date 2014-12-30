@@ -16,16 +16,17 @@
  */
 package org.apache.bcel.generic;
 
-import java.util.StringTokenizer;
 import org.apache.bcel.Constants;
 import org.apache.bcel.classfile.Constant;
 import org.apache.bcel.classfile.ConstantPool;
 
+import java.util.StringTokenizer;
+
 /**
  * Super class for the INVOKExxx family of instructions.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: InvokeInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class InvokeInstruction extends FieldOrMethod implements ExceptionThrower,
         TypedInstruction, StackConsumer, StackProducer {
@@ -49,7 +50,7 @@ public abstract class InvokeInstruction extends FieldOrMethod implements Excepti
     /**
      * @return mnemonic for instruction with symbolic references resolved
      */
-    public String toString( ConstantPool cp ) {
+    public String toString(ConstantPool cp) {
         Constant c = cp.getConstant(index);
         StringTokenizer tok = new StringTokenizer(cp.constantToString(c));
         return Constants.OPCODE_NAMES[opcode] + " " + tok.nextToken().replace('.', '/')
@@ -60,9 +61,10 @@ public abstract class InvokeInstruction extends FieldOrMethod implements Excepti
     /**
      * Also works for instructions whose stack effect depends on the
      * constant pool entry they reference.
+     *
      * @return Number of words consumed from stack by this instruction
      */
-    public int consumeStack( ConstantPoolGen cpg ) {
+    public int consumeStack(ConstantPoolGen cpg) {
         String signature = getSignature(cpg);
         Type[] args = Type.getArgumentTypes(signature);
         int sum;
@@ -82,37 +84,42 @@ public abstract class InvokeInstruction extends FieldOrMethod implements Excepti
     /**
      * Also works for instructions whose stack effect depends on the
      * constant pool entry they reference.
+     *
      * @return Number of words produced onto stack by this instruction
      */
-    public int produceStack( ConstantPoolGen cpg ) {
+    public int produceStack(ConstantPoolGen cpg) {
         return getReturnType(cpg).getSize();
     }
 
 
-    /** @return return type of referenced method.
+    /**
+     * @return return type of referenced method.
      */
-    public Type getType( ConstantPoolGen cpg ) {
+    public Type getType(ConstantPoolGen cpg) {
         return getReturnType(cpg);
     }
 
 
-    /** @return name of referenced method.
+    /**
+     * @return name of referenced method.
      */
-    public String getMethodName( ConstantPoolGen cpg ) {
+    public String getMethodName(ConstantPoolGen cpg) {
         return getName(cpg);
     }
 
 
-    /** @return return type of referenced method.
+    /**
+     * @return return type of referenced method.
      */
-    public Type getReturnType( ConstantPoolGen cpg ) {
+    public Type getReturnType(ConstantPoolGen cpg) {
         return Type.getReturnType(getSignature(cpg));
     }
 
 
-    /** @return argument types of referenced method.
+    /**
+     * @return argument types of referenced method.
      */
-    public Type[] getArgumentTypes( ConstantPoolGen cpg ) {
+    public Type[] getArgumentTypes(ConstantPoolGen cpg) {
         return Type.getArgumentTypes(getSignature(cpg));
     }
 }

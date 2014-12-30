@@ -16,15 +16,16 @@
  */
 package org.apache.bcel.generic;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 import org.apache.bcel.util.ByteSequence;
 
-/** 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+/**
  * LOOKUPSWITCH - Switch with unordered set of values
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: LOOKUPSWITCH.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @see SWITCH
  */
 public class LOOKUPSWITCH extends Select {
@@ -47,9 +48,10 @@ public class LOOKUPSWITCH extends Select {
 
     /**
      * Dump instruction as byte code to stream out.
+     *
      * @param out Output stream
      */
-    public void dump( DataOutputStream out ) throws IOException {
+    public void dump(DataOutputStream out) throws IOException {
         super.dump(out);
         out.writeInt(match_length); // npairs
         for (int i = 0; i < match_length; i++) {
@@ -62,7 +64,7 @@ public class LOOKUPSWITCH extends Select {
     /**
      * Read needed data (e.g. index) from file.
      */
-    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
+    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
         super.initFromFile(bytes, wide); // reads padding
         match_length = bytes.readInt();
         fixed_length = (short) (9 + match_length * 8);
@@ -85,7 +87,7 @@ public class LOOKUPSWITCH extends Select {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitVariableLengthInstruction(this);
         v.visitStackProducer(this);
         v.visitBranchInstruction(this);

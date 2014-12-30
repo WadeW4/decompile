@@ -16,13 +16,13 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * LDC2_W - Push long or double from constant pool
- *
+ * <p/>
  * <PRE>Stack: ... -&gt; ..., item.word1, item.word2</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: LDC2_W.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class LDC2_W extends CPInstruction implements PushInstruction, TypedInstruction {
 
@@ -39,7 +39,7 @@ public class LDC2_W extends CPInstruction implements PushInstruction, TypedInstr
     }
 
 
-    public Type getType( ConstantPoolGen cpg ) {
+    public Type getType(ConstantPoolGen cpg) {
         switch (cpg.getConstantPool().getConstant(index).getTag()) {
             case org.apache.bcel.Constants.CONSTANT_Long:
                 return Type.LONG;
@@ -51,7 +51,7 @@ public class LDC2_W extends CPInstruction implements PushInstruction, TypedInstr
     }
 
 
-    public Number getValue( ConstantPoolGen cpg ) {
+    public Number getValue(ConstantPoolGen cpg) {
         org.apache.bcel.classfile.Constant c = cpg.getConstantPool().getConstant(index);
         switch (c.getTag()) {
             case org.apache.bcel.Constants.CONSTANT_Long:
@@ -72,7 +72,7 @@ public class LDC2_W extends CPInstruction implements PushInstruction, TypedInstr
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackProducer(this);
         v.visitPushInstruction(this);
         v.visitTypedInstruction(this);

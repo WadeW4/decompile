@@ -16,12 +16,12 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * LSTORE - Store long into local variable
  * <PRE>Stack: ..., value.word1, value.word2 -&gt; ... </PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: LSTORE.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class LSTORE extends StoreInstruction {
 
@@ -47,7 +47,7 @@ public class LSTORE extends StoreInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         super.accept(v);
         v.visitLSTORE(this);
     }

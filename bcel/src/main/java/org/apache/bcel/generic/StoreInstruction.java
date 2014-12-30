@@ -20,8 +20,8 @@ package org.apache.bcel.generic;
  * Denotes an unparameterized instruction to store a value into a local variable,
  * e.g. ISTORE.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: StoreInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class StoreInstruction extends LocalVariableInstruction implements PopInstruction {
 
@@ -37,8 +37,8 @@ public abstract class StoreInstruction extends LocalVariableInstruction implemen
 
     /**
      * @param opcode Instruction opcode
-     * @param c_tag Instruction number for compact version, ASTORE_0, e.g.
-     * @param n local variable index (unsigned short)
+     * @param c_tag  Instruction number for compact version, ASTORE_0, e.g.
+     * @param n      local variable index (unsigned short)
      */
     protected StoreInstruction(short opcode, short c_tag, int n) {
         super(opcode, c_tag, n);
@@ -53,7 +53,7 @@ public abstract class StoreInstruction extends LocalVariableInstruction implemen
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackConsumer(this);
         v.visitPopInstruction(this);
         v.visitTypedInstruction(this);

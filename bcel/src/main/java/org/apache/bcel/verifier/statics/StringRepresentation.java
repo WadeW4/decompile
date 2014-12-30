@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License. 
  *
- */ 
+ */
 package org.apache.bcel.verifier.statics;
 
 
@@ -64,13 +64,17 @@ import org.apache.bcel.verifier.exc.AssertionViolatedException;
  * Note that this class also serves as a placeholder for more sophisticated message
  * handling in future versions of JustIce.
  *
- * @version $Id: StringRepresentation.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @author Enver Haase
+ * @version $Id: StringRepresentation.java 386056 2006-03-15 11:31:56Z tcurdt $
  */
 public class StringRepresentation extends org.apache.bcel.classfile.EmptyVisitor implements Visitor {
-    /** The string representation, created by a visitXXX() method, output by toString(). */
+    /**
+     * The string representation, created by a visitXXX() method, output by toString().
+     */
     private String tostring;
-    /** The node we ask for its string representation. Not really needed; only for debug output. */
+    /**
+     * The node we ask for its string representation. Not really needed; only for debug output.
+     */
     private Node n;
 
     /**
@@ -107,8 +111,7 @@ public class StringRepresentation extends org.apache.bcel.classfile.EmptyVisitor
         String ret;
         try {
             ret = obj.toString();
-        }
-        catch (RuntimeException e) { // including ClassFormatException, trying to convert the "signature" of a ReturnaddressType LocalVariable (shouldn't occur, but people do crazy things)
+        } catch (RuntimeException e) { // including ClassFormatException, trying to convert the "signature" of a ReturnaddressType LocalVariable (shouldn't occur, but people do crazy things)
             String s = obj.getClass().getName();
             s = s.substring(s.lastIndexOf(".") + 1);
             ret = "<<" + s + ">>";

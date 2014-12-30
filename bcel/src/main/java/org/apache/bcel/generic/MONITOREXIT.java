@@ -16,12 +16,12 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * MONITOREXIT - Exit monitor for object
  * <PRE>Stack: ..., objectref -&gt; ...</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: MONITOREXIT.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class MONITOREXIT extends Instruction implements ExceptionThrower, StackConsumer {
 
@@ -31,8 +31,8 @@ public class MONITOREXIT extends Instruction implements ExceptionThrower, StackC
 
 
     public Class[] getExceptions() {
-        return new Class[] {
-            org.apache.bcel.ExceptionConstants.NULL_POINTER_EXCEPTION
+        return new Class[]{
+                org.apache.bcel.ExceptionConstants.NULL_POINTER_EXCEPTION
         };
     }
 
@@ -45,7 +45,7 @@ public class MONITOREXIT extends Instruction implements ExceptionThrower, StackC
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitExceptionThrower(this);
         v.visitStackConsumer(this);
         v.visitMONITOREXIT(this);

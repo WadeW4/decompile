@@ -16,13 +16,14 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import org.apache.bcel.Constants;
 
 /**
  * This class represents a reference to an unknown (i.e.,
@@ -33,12 +34,11 @@ import org.apache.bcel.Constants;
  * attach it via <a
  * href="./Attribute.html#addAttributeReader(java.lang.String,
  * org.apache.bcel.classfile.AttributeReader)">Attribute.addAttributeReader</a>.
-
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: Unknown.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @see org.apache.bcel.classfile.Attribute
  * @see org.apache.bcel.classfile.AttributeReader
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public final class Unknown extends Attribute {
 
@@ -47,7 +47,8 @@ public final class Unknown extends Attribute {
     private static Map unknown_attributes = new HashMap();
 
 
-    /** @return array of unknown attributes, but just one for each kind.
+    /**
+     * @return array of unknown attributes, but just one for each kind.
      */
     static Unknown[] getUnknownAttributes() {
         Unknown[] unknowns = new Unknown[unknown_attributes.size()];
@@ -72,9 +73,9 @@ public final class Unknown extends Attribute {
     /**
      * Create a non-standard attribute.
      *
-     * @param name_index Index in constant pool
-     * @param length Content length in bytes
-     * @param bytes Attribute contents
+     * @param name_index    Index in constant pool
+     * @param length        Content length in bytes
+     * @param bytes         Attribute contents
      * @param constant_pool Array of constants
      */
     public Unknown(int name_index, int length, byte[] bytes, ConstantPool constant_pool) {
@@ -88,9 +89,10 @@ public final class Unknown extends Attribute {
 
     /**
      * Construct object from file stream.
-     * @param name_index Index in constant pool
-     * @param length Content length in bytes
-     * @param file Input stream
+     *
+     * @param name_index    Index in constant pool
+     * @param length        Content length in bytes
+     * @param file          Input stream
      * @param constant_pool Array of constants
      * @throws IOException
      */
@@ -111,7 +113,7 @@ public final class Unknown extends Attribute {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitUnknown(this);
     }
 
@@ -122,7 +124,7 @@ public final class Unknown extends Attribute {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         super.dump(file);
         if (length > 0) {
             file.write(bytes, 0, length);
@@ -149,7 +151,7 @@ public final class Unknown extends Attribute {
     /**
      * @param bytes the bytes to set
      */
-    public final void setBytes( byte[] bytes ) {
+    public final void setBytes(byte[] bytes) {
         this.bytes = bytes;
     }
 
@@ -176,7 +178,7 @@ public final class Unknown extends Attribute {
     /**
      * @return deep copy of this attribute
      */
-    public Attribute copy( ConstantPool _constant_pool ) {
+    public Attribute copy(ConstantPool _constant_pool) {
         Unknown c = (Unknown) clone();
         if (bytes != null) {
             c.bytes = new byte[bytes.length];

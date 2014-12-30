@@ -16,12 +16,13 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.apache.bcel.Constants;
 
-/** 
+/**
  * This class represents the table of exceptions that are thrown by a
  * method. This attribute may be used once per method.  The name of
  * this class is <em>ExceptionTable</em> for historical reasons; The
@@ -29,9 +30,9 @@ import org.apache.bcel.Constants;
  * attribute using the name <em>Exceptions</em> (which is inconsistent
  * with the other classes).
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ExceptionTable.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     Code
+ * @see Code
  */
 public final class ExceptionTable extends Attribute {
 
@@ -49,13 +50,13 @@ public final class ExceptionTable extends Attribute {
 
 
     /**
-     * @param name_index Index in constant pool
-     * @param length Content length in bytes
+     * @param name_index            Index in constant pool
+     * @param length                Content length in bytes
      * @param exception_index_table Table of indices in constant pool
-     * @param constant_pool Array of constants
+     * @param constant_pool         Array of constants
      */
     public ExceptionTable(int name_index, int length, int[] exception_index_table,
-            ConstantPool constant_pool) {
+                          ConstantPool constant_pool) {
         super(Constants.ATTR_EXCEPTIONS, name_index, length, constant_pool);
         setExceptionIndexTable(exception_index_table);
     }
@@ -63,9 +64,10 @@ public final class ExceptionTable extends Attribute {
 
     /**
      * Construct object from file stream.
-     * @param name_index Index in constant pool
-     * @param length Content length in bytes
-     * @param file Input stream
+     *
+     * @param name_index    Index in constant pool
+     * @param length        Content length in bytes
+     * @param file          Input stream
      * @param constant_pool Array of constants
      * @throws IOException
      */
@@ -87,7 +89,7 @@ public final class ExceptionTable extends Attribute {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitExceptionTable(this);
     }
 
@@ -98,7 +100,7 @@ public final class ExceptionTable extends Attribute {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         super.dump(file);
         file.writeShort(number_of_exceptions);
         for (int i = 0; i < number_of_exceptions; i++) {
@@ -138,9 +140,9 @@ public final class ExceptionTable extends Attribute {
 
     /**
      * @param exception_index_table the list of exception indexes
-     * Also redefines number_of_exceptions according to table length.
+     *                              Also redefines number_of_exceptions according to table length.
      */
-    public final void setExceptionIndexTable( int[] exception_index_table ) {
+    public final void setExceptionIndexTable(int[] exception_index_table) {
         this.exception_index_table = exception_index_table;
         number_of_exceptions = (exception_index_table == null) ? 0 : exception_index_table.length;
     }
@@ -167,7 +169,7 @@ public final class ExceptionTable extends Attribute {
     /**
      * @return deep copy of this attribute
      */
-    public Attribute copy( ConstantPool _constant_pool ) {
+    public Attribute copy(ConstantPool _constant_pool) {
         ExceptionTable c = (ExceptionTable) clone();
         if (exception_index_table != null) {
             c.exception_index_table = new int[exception_index_table.length];

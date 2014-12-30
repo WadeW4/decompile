@@ -16,14 +16,15 @@
  */
 package org.apache.bcel.util;
 
-import java.util.Stack;
 import org.apache.bcel.classfile.JavaClass;
 
-/** 
+import java.util.Stack;
+
+/**
  * Utility class implementing a (typesafe) stack of JavaClass objects.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ClassStack.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A> 
  * @see Stack
  */
 public class ClassStack implements java.io.Serializable {
@@ -31,7 +32,7 @@ public class ClassStack implements java.io.Serializable {
     private Stack stack = new Stack();
 
 
-    public void push( JavaClass clazz ) {
+    public void push(JavaClass clazz) {
         stack.push(clazz);
     }
 

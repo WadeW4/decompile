@@ -16,18 +16,19 @@
  */
 package org.apache.bcel.generic;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 import org.apache.bcel.ExceptionConstants;
 import org.apache.bcel.classfile.ConstantPool;
 import org.apache.bcel.util.ByteSequence;
 
-/** 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+/**
  * MULTIANEWARRAY - Create new mutidimensional array of references
  * <PRE>Stack: ..., count1, [count2, ...] -&gt; ..., arrayref</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: MULTIANEWARRAY.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class MULTIANEWARRAY extends CPInstruction implements LoadClass, AllocationInstruction,
         ExceptionThrower {
@@ -55,9 +56,10 @@ public class MULTIANEWARRAY extends CPInstruction implements LoadClass, Allocati
 
     /**
      * Dump instruction as byte code to stream out.
+     *
      * @param out Output stream
      */
-    public void dump( DataOutputStream out ) throws IOException {
+    public void dump(DataOutputStream out) throws IOException {
         out.writeByte(opcode);
         out.writeShort(index);
         out.writeByte(dimensions);
@@ -67,7 +69,7 @@ public class MULTIANEWARRAY extends CPInstruction implements LoadClass, Allocati
     /**
      * Read needed data (i.e., no. dimension) from file.
      */
-    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
+    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
         super.initFromFile(bytes, wide);
         dimensions = bytes.readByte();
         length = 4;
@@ -85,7 +87,7 @@ public class MULTIANEWARRAY extends CPInstruction implements LoadClass, Allocati
     /**
      * @return mnemonic for instruction
      */
-    public String toString( boolean verbose ) {
+    public String toString(boolean verbose) {
         return super.toString(verbose) + " " + index + " " + dimensions;
     }
 
@@ -93,7 +95,7 @@ public class MULTIANEWARRAY extends CPInstruction implements LoadClass, Allocati
     /**
      * @return mnemonic for instruction with symbolic references resolved
      */
-    public String toString( ConstantPool cp ) {
+    public String toString(ConstantPool cp) {
         return super.toString(cp) + " " + dimensions;
     }
 
@@ -101,9 +103,10 @@ public class MULTIANEWARRAY extends CPInstruction implements LoadClass, Allocati
     /**
      * Also works for instructions whose stack effect depends on the
      * constant pool entry they reference.
+     *
      * @return Number of words consumed from stack by this instruction
      */
-    public int consumeStack( ConstantPoolGen cpg ) {
+    public int consumeStack(ConstantPoolGen cpg) {
         return dimensions;
     }
 
@@ -118,7 +121,7 @@ public class MULTIANEWARRAY extends CPInstruction implements LoadClass, Allocati
     }
 
 
-    public ObjectType getLoadClassType( ConstantPoolGen cpg ) {
+    public ObjectType getLoadClassType(ConstantPoolGen cpg) {
         Type t = getType(cpg);
         if (t instanceof ArrayType) {
             t = ((ArrayType) t).getBasicType();
@@ -135,7 +138,7 @@ public class MULTIANEWARRAY extends CPInstruction implements LoadClass, Allocati
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitLoadClass(this);
         v.visitAllocationInstruction(this);
         v.visitExceptionThrower(this);

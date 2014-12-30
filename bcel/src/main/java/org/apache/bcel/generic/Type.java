@@ -16,24 +16,26 @@
  */
 package org.apache.bcel.generic;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.bcel.Constants;
 import org.apache.bcel.classfile.ClassFormatException;
 import org.apache.bcel.classfile.Utility;
 
-/** 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
  * Abstract super class for all possible java types, namely basic types
  * such as int, object types like String and array types, e.g. int[]
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: Type.java 393344 2006-04-12 00:38:34Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class Type implements java.io.Serializable {
 
     protected byte type;
     protected String signature; // signature for the type
-    /** Predefined constants
+    /**
+     * Predefined constants
      */
     public static final BasicType VOID = new BasicType(Constants.T_VOID);
     public static final BasicType BOOLEAN = new BasicType(Constants.T_BOOLEAN);
@@ -66,22 +68,22 @@ public abstract class Type implements java.io.Serializable {
      * @return hashcode of Type
      */
     public int hashCode() {
-    	return type ^ signature.hashCode();
+        return type ^ signature.hashCode();
     }
-    
-    
+
+
     /**
      * @return whether the Types are equal
      */
     public boolean equals(Object o) {
-  		if (o instanceof Type) {
-  			Type t = (Type)o;
-  			return (type == t.type) && signature.equals(t.signature);
-  		}
-  		return false;
+        if (o instanceof Type) {
+            Type t = (Type) o;
+            return (type == t.type) && signature.equals(t.signature);
+        }
+        return false;
     }
-    
-    
+
+
     /**
      * @return signature for given type.
      */
@@ -128,10 +130,10 @@ public abstract class Type implements java.io.Serializable {
      * becomes (Ljava/lang/String;)[I
      *
      * @param return_type what the method returns
-     * @param arg_types what are the argument types
+     * @param arg_types   what are the argument types
      * @return method signature for given type(s).
      */
-    public static String getMethodSignature( Type return_type, Type[] arg_types ) {
+    public static String getMethodSignature(Type return_type, Type[] arg_types) {
         StringBuffer buf = new StringBuffer("(");
         int length = (arg_types == null) ? 0 : arg_types.length;
         for (int i = 0; i < length; i++) {
@@ -150,22 +152,23 @@ public abstract class Type implements java.io.Serializable {
     };//int consumed_chars=0; // Remember position in string, see getArgumentTypes
 
 
-    private static int unwrap( ThreadLocal tl ) {
+    private static int unwrap(ThreadLocal tl) {
         return ((Integer) tl.get()).intValue();
     }
 
 
-    private static void wrap( ThreadLocal tl, int value ) {
+    private static void wrap(ThreadLocal tl, int value) {
         tl.set(new Integer(value));
     }
 
 
     /**
      * Convert signature to a Type object.
+     *
      * @param signature signature string such as Ljava/lang/String;
      * @return type object
      */
-    public static final Type getType( String signature ) throws StringIndexOutOfBoundsException {
+    public static final Type getType(String signature) throws StringIndexOutOfBoundsException {
         byte type = Utility.typeOfSignature(signature);
         if (type <= Constants.T_VOID) {
             //corrected concurrent private static field acess
@@ -201,7 +204,7 @@ public abstract class Type implements java.io.Serializable {
      * @param signature signature string such as (Ljava/lang/String;)V
      * @return return type
      */
-    public static Type getReturnType( String signature ) {
+    public static Type getReturnType(String signature) {
         try {
             // Read return type after `)'
             int index = signature.lastIndexOf(')') + 1;
@@ -214,10 +217,11 @@ public abstract class Type implements java.io.Serializable {
 
     /**
      * Convert arguments of a method (signature) to an array of Type objects.
+     *
      * @param signature signature string such as (Ljava/lang/String;)V
      * @return array of argument types
      */
-    public static Type[] getArgumentTypes( String signature ) {
+    public static Type[] getArgumentTypes(String signature) {
         List vec = new ArrayList();
         int index;
         Type[] types;
@@ -240,11 +244,13 @@ public abstract class Type implements java.io.Serializable {
     }
 
 
-    /** Convert runtime java.lang.Class to BCEL Type object.
+    /**
+     * Convert runtime java.lang.Class to BCEL Type object.
+     *
      * @param cl Java class
      * @return corresponding Type object
      */
-    public static Type getType( java.lang.Class cl ) {
+    public static Type getType(java.lang.Class cl) {
         if (cl == null) {
             throw new IllegalArgumentException("Class must not be null");
         }
@@ -285,10 +291,11 @@ public abstract class Type implements java.io.Serializable {
 
     /**
      * Convert runtime java.lang.Class[] to BCEL Type objects.
+     *
      * @param classes an array of runtime class objects
      * @return array of corresponding Type objects
      */
-    public static Type[] getTypes( java.lang.Class[] classes ) {
+    public static Type[] getTypes(java.lang.Class[] classes) {
         Type[] ret = new Type[classes.length];
         for (int i = 0; i < ret.length; i++) {
             ret[i] = getType(classes[i]);
@@ -297,7 +304,7 @@ public abstract class Type implements java.io.Serializable {
     }
 
 
-    public static String getSignature( java.lang.reflect.Method meth ) {
+    public static String getSignature(java.lang.reflect.Method meth) {
         StringBuffer sb = new StringBuffer("(");
         Class[] params = meth.getParameterTypes(); // avoid clone
         for (int j = 0; j < params.length; j++) {

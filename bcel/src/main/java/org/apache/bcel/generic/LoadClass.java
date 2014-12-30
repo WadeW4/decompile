@@ -17,21 +17,22 @@
 package org.apache.bcel.generic;
 
 /**
- * Denotes that an instruction may start the process of loading and resolving 
+ * Denotes that an instruction may start the process of loading and resolving
  * the referenced class in the Virtual Machine.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: LoadClass.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public interface LoadClass {
 
     /**
      * Returns the ObjectType of the referenced class or interface
      * that may be loaded and resolved.
+     *
      * @return object type that may be loaded or null if a primitive is
      * referenced
      */
-    public ObjectType getLoadClassType( ConstantPoolGen cpg );
+    public ObjectType getLoadClassType(ConstantPoolGen cpg);
 
 
     /**
@@ -44,7 +45,8 @@ public interface LoadClass {
      * If no class is forced to be loaded, <B>null</B> is returned.
      * An example for this is an ANEWARRAY instruction that creates
      * an int[][].
+     *
      * @see #getLoadClassType(ConstantPoolGen)
      */
-    public Type getType( ConstantPoolGen cpg );
+    public Type getType(ConstantPoolGen cpg);
 }

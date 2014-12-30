@@ -16,25 +16,25 @@
  */
 package org.apache.bcel.util;
 
+import org.apache.bcel.classfile.ClassParser;
+import org.apache.bcel.classfile.JavaClass;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.bcel.classfile.ClassParser;
-import org.apache.bcel.classfile.JavaClass;
 
 /**
  * The repository maintains information about which classes have
  * been loaded.
- *
+ * <p/>
  * It loads its data from the ClassLoader implementation
  * passed into its constructor.
  *
- * @see org.apache.bcel.Repository
- *
- * @version $Id: ClassLoaderRepository.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @author David Dixon-Peugh
+ * @version $Id: ClassLoaderRepository.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @see org.apache.bcel.Repository
  */
 public class ClassLoaderRepository implements Repository {
 
@@ -50,7 +50,7 @@ public class ClassLoaderRepository implements Repository {
     /**
      * Store a new JavaClass into this Repository.
      */
-    public void storeClass( JavaClass clazz ) {
+    public void storeClass(JavaClass clazz) {
         loadedClasses.put(clazz.getClassName(), clazz);
         clazz.setRepository(this);
     }
@@ -59,7 +59,7 @@ public class ClassLoaderRepository implements Repository {
     /**
      * Remove class from repository
      */
-    public void removeClass( JavaClass clazz ) {
+    public void removeClass(JavaClass clazz) {
         loadedClasses.remove(clazz.getClassName());
     }
 
@@ -67,7 +67,7 @@ public class ClassLoaderRepository implements Repository {
     /**
      * Find an already defined JavaClass.
      */
-    public JavaClass findClass( String className ) {
+    public JavaClass findClass(String className) {
         if (loadedClasses.containsKey(className)) {
             return (JavaClass) loadedClasses.get(className);
         } else {
@@ -79,7 +79,7 @@ public class ClassLoaderRepository implements Repository {
     /**
      * Lookup a JavaClass object from the Class Name provided.
      */
-    public JavaClass loadClass( String className ) throws ClassNotFoundException {
+    public JavaClass loadClass(String className) throws ClassNotFoundException {
         String classFile = className.replace('.', '/');
         JavaClass RC = findClass(className);
         if (RC != null) {
@@ -100,12 +100,13 @@ public class ClassLoaderRepository implements Repository {
     }
 
 
-    public JavaClass loadClass( Class clazz ) throws ClassNotFoundException {
+    public JavaClass loadClass(Class clazz) throws ClassNotFoundException {
         return loadClass(clazz.getName());
     }
 
 
-    /** Clear all entries from cache.
+    /**
+     * Clear all entries from cache.
      */
     public void clear() {
         loadedClasses.clear();

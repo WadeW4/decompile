@@ -22,8 +22,8 @@ import org.apache.bcel.Constants;
  * Super class for all objects that have modifiers like private, final, ...
  * I.e. classes, fields, and methods.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: AccessFlags.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class AccessFlags implements java.io.Serializable {
 
@@ -42,7 +42,7 @@ public abstract class AccessFlags implements java.io.Serializable {
     }
 
 
-    /** 
+    /**
      * @return Access flags of the object aka. "modifiers".
      */
     public final int getAccessFlags() {
@@ -50,7 +50,7 @@ public abstract class AccessFlags implements java.io.Serializable {
     }
 
 
-    /** 
+    /**
      * @return Access flags of the object aka. "modifiers".
      */
     public final int getModifiers() {
@@ -58,23 +58,27 @@ public abstract class AccessFlags implements java.io.Serializable {
     }
 
 
-    /** Set access flags aka "modifiers".
-     * @param access_flags Access flags of the object. 
+    /**
+     * Set access flags aka "modifiers".
+     *
+     * @param access_flags Access flags of the object.
      */
-    public final void setAccessFlags( int access_flags ) {
+    public final void setAccessFlags(int access_flags) {
         this.access_flags = access_flags;
     }
 
 
-    /** Set access flags aka "modifiers".
-     * @param access_flags Access flags of the object. 
+    /**
+     * Set access flags aka "modifiers".
+     *
+     * @param access_flags Access flags of the object.
      */
-    public final void setModifiers( int access_flags ) {
+    public final void setModifiers(int access_flags) {
         setAccessFlags(access_flags);
     }
 
 
-    private final void setFlag( int flag, boolean set ) {
+    private final void setFlag(int flag, boolean set) {
         if ((access_flags & flag) != 0) { // Flag is set already
             if (!set) {
                 access_flags ^= flag;
@@ -87,7 +91,7 @@ public abstract class AccessFlags implements java.io.Serializable {
     }
 
 
-    public final void isPublic( boolean flag ) {
+    public final void isPublic(boolean flag) {
         setFlag(Constants.ACC_PUBLIC, flag);
     }
 
@@ -97,7 +101,7 @@ public abstract class AccessFlags implements java.io.Serializable {
     }
 
 
-    public final void isPrivate( boolean flag ) {
+    public final void isPrivate(boolean flag) {
         setFlag(Constants.ACC_PRIVATE, flag);
     }
 
@@ -107,7 +111,7 @@ public abstract class AccessFlags implements java.io.Serializable {
     }
 
 
-    public final void isProtected( boolean flag ) {
+    public final void isProtected(boolean flag) {
         setFlag(Constants.ACC_PROTECTED, flag);
     }
 
@@ -117,7 +121,7 @@ public abstract class AccessFlags implements java.io.Serializable {
     }
 
 
-    public final void isStatic( boolean flag ) {
+    public final void isStatic(boolean flag) {
         setFlag(Constants.ACC_STATIC, flag);
     }
 
@@ -127,7 +131,7 @@ public abstract class AccessFlags implements java.io.Serializable {
     }
 
 
-    public final void isFinal( boolean flag ) {
+    public final void isFinal(boolean flag) {
         setFlag(Constants.ACC_FINAL, flag);
     }
 
@@ -137,7 +141,7 @@ public abstract class AccessFlags implements java.io.Serializable {
     }
 
 
-    public final void isSynchronized( boolean flag ) {
+    public final void isSynchronized(boolean flag) {
         setFlag(Constants.ACC_SYNCHRONIZED, flag);
     }
 
@@ -147,7 +151,7 @@ public abstract class AccessFlags implements java.io.Serializable {
     }
 
 
-    public final void isVolatile( boolean flag ) {
+    public final void isVolatile(boolean flag) {
         setFlag(Constants.ACC_VOLATILE, flag);
     }
 
@@ -157,7 +161,7 @@ public abstract class AccessFlags implements java.io.Serializable {
     }
 
 
-    public final void isTransient( boolean flag ) {
+    public final void isTransient(boolean flag) {
         setFlag(Constants.ACC_TRANSIENT, flag);
     }
 
@@ -167,7 +171,7 @@ public abstract class AccessFlags implements java.io.Serializable {
     }
 
 
-    public final void isNative( boolean flag ) {
+    public final void isNative(boolean flag) {
         setFlag(Constants.ACC_NATIVE, flag);
     }
 
@@ -177,7 +181,7 @@ public abstract class AccessFlags implements java.io.Serializable {
     }
 
 
-    public final void isInterface( boolean flag ) {
+    public final void isInterface(boolean flag) {
         setFlag(Constants.ACC_INTERFACE, flag);
     }
 
@@ -187,7 +191,7 @@ public abstract class AccessFlags implements java.io.Serializable {
     }
 
 
-    public final void isAbstract( boolean flag ) {
+    public final void isAbstract(boolean flag) {
         setFlag(Constants.ACC_ABSTRACT, flag);
     }
 
@@ -197,7 +201,7 @@ public abstract class AccessFlags implements java.io.Serializable {
     }
 
 
-    public final void isStrictfp( boolean flag ) {
+    public final void isStrictfp(boolean flag) {
         setFlag(Constants.ACC_STRICT, flag);
     }
 
@@ -207,7 +211,7 @@ public abstract class AccessFlags implements java.io.Serializable {
     }
 
 
-    public final void isSynthetic( boolean flag ) {
+    public final void isSynthetic(boolean flag) {
         setFlag(Constants.ACC_SYNTHETIC, flag);
     }
 
@@ -217,7 +221,7 @@ public abstract class AccessFlags implements java.io.Serializable {
     }
 
 
-    public final void isAnnotation( boolean flag ) {
+    public final void isAnnotation(boolean flag) {
         setFlag(Constants.ACC_ANNOTATION, flag);
     }
 
@@ -227,7 +231,7 @@ public abstract class AccessFlags implements java.io.Serializable {
     }
 
 
-    public final void isEnum( boolean flag ) {
+    public final void isEnum(boolean flag) {
         setFlag(Constants.ACC_ENUM, flag);
     }
 

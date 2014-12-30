@@ -16,16 +16,17 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * I2B - Convert int to byte
  * <PRE>Stack: ..., value -&gt; ..., result</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: I2B.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class I2B extends ConversionInstruction {
 
-    /** Convert int to byte
+    /**
+     * Convert int to byte
      */
     public I2B() {
         super(org.apache.bcel.Constants.I2B);
@@ -40,7 +41,7 @@ public class I2B extends ConversionInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitTypedInstruction(this);
         v.visitStackProducer(this);
         v.visitStackConsumer(this);

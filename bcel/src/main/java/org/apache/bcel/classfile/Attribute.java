@@ -16,35 +16,36 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.bcel.Constants;
 
 /**
  * Abstract super class for <em>Attribute</em> objects. Currently the
  * <em>ConstantValue</em>, <em>SourceFile</em>, <em>Code</em>,
- * <em>Exceptiontable</em>, <em>LineNumberTable</em>, 
+ * <em>Exceptiontable</em>, <em>LineNumberTable</em>,
  * <em>LocalVariableTable</em>, <em>InnerClasses</em> and
  * <em>Synthetic</em> attributes are supported. The
  * <em>Unknown</em> attribute stands for non-standard-attributes.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: Attribute.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     ConstantValue
- * @see     SourceFile
- * @see     Code
- * @see     Unknown
- * @see     ExceptionTable
- * @see     LineNumberTable
- * @see     LocalVariableTable 
- * @see     InnerClasses
- * @see     Synthetic
- * @see     Deprecated
- * @see     Signature
+ * @see ConstantValue
+ * @see SourceFile
+ * @see Code
+ * @see Unknown
+ * @see ExceptionTable
+ * @see LineNumberTable
+ * @see LocalVariableTable
+ * @see InnerClasses
+ * @see Synthetic
+ * @see Deprecated
+ * @see Signature
  */
 public abstract class Attribute implements Cloneable, Node, Serializable {
 
@@ -69,7 +70,7 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
      *
      * @param v Visitor object
      */
-    public abstract void accept( Visitor v );
+    public abstract void accept(Visitor v);
 
 
     /**
@@ -78,7 +79,7 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
      * @param file Output file stream
      * @throws IOException
      */
-    public void dump( DataOutputStream file ) throws IOException {
+    public void dump(DataOutputStream file) throws IOException {
         file.writeShort(name_index);
         file.writeInt(length);
     }
@@ -86,23 +87,25 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
     private static Map readers = new HashMap();
 
 
-    /** Add an Attribute reader capable of parsing (user-defined) attributes
+    /**
+     * Add an Attribute reader capable of parsing (user-defined) attributes
      * named "name". You should not add readers for the standard attributes
      * such as "LineNumberTable", because those are handled internally.
      *
      * @param name the name of the attribute as stored in the class file
-     * @param r the reader object
+     * @param r    the reader object
      */
-    public static void addAttributeReader( String name, AttributeReader r ) {
+    public static void addAttributeReader(String name, AttributeReader r) {
         readers.put(name, r);
     }
 
 
-    /** Remove attribute reader
+    /**
+     * Remove attribute reader
      *
      * @param name the name of the attribute as stored in the class file
      */
-    public static void removeAttributeReader( String name ) {
+    public static void removeAttributeReader(String name) {
         readers.remove(name);
     }
 
@@ -119,7 +122,7 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
      * @throws  IOException
      * @throws  ClassFormatException
      */
-    public static final Attribute readAttribute( DataInputStream file, ConstantPool constant_pool )
+    public static final Attribute readAttribute(DataInputStream file, ConstantPool constant_pool)
             throws IOException, ClassFormatException {
         ConstantUtf8 c;
         String name;
@@ -171,16 +174,16 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
                 return new Signature(name_index, length, file, constant_pool);
             case Constants.ATTR_STACK_MAP:
                 return new StackMap(name_index, length, file, constant_pool);
-                //    case Constants.ATTR_RUNTIMEVISIBLE_ANNOTATIONS:
-                //      return new RuntimeVisibleAnnotations(name_index, length, file, constant_pool);
-                //    case Constants.ATTR_RUNTIMEINVISIBLE_ANNOTATIONS:
-                //      return new RuntimeInvisibleAnnotations(name_index, length, file, constant_pool);
-                //    case Constants.ATTR_RUNTIMEVISIBLE_PARAMETER_ANNOTATIONS:
-                //      return new RuntimeVisibleParameterAnnotations(name_index, length, file, constant_pool);
-                //    case Constants.ATTR_RUNTIMEINVISIBLE_PARAMETER_ANNOTATIONS:
-                //      return new RuntimeInvisibleParameterAnnotations(name_index, length, file, constant_pool);
-                //    case Constants.ATTR_ANNOTATION_DEFAULT:
-                //      return new AnnotationDefault(name_index, length, file, constant_pool);
+            //    case Constants.ATTR_RUNTIMEVISIBLE_ANNOTATIONS:
+            //      return new RuntimeVisibleAnnotations(name_index, length, file, constant_pool);
+            //    case Constants.ATTR_RUNTIMEINVISIBLE_ANNOTATIONS:
+            //      return new RuntimeInvisibleAnnotations(name_index, length, file, constant_pool);
+            //    case Constants.ATTR_RUNTIMEVISIBLE_PARAMETER_ANNOTATIONS:
+            //      return new RuntimeVisibleParameterAnnotations(name_index, length, file, constant_pool);
+            //    case Constants.ATTR_RUNTIMEINVISIBLE_PARAMETER_ANNOTATIONS:
+            //      return new RuntimeInvisibleParameterAnnotations(name_index, length, file, constant_pool);
+            //    case Constants.ATTR_ANNOTATION_DEFAULT:
+            //      return new AnnotationDefault(name_index, length, file, constant_pool);
             default: // Never reached
                 throw new IllegalStateException("Ooops! default case reached.");
         }
@@ -198,7 +201,7 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
     /**
      * @param length length in bytes.
      */
-    public final void setLength( int length ) {
+    public final void setLength(int length) {
         this.length = length;
     }
 
@@ -206,7 +209,7 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
     /**
      * @param name_index of attribute.
      */
-    public final void setNameIndex( int name_index ) {
+    public final void setNameIndex(int name_index) {
         this.name_index = name_index;
     }
 
@@ -241,7 +244,7 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
      * @param constant_pool Constant pool to be used for this object.
      * @see ConstantPool
      */
-    public final void setConstantPool( ConstantPool constant_pool ) {
+    public final void setConstantPool(ConstantPool constant_pool) {
         this.constant_pool = constant_pool;
     }
 
@@ -266,7 +269,7 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
     /**
      * @return deep copy of this attribute
      */
-    public abstract Attribute copy( ConstantPool _constant_pool );
+    public abstract Attribute copy(ConstantPool _constant_pool);
 
 
     /**

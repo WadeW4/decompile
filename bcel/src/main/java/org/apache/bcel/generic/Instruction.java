@@ -16,19 +16,20 @@
  */
 package org.apache.bcel.generic;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.Locale;
 import org.apache.bcel.Constants;
 import org.apache.bcel.classfile.ConstantPool;
 import org.apache.bcel.util.ByteSequence;
 
-/** 
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.Locale;
+
+/**
  * Abstract super class for all Java byte codes.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: Instruction.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class Instruction implements Cloneable, Serializable {
 
@@ -53,14 +54,16 @@ public abstract class Instruction implements Cloneable, Serializable {
 
     /**
      * Dump instruction as byte code to stream out.
+     *
      * @param out Output stream
      */
-    public void dump( DataOutputStream out ) throws IOException {
+    public void dump(DataOutputStream out) throws IOException {
         out.writeByte(opcode); // Common for all instructions
     }
 
 
-    /** @return name of instruction, i.e., opcode name
+    /**
+     * @return name of instruction, i.e., opcode name
      */
     public String getName() {
         return Constants.OPCODE_NAMES[opcode];
@@ -69,14 +72,14 @@ public abstract class Instruction implements Cloneable, Serializable {
 
     /**
      * Long output format:
-     *
-     * &lt;name of opcode&gt; "["&lt;opcode number&gt;"]" 
+     * <p/>
+     * &lt;name of opcode&gt; "["&lt;opcode number&gt;"]"
      * "("&lt;length of instruction&gt;")"
      *
      * @param verbose long/short format switch
      * @return mnemonic for instruction
      */
-    public String toString( boolean verbose ) {
+    public String toString(boolean verbose) {
         if (verbose) {
             return getName() + "[" + opcode + "](" + length + ")";
         } else {
@@ -96,18 +99,18 @@ public abstract class Instruction implements Cloneable, Serializable {
     /**
      * @return mnemonic for instruction with sumbolic references resolved
      */
-    public String toString( ConstantPool cp ) {
+    public String toString(ConstantPool cp) {
         return toString(false);
     }
 
 
     /**
      * Use with caution, since `BranchInstruction's have a `target' reference which
-     * is not copied correctly (only basic types are). This also applies for 
+     * is not copied correctly (only basic types are). This also applies for
      * `Select' instructions with their multiple branch targets.
      *
-     * @see BranchInstruction
      * @return (shallow) copy of an instruction
+     * @see BranchInstruction
      */
     public Instruction copy() {
         Instruction i = null;
@@ -129,9 +132,9 @@ public abstract class Instruction implements Cloneable, Serializable {
      * Read needed data (e.g. index) from file.
      *
      * @param bytes byte sequence to read from
-     * @param wide "wide" instruction flag
+     * @param wide  "wide" instruction flag
      */
-    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
+    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
     }
 
 
@@ -142,7 +145,7 @@ public abstract class Instruction implements Cloneable, Serializable {
      * @param bytes input stream bytes
      * @return instruction object being read
      */
-    public static final Instruction readInstruction( ByteSequence bytes ) throws IOException {
+    public static final Instruction readInstruction(ByteSequence bytes) throws IOException {
         boolean wide = false;
         short opcode = (short) bytes.readUnsignedByte();
         Instruction obj = null;
@@ -180,7 +183,7 @@ public abstract class Instruction implements Cloneable, Serializable {
     }
 
 
-    private static final String className( short opcode ) {
+    private static final String className(short opcode) {
         String name = Constants.OPCODE_NAMES[opcode].toUpperCase(Locale.ENGLISH);
         /* ICONST_0, etc. will be shortened to ICONST, etc., since ICONST_0 and the like
          * are not implemented (directly).
@@ -205,10 +208,11 @@ public abstract class Instruction implements Cloneable, Serializable {
      * This method also gives right results for instructions whose
      * effect on the stack depends on the constant pool entry they
      * reference.
-     *  @return Number of words consumed from stack by this instruction,
+     *
+     * @return Number of words consumed from stack by this instruction,
      * or Constants.UNPREDICTABLE, if this can not be computed statically
      */
-    public int consumeStack( ConstantPoolGen cpg ) {
+    public int consumeStack(ConstantPoolGen cpg) {
         return Constants.CONSUME_STACK[opcode];
     }
 
@@ -217,10 +221,11 @@ public abstract class Instruction implements Cloneable, Serializable {
      * This method also gives right results for instructions whose
      * effect on the stack depends on the constant pool entry they
      * reference.
+     *
      * @return Number of words produced onto stack by this instruction,
      * or Constants.UNPREDICTABLE, if this can not be computed statically
      */
-    public int produceStack( ConstantPoolGen cpg ) {
+    public int produceStack(ConstantPoolGen cpg) {
         return Constants.PRODUCE_STACK[opcode];
     }
 
@@ -244,12 +249,13 @@ public abstract class Instruction implements Cloneable, Serializable {
     /**
      * Needed in readInstruction.
      */
-    private void setOpcode( short opcode ) {
+    private void setOpcode(short opcode) {
         this.opcode = opcode;
     }
 
 
-    /** Some instructions may be reused, so don't do anything by default.
+    /**
+     * Some instructions may be reused, so don't do anything by default.
      */
     void dispose() {
     }
@@ -263,10 +269,11 @@ public abstract class Instruction implements Cloneable, Serializable {
      *
      * @param v Visitor object
      */
-    public abstract void accept( Visitor v );
+    public abstract void accept(Visitor v);
 
 
-    /** Get Comparator object used in the equals() method to determine
+    /**
+     * Get Comparator object used in the equals() method to determine
      * equality of instructions.
      *
      * @return currently used comparator for equals()
@@ -276,17 +283,20 @@ public abstract class Instruction implements Cloneable, Serializable {
     }
 
 
-    /** Set comparator to be used for equals().
+    /**
+     * Set comparator to be used for equals().
      */
-    public static void setComparator( InstructionComparator c ) {
+    public static void setComparator(InstructionComparator c) {
         cmp = c;
     }
 
 
-    /** Check for equality, delegated to comparator
+    /**
+     * Check for equality, delegated to comparator
+     *
      * @return true if that is an Instruction and has the same opcode
      */
-    public boolean equals( Object that ) {
+    public boolean equals(Object that) {
         return (that instanceof Instruction) ? cmp.equals(this, (Instruction) that) : false;
     }
 }

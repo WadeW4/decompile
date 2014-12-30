@@ -16,16 +16,17 @@
  */
 package org.apache.bcel.generic;
 
-import java.io.IOException;
 import org.apache.bcel.util.ByteSequence;
 
-/** 
+import java.io.IOException;
+
+/**
  * LDC_W - Push item from constant pool (wide index)
- *
+ * <p/>
  * <PRE>Stack: ... -&gt; ..., item.word1, item.word2</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: LDC_W.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class LDC_W extends LDC {
 
@@ -45,7 +46,7 @@ public class LDC_W extends LDC {
     /**
      * Read needed data (i.e., index) from file.
      */
-    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
+    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
         setIndex(bytes.readUnsignedShort());
         // Override just in case it has been changed
         opcode = org.apache.bcel.Constants.LDC_W;

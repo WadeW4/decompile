@@ -19,14 +19,14 @@ package org.apache.bcel.generic;
 import org.apache.bcel.Constants;
 import org.apache.bcel.ExceptionConstants;
 
-/** 
+/**
  * PUTSTATIC - Put static field in class
  * <PRE>Stack: ..., value -&gt; ...</PRE>
  * OR
  * <PRE>Stack: ..., value.word1, value.word2 -&gt; ...</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: PUTSTATIC.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class PUTSTATIC extends FieldInstruction implements ExceptionThrower, PopInstruction {
 
@@ -43,7 +43,7 @@ public class PUTSTATIC extends FieldInstruction implements ExceptionThrower, Pop
     }
 
 
-    public int consumeStack( ConstantPoolGen cpg ) {
+    public int consumeStack(ConstantPoolGen cpg) {
         return getFieldSize(cpg);
     }
 
@@ -65,7 +65,7 @@ public class PUTSTATIC extends FieldInstruction implements ExceptionThrower, Pop
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitExceptionThrower(this);
         v.visitStackConsumer(this);
         v.visitPopInstruction(this);

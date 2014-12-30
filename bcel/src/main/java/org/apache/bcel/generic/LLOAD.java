@@ -16,12 +16,12 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * LLOAD - Load long from local variable
- *<PRE>Stack ... -&GT; ..., result.word1, result.word2</PRE>
+ * <PRE>Stack ... -&GT; ..., result.word1, result.word2</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: LLOAD.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class LLOAD extends LoadInstruction {
 
@@ -47,7 +47,7 @@ public class LLOAD extends LoadInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         super.accept(v);
         v.visitLLOAD(this);
     }

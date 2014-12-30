@@ -18,11 +18,11 @@ package org.apache.bcel.generic;
 
 /**
  * POP2 - Pop two top operand stack words
- *
+ * <p/>
  * <PRE>Stack: ..., word2, word1 -&gt; ...</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: POP2.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class POP2 extends StackInstruction implements PopInstruction {
 
@@ -39,7 +39,7 @@ public class POP2 extends StackInstruction implements PopInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackConsumer(this);
         v.visitPopInstruction(this);
         v.visitStackInstruction(this);

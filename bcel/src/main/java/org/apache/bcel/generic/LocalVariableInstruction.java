@@ -16,16 +16,17 @@
  */
 package org.apache.bcel.generic;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 import org.apache.bcel.Constants;
 import org.apache.bcel.util.ByteSequence;
+
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 /**
  * Abstract super class for instructions dealing with local variables.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: LocalVariableInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class LocalVariableInstruction extends Instruction implements TypedInstruction,
         IndexedInstruction {
@@ -62,8 +63,8 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
 
     /**
      * @param opcode Instruction opcode
-     * @param c_tag Instruction number for compact version, ALOAD_0, e.g.
-     * @param n local variable index (unsigned short)
+     * @param c_tag  Instruction number for compact version, ALOAD_0, e.g.
+     * @param n      local variable index (unsigned short)
      */
     protected LocalVariableInstruction(short opcode, short c_tag, int n) {
         super(opcode, (short) 2);
@@ -75,9 +76,10 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
 
     /**
      * Dump instruction as byte code to stream out.
+     *
      * @param out Output stream
      */
-    public void dump( DataOutputStream out ) throws IOException {
+    public void dump(DataOutputStream out) throws IOException {
         if (wide()) {
             out.writeByte(Constants.WIDE);
         }
@@ -94,14 +96,14 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
 
     /**
      * Long output format:
-     *
-     * &lt;name of opcode&gt; "["&lt;opcode number&gt;"]" 
+     * <p/>
+     * &lt;name of opcode&gt; "["&lt;opcode number&gt;"]"
      * "("&lt;length of instruction&gt;")" "&lt;"&lt; local variable index&gt;"&gt;"
      *
      * @param verbose long/short format switch
      * @return mnemonic for instruction
      */
-    public String toString( boolean verbose ) {
+    public String toString(boolean verbose) {
         if (((opcode >= Constants.ILOAD_0) && (opcode <= Constants.ALOAD_3))
                 || ((opcode >= Constants.ISTORE_0) && (opcode <= Constants.ASTORE_3))) {
             return super.toString(verbose);
@@ -115,7 +117,7 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
      * Read needed data (e.g. index) from file.
      * PRE: (ILOAD <= tag <= ALOAD_3) || (ISTORE <= tag <= ASTORE_3)
      */
-    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
+    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
         if (wide) {
             n = bytes.readUnsignedShort();
             length = 4;
@@ -144,7 +146,7 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
     /**
      * Set the local variable index
      */
-    public void setIndex( int n ) {
+    public void setIndex(int n) {
         if ((n < 0) || (n > Constants.MAX_SHORT)) {
             throw new ClassGenException("Illegal value: " + n);
         }
@@ -163,7 +165,8 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
     }
 
 
-    /** @return canonical tag for instruction, e.g., ALOAD for ALOAD_0
+    /**
+     * @return canonical tag for instruction, e.g., ALOAD for ALOAD_0
      */
     public short getCanonicalTag() {
         return canon_tag;
@@ -171,14 +174,15 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
 
 
     /**
-     * Returns the type associated with the instruction - 
+     * Returns the type associated with the instruction -
      * in case of ALOAD or ASTORE Type.OBJECT is returned.
      * This is just a bit incorrect, because ALOAD and ASTORE
      * may work on every ReferenceType (including Type.NULL) and
      * ASTORE may even work on a ReturnaddressType .
+     *
      * @return type associated with the instruction
      */
-    public Type getType( ConstantPoolGen cp ) {
+    public Type getType(ConstantPoolGen cp) {
         switch (canon_tag) {
             case Constants.ILOAD:
             case Constants.ISTORE:

@@ -16,26 +16,27 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.apache.bcel.Constants;
 
-/** 
- * This class is derived from the abstract 
- * <A HREF="org.apache.bcel.classfile.Constant.html">Constant</A> class 
+/**
+ * This class is derived from the abstract
+ * <A HREF="org.apache.bcel.classfile.Constant.html">Constant</A> class
  * and represents a reference to a Double object.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ConstantDouble.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     Constant
+ * @see Constant
  */
 public final class ConstantDouble extends Constant implements ConstantObject {
 
     private double bytes;
 
 
-    /** 
+    /**
      * @param bytes Data
      */
     public ConstantDouble(double bytes) {
@@ -52,7 +53,7 @@ public final class ConstantDouble extends Constant implements ConstantObject {
     }
 
 
-    /** 
+    /**
      * Initialize instance from file data.
      *
      * @param file Input stream
@@ -70,7 +71,7 @@ public final class ConstantDouble extends Constant implements ConstantObject {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitConstantDouble(this);
     }
 
@@ -81,7 +82,7 @@ public final class ConstantDouble extends Constant implements ConstantObject {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         file.writeByte(tag);
         file.writeDouble(bytes);
     }
@@ -98,7 +99,7 @@ public final class ConstantDouble extends Constant implements ConstantObject {
     /**
      * @param bytes the raw bytes that represent the double value
      */
-    public final void setBytes( double bytes ) {
+    public final void setBytes(double bytes) {
         this.bytes = bytes;
     }
 
@@ -111,9 +112,10 @@ public final class ConstantDouble extends Constant implements ConstantObject {
     }
 
 
-    /** @return Double object
+    /**
+     * @return Double object
      */
-    public Object getConstantValue( ConstantPool cp ) {
+    public Object getConstantValue(ConstantPool cp) {
         return new Double(bytes);
     }
 }

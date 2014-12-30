@@ -16,18 +16,19 @@
  */
 package org.apache.bcel.util;
 
+import org.apache.bcel.classfile.JavaClass;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.bcel.classfile.JavaClass;
 
-/** 
+/**
  * Utility class implementing a (typesafe) set of JavaClass objects.
  * Since JavaClass has no equals() method, the name of the class is
  * used for comparison.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ClassSet.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A> 
  * @see ClassStack
  */
 public class ClassSet implements java.io.Serializable {
@@ -35,7 +36,7 @@ public class ClassSet implements java.io.Serializable {
     private Map _map = new HashMap();
 
 
-    public boolean add( JavaClass clazz ) {
+    public boolean add(JavaClass clazz) {
         boolean result = false;
         if (!_map.containsKey(clazz.getClassName())) {
             result = true;
@@ -45,7 +46,7 @@ public class ClassSet implements java.io.Serializable {
     }
 
 
-    public void remove( JavaClass clazz ) {
+    public void remove(JavaClass clazz) {
         _map.remove(clazz.getClassName());
     }
 

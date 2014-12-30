@@ -16,15 +16,16 @@
  */
 package org.apache.bcel.generic;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 import org.apache.bcel.util.ByteSequence;
 
-/** 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+/**
  * TABLESWITCH - Switch within given range of values, i.e., low..high
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: TABLESWITCH.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @see SWITCH
  */
 public class TABLESWITCH extends Select {
@@ -38,9 +39,9 @@ public class TABLESWITCH extends Select {
 
 
     /**
-     * @param match sorted array of match values, match[0] must be low value, 
-     * match[match_length - 1] high value
-     * @param targets where to branch for matched values
+     * @param match         sorted array of match values, match[0] must be low value,
+     *                      match[match_length - 1] high value
+     * @param targets       where to branch for matched values
      * @param defaultTarget default branch
      */
     public TABLESWITCH(int[] match, InstructionHandle[] targets, InstructionHandle defaultTarget) {
@@ -53,9 +54,10 @@ public class TABLESWITCH extends Select {
 
     /**
      * Dump instruction as byte code to stream out.
+     *
      * @param out Output stream
      */
-    public void dump( DataOutputStream out ) throws IOException {
+    public void dump(DataOutputStream out) throws IOException {
         super.dump(out);
         int low = (match_length > 0) ? match[0] : 0;
         out.writeInt(low);
@@ -70,7 +72,7 @@ public class TABLESWITCH extends Select {
     /**
      * Read needed data (e.g. index) from file.
      */
-    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
+    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
         super.initFromFile(bytes, wide);
         int low = bytes.readInt();
         int high = bytes.readInt();
@@ -97,7 +99,7 @@ public class TABLESWITCH extends Select {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitVariableLengthInstruction(this);
         v.visitStackProducer(this);
         v.visitBranchInstruction(this);

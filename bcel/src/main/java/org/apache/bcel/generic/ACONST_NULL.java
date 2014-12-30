@@ -16,16 +16,16 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * ACONST_NULL - Push null reference
  * <PRE>Stack: ... -&gt; ..., null</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ACONST_NULL.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class ACONST_NULL extends Instruction implements PushInstruction, TypedInstruction {
 
-    /** 
+    /**
      * Push null reference
      */
     public ACONST_NULL() {
@@ -33,9 +33,10 @@ public class ACONST_NULL extends Instruction implements PushInstruction, TypedIn
     }
 
 
-    /** @return Type.NULL
+    /**
+     * @return Type.NULL
      */
-    public Type getType( ConstantPoolGen cp ) {
+    public Type getType(ConstantPoolGen cp) {
         return Type.NULL;
     }
 
@@ -48,7 +49,7 @@ public class ACONST_NULL extends Instruction implements PushInstruction, TypedIn
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackProducer(this);
         v.visitPushInstruction(this);
         v.visitTypedInstruction(this);

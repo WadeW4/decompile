@@ -16,9 +16,6 @@
  */
 package org.apache.bcel.util;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
 import org.apache.bcel.classfile.Attribute;
 import org.apache.bcel.classfile.Code;
 import org.apache.bcel.classfile.ConstantValue;
@@ -27,12 +24,15 @@ import org.apache.bcel.classfile.Field;
 import org.apache.bcel.classfile.Method;
 import org.apache.bcel.classfile.Utility;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 /**
  * Convert methods and fields into HTML file.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: MethodHTML.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * 
  */
 final class MethodHTML implements org.apache.bcel.Constants {
 
@@ -43,7 +43,7 @@ final class MethodHTML implements org.apache.bcel.Constants {
 
 
     MethodHTML(String dir, String class_name, Method[] methods, Field[] fields,
-            ConstantHTML constant_html, AttributeHTML attribute_html) throws IOException {
+               ConstantHTML constant_html, AttributeHTML attribute_html) throws IOException {
         this.class_name = class_name;
         this.attribute_html = attribute_html;
         this.constant_html = constant_html;
@@ -70,9 +70,9 @@ final class MethodHTML implements org.apache.bcel.Constants {
      * Print field of class.
      *
      * @param field field to print
-     * @exception java.io.IOException
+     * @throws java.io.IOException
      */
-    private void writeField( Field field ) throws IOException {
+    private void writeField(Field field) throws IOException {
         String type = Utility.signatureToString(field.getSignature());
         String name = field.getName();
         String access = Utility.accessToString(field.getAccessFlags());
@@ -99,7 +99,7 @@ final class MethodHTML implements org.apache.bcel.Constants {
     }
 
 
-    private final void writeMethod( Method method, int method_number ) throws IOException {
+    private final void writeMethod(Method method, int method_number) throws IOException {
         // Get raw signature
         String signature = method.getSignature();
         // Get array of strings containing the argument types 

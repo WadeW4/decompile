@@ -23,8 +23,8 @@ package org.apache.bcel.verifier;
  * This can be used for comparison runs between the JVM-internal verifier
  * and JustIce.
  *
- * @version $Id: NativeVerifier.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @author Enver Haase
+ * @version $Id: NativeVerifier.java 386056 2006-03-15 11:31:56Z tcurdt $
  */
 public abstract class NativeVerifier {
 
@@ -38,7 +38,7 @@ public abstract class NativeVerifier {
     /**
      * Works only on the first argument.
      */
-    public static void main( String[] args ) {
+    public static void main(String[] args) {
         if (args.length != 1) {
             System.out.println("Verifier front-end: need exactly one argument.");
             System.exit(1);

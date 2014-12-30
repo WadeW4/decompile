@@ -16,12 +16,12 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * ALOAD - Load reference from local variable
  * <PRE>Stack: ... -&gt; ..., objectref</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ALOAD.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class ALOAD extends LoadInstruction {
 
@@ -34,7 +34,9 @@ public class ALOAD extends LoadInstruction {
     }
 
 
-    /** Load reference from local variable
+    /**
+     * Load reference from local variable
+     *
      * @param n index of local variable
      */
     public ALOAD(int n) {
@@ -50,7 +52,7 @@ public class ALOAD extends LoadInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         super.accept(v);
         v.visitALOAD(this);
     }

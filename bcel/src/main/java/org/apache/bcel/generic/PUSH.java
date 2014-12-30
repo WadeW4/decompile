@@ -18,12 +18,12 @@ package org.apache.bcel.generic;
 
 import org.apache.bcel.Constants;
 
-/** 
+/**
  * Wrapper class for push operations, which are implemented either as BIPUSH,
  * LDC or xCONST_n instructions.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: PUSH.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public final class PUSH implements CompoundInstruction, VariableLengthInstruction,
         InstructionConstants {
@@ -32,10 +32,10 @@ public final class PUSH implements CompoundInstruction, VariableLengthInstructio
 
 
     /**
-     * This constructor also applies for values of type short, char, byte 
+     * This constructor also applies for values of type short, char, byte
      *
-     * @param cp Constant pool
-     * @param value to be pushed 
+     * @param cp    Constant pool
+     * @param value to be pushed
      */
     public PUSH(ConstantPoolGen cp, int value) {
         if ((value >= -1) && (value <= 5)) {
@@ -51,8 +51,8 @@ public final class PUSH implements CompoundInstruction, VariableLengthInstructio
 
 
     /**
-     * @param cp Constant pool
-     * @param value to be pushed 
+     * @param cp    Constant pool
+     * @param value to be pushed
      */
     public PUSH(ConstantPoolGen cp, boolean value) {
         instruction = INSTRUCTIONS[Constants.ICONST_0 + (value ? 1 : 0)];
@@ -60,8 +60,8 @@ public final class PUSH implements CompoundInstruction, VariableLengthInstructio
 
 
     /**
-     * @param cp Constant pool
-     * @param value to be pushed 
+     * @param cp    Constant pool
+     * @param value to be pushed
      */
     public PUSH(ConstantPoolGen cp, float value) {
         if (value == 0.0) {
@@ -77,8 +77,8 @@ public final class PUSH implements CompoundInstruction, VariableLengthInstructio
 
 
     /**
-     * @param cp Constant pool
-     * @param value to be pushed 
+     * @param cp    Constant pool
+     * @param value to be pushed
      */
     public PUSH(ConstantPoolGen cp, long value) {
         if (value == 0) {
@@ -92,8 +92,8 @@ public final class PUSH implements CompoundInstruction, VariableLengthInstructio
 
 
     /**
-     * @param cp Constant pool
-     * @param value to be pushed 
+     * @param cp    Constant pool
+     * @param value to be pushed
      */
     public PUSH(ConstantPoolGen cp, double value) {
         if (value == 0.0) {
@@ -107,8 +107,8 @@ public final class PUSH implements CompoundInstruction, VariableLengthInstructio
 
 
     /**
-     * @param cp Constant pool
-     * @param value to be pushed 
+     * @param cp    Constant pool
+     * @param value to be pushed
      */
     public PUSH(ConstantPoolGen cp, String value) {
         if (value == null) {
@@ -120,8 +120,8 @@ public final class PUSH implements CompoundInstruction, VariableLengthInstructio
 
 
     /**
-     * @param cp Constant pool
-     * @param value to be pushed 
+     * @param cp    Constant pool
+     * @param value to be pushed
      */
     public PUSH(ConstantPoolGen cp, Number value) {
         if ((value instanceof Integer) || (value instanceof Short) || (value instanceof Byte)) {
@@ -141,9 +141,9 @@ public final class PUSH implements CompoundInstruction, VariableLengthInstructio
     /**
      * creates a push object from a Character value. Warning: Make sure not to attempt to allow
      * autoboxing to create this value parameter, as an alternative constructor will be called
-     * 
-     * @param cp Constant pool
-     * @param value to be pushed 
+     *
+     * @param cp    Constant pool
+     * @param value to be pushed
      */
     public PUSH(ConstantPoolGen cp, Character value) {
         this(cp, value.charValue());
@@ -151,8 +151,8 @@ public final class PUSH implements CompoundInstruction, VariableLengthInstructio
 
 
     /**
-     * @param cp Constant pool
-     * @param value to be pushed 
+     * @param cp    Constant pool
+     * @param value to be pushed
      */
     public PUSH(ConstantPoolGen cp, Boolean value) {
         this(cp, value.booleanValue());

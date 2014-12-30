@@ -11,10 +11,10 @@ public class Sample implements Serializable {
     private static final double value5 = 500.0;
 
     public Sample() {
-	super();
+        super();
     }
 
     public Sample(int value) {
-	super();
+        super();
     }
 }

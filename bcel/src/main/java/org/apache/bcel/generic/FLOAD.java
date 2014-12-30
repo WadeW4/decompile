@@ -16,12 +16,12 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * FLOAD - Load float from local variable
  * <PRE>Stack ... -&gt; ..., result</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: FLOAD.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class FLOAD extends LoadInstruction {
 
@@ -34,7 +34,9 @@ public class FLOAD extends LoadInstruction {
     }
 
 
-    /** Load float from local variable
+    /**
+     * Load float from local variable
+     *
      * @param n index of local variable
      */
     public FLOAD(int n) {
@@ -50,7 +52,7 @@ public class FLOAD extends LoadInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         super.accept(v);
         v.visitFLOAD(this);
     }

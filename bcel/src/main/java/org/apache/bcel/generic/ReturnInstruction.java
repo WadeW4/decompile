@@ -22,8 +22,8 @@ import org.apache.bcel.ExceptionConstants;
 /**
  * Super class for the xRETURN family of instructions.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ReturnInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class ReturnInstruction extends Instruction implements ExceptionThrower,
         TypedInstruction, StackConsumer {
@@ -65,15 +65,16 @@ public abstract class ReturnInstruction extends Instruction implements Exception
 
 
     public Class[] getExceptions() {
-        return new Class[] {
-            ExceptionConstants.ILLEGAL_MONITOR_STATE
+        return new Class[]{
+                ExceptionConstants.ILLEGAL_MONITOR_STATE
         };
     }
 
 
-    /** @return type associated with the instruction
+    /**
+     * @return type associated with the instruction
      */
-    public Type getType( ConstantPoolGen cp ) {
+    public Type getType(ConstantPoolGen cp) {
         return getType();
     }
 }

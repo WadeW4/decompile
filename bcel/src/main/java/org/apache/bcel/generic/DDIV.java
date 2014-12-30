@@ -16,17 +16,18 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * DDIV -  Divide doubles
  * <PRE>Stack: ..., value1.word1, value1.word2, value2.word1, value2.word2 -&gt;</PRE>
- *        ..., result.word1, result.word2
+ * ..., result.word1, result.word2
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: DDIV.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class DDIV extends ArithmeticInstruction {
 
-    /** Divide doubles
+    /**
+     * Divide doubles
      */
     public DDIV() {
         super(org.apache.bcel.Constants.DDIV);
@@ -41,7 +42,7 @@ public class DDIV extends ArithmeticInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitTypedInstruction(this);
         v.visitStackProducer(this);
         v.visitStackConsumer(this);

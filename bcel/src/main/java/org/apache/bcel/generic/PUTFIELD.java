@@ -19,14 +19,14 @@ package org.apache.bcel.generic;
 import org.apache.bcel.Constants;
 import org.apache.bcel.ExceptionConstants;
 
-/** 
+/**
  * PUTFIELD - Put field in object
  * <PRE>Stack: ..., objectref, value -&gt; ...</PRE>
  * OR
  * <PRE>Stack: ..., objectref, value.word1, value.word2 -&gt; ...</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: PUTFIELD.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class PUTFIELD extends FieldInstruction implements PopInstruction, ExceptionThrower {
 
@@ -43,7 +43,7 @@ public class PUTFIELD extends FieldInstruction implements PopInstruction, Except
     }
 
 
-    public int consumeStack( ConstantPoolGen cpg ) {
+    public int consumeStack(ConstantPoolGen cpg) {
         return getFieldSize(cpg) + 1;
     }
 
@@ -66,7 +66,7 @@ public class PUTFIELD extends FieldInstruction implements PopInstruction, Except
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitExceptionThrower(this);
         v.visitStackConsumer(this);
         v.visitPopInstruction(this);

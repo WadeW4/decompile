@@ -16,9 +16,6 @@
  */
 package org.apache.bcel.util;
 
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.util.Locale;
 import org.apache.bcel.Constants;
 import org.apache.bcel.Repository;
 import org.apache.bcel.classfile.ClassParser;
@@ -32,15 +29,19 @@ import org.apache.bcel.generic.ConstantPoolGen;
 import org.apache.bcel.generic.MethodGen;
 import org.apache.bcel.generic.Type;
 
-/** 
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.Locale;
+
+/**
  * This class takes a given JavaClass object and converts it to a
  * Java program that creates that very class using BCEL. This
  * gives new users of BCEL a useful example showing how things
  * are done with BCEL. It does not cover all features of BCEL,
  * but tries to mimic hand-written code as close as possible.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: BCELifier.java 394939 2006-04-18 13:23:49Z tcurdt $
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A> 
  */
 public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
 
@@ -52,8 +53,9 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
     private ConstantPoolGen _cp;
 
 
-    /** @param clazz Java class to "decompile"
-     * @param out where to output Java program
+    /**
+     * @param clazz Java class to "decompile"
+     * @param out   where to output Java program
      */
     public BCELifier(JavaClass clazz, OutputStream out) {
         _clazz = clazz;
@@ -62,7 +64,8 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
     }
 
 
-    /** Start Java code generation
+    /**
+     * Start Java code generation
      */
     public void start() {
         visitJavaClass(_clazz);
@@ -70,7 +73,7 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
     }
 
 
-    public void visitJavaClass( JavaClass clazz ) {
+    public void visitJavaClass(JavaClass clazz) {
         String class_name = clazz.getClassName();
         String super_name = clazz.getSuperclassName();
         String package_name = clazz.getPackageName();
@@ -149,7 +152,7 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
     }
 
 
-    public void visitField( Field field ) {
+    public void visitField(Field field) {
         _out.println();
         _out.println("    field = new FieldGen(" + printFlags(field.getAccessFlags()) + ", "
                 + printType(field.getSignature()) + ", \"" + field.getName() + "\", _cp);");
@@ -162,7 +165,7 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
     }
 
 
-    public void visitMethod( Method method ) {
+    public void visitMethod(Method method) {
         MethodGen mg = new MethodGen(method, _clazz.getClassName(), _cp);
         Type result_type = mg.getReturnType();
         Type[] arg_types = mg.getArgumentTypes();
@@ -182,12 +185,12 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
     }
 
 
-    static String printFlags( int flags ) {
+    static String printFlags(int flags) {
         return printFlags(flags, FLAG_FOR_UNKNOWN);
     }
 
 
-    static String printFlags( int flags, int reason ) {
+    static String printFlags(int flags, int reason) {
         if (flags == 0) {
             return "0";
         }
@@ -203,7 +206,7 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
                 } else {
                     buf.append("ACC_")
                             .append(Constants.ACCESS_NAMES[i].toUpperCase(Locale.ENGLISH)).append(
-                                    " | ");
+                            " | ");
                 }
             }
             pow <<= 1;
@@ -213,7 +216,7 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
     }
 
 
-    static String printArgumentTypes( Type[] arg_types ) {
+    static String printArgumentTypes(Type[] arg_types) {
         if (arg_types.length == 0) {
             return "Type.NO_ARGS";
         }
@@ -228,12 +231,12 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
     }
 
 
-    static String printType( Type type ) {
+    static String printType(Type type) {
         return printType(type.getSignature());
     }
 
 
-    static String printType( String signature ) {
+    static String printType(String signature) {
         Type type = Type.getType(signature);
         byte t = type.getType();
         if (t <= Constants.T_VOID) {
@@ -254,9 +257,10 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
     }
 
 
-    /** Default main method
+    /**
+     * Default main method
      */
-    public static void main( String[] argv ) throws Exception {
+    public static void main(String[] argv) throws Exception {
         JavaClass java_class;
         String name = argv[0];
         if ((java_class = Repository.lookupClass(name)) == null) {

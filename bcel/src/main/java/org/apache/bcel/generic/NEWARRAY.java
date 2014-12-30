@@ -16,17 +16,18 @@
  */
 package org.apache.bcel.generic;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 import org.apache.bcel.util.ByteSequence;
 
-/** 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+/**
  * NEWARRAY -  Create new array of basic type (int, short, ...)
  * <PRE>Stack: ..., count -&gt; ..., arrayref</PRE>
  * type must be one of T_INT, T_SHORT, ...
- * 
+ *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: NEWARRAY.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class NEWARRAY extends Instruction implements AllocationInstruction, ExceptionThrower,
         StackProducer {
@@ -55,9 +56,10 @@ public class NEWARRAY extends Instruction implements AllocationInstruction, Exce
 
     /**
      * Dump instruction as byte code to stream out.
+     *
      * @param out Output stream
      */
-    public void dump( DataOutputStream out ) throws IOException {
+    public void dump(DataOutputStream out) throws IOException {
         out.writeByte(opcode);
         out.writeByte(type);
     }
@@ -82,7 +84,7 @@ public class NEWARRAY extends Instruction implements AllocationInstruction, Exce
     /**
      * @return mnemonic for instruction
      */
-    public String toString( boolean verbose ) {
+    public String toString(boolean verbose) {
         return super.toString(verbose) + " " + org.apache.bcel.Constants.TYPE_NAMES[type];
     }
 
@@ -90,15 +92,15 @@ public class NEWARRAY extends Instruction implements AllocationInstruction, Exce
     /**
      * Read needed data (e.g. index) from file.
      */
-    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
+    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
         type = bytes.readByte();
         length = 2;
     }
 
 
     public Class[] getExceptions() {
-        return new Class[] {
-            org.apache.bcel.ExceptionConstants.NEGATIVE_ARRAY_SIZE_EXCEPTION
+        return new Class[]{
+                org.apache.bcel.ExceptionConstants.NEGATIVE_ARRAY_SIZE_EXCEPTION
         };
     }
 
@@ -111,7 +113,7 @@ public class NEWARRAY extends Instruction implements AllocationInstruction, Exce
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitAllocationInstruction(this);
         v.visitExceptionThrower(this);
         v.visitStackProducer(this);

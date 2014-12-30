@@ -18,12 +18,13 @@ package org.apache.bcel.generic;
 
 import org.apache.bcel.Constants;
 
-/** 
+/**
  * Returnaddress, the type JSR or JSR_W instructions push upon the stack.
- *
+ * <p/>
  * see vmspec2 �3.3.3
- * @version $Id: ReturnaddressType.java 386056 2006-03-15 11:31:56Z tcurdt $
+ *
  * @author Enver Haase
+ * @version $Id: ReturnaddressType.java 386056 2006-03-15 11:31:56Z tcurdt $
  */
 public class ReturnaddressType extends Type {
 
@@ -48,7 +49,8 @@ public class ReturnaddressType extends Type {
     }
 
 
-    /** @return a hash code value for the object.
+    /**
+     * @return a hash code value for the object.
      */
     public int hashCode() {
         if (returnTarget == null) {
@@ -61,7 +63,7 @@ public class ReturnaddressType extends Type {
     /**
      * Returns if the two Returnaddresses refer to the same target.
      */
-    public boolean equals( Object rat ) {
+    public boolean equals(Object rat) {
         if (!(rat instanceof ReturnaddressType)) {
             return false;
         }

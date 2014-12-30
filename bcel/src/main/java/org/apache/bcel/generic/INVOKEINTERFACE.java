@@ -16,19 +16,20 @@
  */
 package org.apache.bcel.generic;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 import org.apache.bcel.Constants;
 import org.apache.bcel.ExceptionConstants;
 import org.apache.bcel.classfile.ConstantPool;
 import org.apache.bcel.util.ByteSequence;
 
-/** 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+/**
  * INVOKEINTERFACE - Invoke interface method
  * <PRE>Stack: ..., objectref, [arg1, [arg2 ...]] -&gt; ...</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: INVOKEINTERFACE.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public final class INVOKEINTERFACE extends InvokeInstruction {
 
@@ -55,9 +56,10 @@ public final class INVOKEINTERFACE extends InvokeInstruction {
 
     /**
      * Dump instruction as byte code to stream out.
+     *
      * @param out Output stream
      */
-    public void dump( DataOutputStream out ) throws IOException {
+    public void dump(DataOutputStream out) throws IOException {
         out.writeByte(opcode);
         out.writeShort(index);
         out.writeByte(nargs);
@@ -77,7 +79,7 @@ public final class INVOKEINTERFACE extends InvokeInstruction {
     /**
      * Read needed data (i.e., index) from file.
      */
-    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
+    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
         super.initFromFile(bytes, wide);
         length = 5;
         nargs = bytes.readUnsignedByte();
@@ -88,12 +90,12 @@ public final class INVOKEINTERFACE extends InvokeInstruction {
     /**
      * @return mnemonic for instruction with symbolic references resolved
      */
-    public String toString( ConstantPool cp ) {
+    public String toString(ConstantPool cp) {
         return super.toString(cp) + " " + nargs;
     }
 
 
-    public int consumeStack( ConstantPoolGen cpg ) { // nargs is given in byte-code
+    public int consumeStack(ConstantPoolGen cpg) { // nargs is given in byte-code
         return nargs; // nargs includes this reference
     }
 
@@ -118,7 +120,7 @@ public final class INVOKEINTERFACE extends InvokeInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitExceptionThrower(this);
         v.visitTypedInstruction(this);
         v.visitStackConsumer(this);

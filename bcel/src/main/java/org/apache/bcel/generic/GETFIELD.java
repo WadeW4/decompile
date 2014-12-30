@@ -19,14 +19,14 @@ package org.apache.bcel.generic;
 import org.apache.bcel.Constants;
 import org.apache.bcel.ExceptionConstants;
 
-/** 
+/**
  * GETFIELD - Fetch field from object
  * <PRE>Stack: ..., objectref -&gt; ..., value</PRE>
  * OR
  * <PRE>Stack: ..., objectref -&gt; ..., value.word1, value.word2</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: GETFIELD.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class GETFIELD extends FieldInstruction implements ExceptionThrower, StackConsumer,
         StackProducer {
@@ -44,7 +44,7 @@ public class GETFIELD extends FieldInstruction implements ExceptionThrower, Stac
     }
 
 
-    public int produceStack( ConstantPoolGen cpg ) {
+    public int produceStack(ConstantPoolGen cpg) {
         return getFieldSize(cpg);
     }
 
@@ -67,7 +67,7 @@ public class GETFIELD extends FieldInstruction implements ExceptionThrower, Stac
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitExceptionThrower(this);
         v.visitStackConsumer(this);
         v.visitStackProducer(this);

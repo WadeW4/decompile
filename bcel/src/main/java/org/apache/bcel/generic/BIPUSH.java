@@ -16,17 +16,18 @@
  */
 package org.apache.bcel.generic;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 import org.apache.bcel.util.ByteSequence;
 
-/** 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+/**
  * BIPUSH - Push byte on stack
- *
+ * <p/>
  * <PRE>Stack: ... -&gt; ..., value</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: BIPUSH.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class BIPUSH extends Instruction implements ConstantPushInstruction {
 
@@ -41,7 +42,8 @@ public class BIPUSH extends Instruction implements ConstantPushInstruction {
     }
 
 
-    /** Push byte on stack
+    /**
+     * Push byte on stack
      */
     public BIPUSH(byte b) {
         super(org.apache.bcel.Constants.BIPUSH, (short) 2);
@@ -52,7 +54,7 @@ public class BIPUSH extends Instruction implements ConstantPushInstruction {
     /**
      * Dump instruction as byte code to stream out.
      */
-    public void dump( DataOutputStream out ) throws IOException {
+    public void dump(DataOutputStream out) throws IOException {
         super.dump(out);
         out.writeByte(b);
     }
@@ -61,7 +63,7 @@ public class BIPUSH extends Instruction implements ConstantPushInstruction {
     /**
      * @return mnemonic for instruction
      */
-    public String toString( boolean verbose ) {
+    public String toString(boolean verbose) {
         return super.toString(verbose) + " " + b;
     }
 
@@ -69,7 +71,7 @@ public class BIPUSH extends Instruction implements ConstantPushInstruction {
     /**
      * Read needed data (e.g. index) from file.
      */
-    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
+    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
         length = 2;
         b = bytes.readByte();
     }
@@ -80,9 +82,10 @@ public class BIPUSH extends Instruction implements ConstantPushInstruction {
     }
 
 
-    /** @return Type.BYTE
+    /**
+     * @return Type.BYTE
      */
-    public Type getType( ConstantPoolGen cp ) {
+    public Type getType(ConstantPoolGen cp) {
         return Type.BYTE;
     }
 
@@ -95,7 +98,7 @@ public class BIPUSH extends Instruction implements ConstantPushInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitPushInstruction(this);
         v.visitStackProducer(this);
         v.visitTypedInstruction(this);

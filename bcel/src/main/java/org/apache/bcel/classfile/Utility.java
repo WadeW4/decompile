@@ -16,6 +16,9 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+import org.apache.bcel.util.ByteSequence;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.CharArrayReader;
@@ -32,23 +35,21 @@ import java.util.List;
 import java.util.Locale;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
-import org.apache.bcel.Constants;
-import org.apache.bcel.util.ByteSequence;
 
 /**
  * Utility functions that do not really belong to any class in particular.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: Utility.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class Utility {
 
-    private static int unwrap( ThreadLocal tl ) {
+    private static int unwrap(ThreadLocal tl) {
         return ((Integer) tl.get()).intValue();
     }
 
 
-    private static void wrap( ThreadLocal tl, int value ) {
+    private static void wrap(ThreadLocal tl, int value) {
         tl.set(new Integer(value));
     }
 
@@ -76,27 +77,27 @@ public abstract class Utility {
     /**
      * Convert bit field of flags into string such as `static final'.
      *
-     * @param  access_flags Access flags
+     * @param access_flags Access flags
      * @return String representation of flags
      */
-    public static final String accessToString( int access_flags ) {
+    public static final String accessToString(int access_flags) {
         return accessToString(access_flags, false);
     }
 
 
     /**
      * Convert bit field of flags into string such as `static final'.
-     *
+     * <p/>
      * Special case: Classes compiled with new compilers and with the
      * `ACC_SUPER' flag would be said to be "synchronized". This is
      * because SUN used the same value for the flags `ACC_SUPER' and
-     * `ACC_SYNCHRONIZED'. 
+     * `ACC_SYNCHRONIZED'.
      *
-     * @param  access_flags Access flags
-     * @param  for_class access flags are for class qualifiers ?
+     * @param access_flags Access flags
+     * @param for_class    access flags are for class qualifiers ?
      * @return String representation of flags
      */
-    public static final String accessToString( int access_flags, boolean for_class ) {
+    public static final String accessToString(int access_flags, boolean for_class) {
         StringBuffer buf = new StringBuffer();
         int p = 0;
         for (int i = 0; p < Constants.MAX_ACC_FLAG; i++) { // Loop through known flags
@@ -120,27 +121,27 @@ public abstract class Utility {
     /**
      * @return "class" or "interface", depending on the ACC_INTERFACE flag
      */
-    public static final String classOrInterface( int access_flags ) {
+    public static final String classOrInterface(int access_flags) {
         return ((access_flags & Constants.ACC_INTERFACE) != 0) ? "interface" : "class";
     }
 
 
     /**
-     * Disassemble a byte array of JVM byte codes starting from code line 
+     * Disassemble a byte array of JVM byte codes starting from code line
      * `index' and return the disassembled string representation. Decode only
      * `num' opcodes (including their operands), use -1 if you want to
      * decompile everything.
      *
-     * @param  code byte code array
-     * @param  constant_pool Array of constants
-     * @param  index offset in `code' array
-     * <EM>(number of opcodes, not bytes!)</EM>
-     * @param  length number of opcodes to decompile, -1 for all
-     * @param  verbose be verbose, e.g. print constant pool index
+     * @param code          byte code array
+     * @param constant_pool Array of constants
+     * @param index         offset in `code' array
+     *                      <EM>(number of opcodes, not bytes!)</EM>
+     * @param length        number of opcodes to decompile, -1 for all
+     * @param verbose       be verbose, e.g. print constant pool index
      * @return String representation of byte codes
      */
-    public static final String codeToString( byte[] code, ConstantPool constant_pool, int index,
-            int length, boolean verbose ) {
+    public static final String codeToString(byte[] code, ConstantPool constant_pool, int index,
+                                            int length, boolean verbose) {
         StringBuffer buf = new StringBuffer(code.length * 20); // Should be sufficient
         ByteSequence stream = new ByteSequence(code);
         try {
@@ -163,8 +164,8 @@ public abstract class Utility {
     }
 
 
-    public static final String codeToString( byte[] code, ConstantPool constant_pool, int index,
-            int length ) {
+    public static final String codeToString(byte[] code, ConstantPool constant_pool, int index,
+                                            int length) {
         return codeToString(code, constant_pool, index, length, true);
     }
 
@@ -173,13 +174,13 @@ public abstract class Utility {
      * Disassemble a stream of byte codes and return the
      * string representation.
      *
-     * @param  bytes stream of bytes
-     * @param  constant_pool Array of constants
-     * @param  verbose be verbose, e.g. print constant pool index
+     * @param bytes         stream of bytes
+     * @param constant_pool Array of constants
+     * @param verbose       be verbose, e.g. print constant pool index
      * @return String representation of byte code
      */
-    public static final String codeToString( ByteSequence bytes, ConstantPool constant_pool,
-            boolean verbose ) throws IOException {
+    public static final String codeToString(ByteSequence bytes, ConstantPool constant_pool,
+                                            boolean verbose) throws IOException {
         short opcode = (short) bytes.readUnsignedByte();
         int default_offset = 0, low, high, npairs;
         int index, vindex, constant;
@@ -242,7 +243,7 @@ public abstract class Utility {
                 }
                 buf.append(")");
             }
-                break;
+            break;
             /* Two address bytes + offset from start of byte stream form the
              * jump target
              */
@@ -382,7 +383,7 @@ public abstract class Utility {
                                 Constants.CONSTANT_Class), false)).append(">\t").append(dimensions)
                         .append((verbose ? " (" + index + ")" : ""));
             }
-                break;
+            break;
             /* Increment local variable.
              */
             case Constants.IINC:
@@ -421,20 +422,20 @@ public abstract class Utility {
     }
 
 
-    public static final String codeToString( ByteSequence bytes, ConstantPool constant_pool )
+    public static final String codeToString(ByteSequence bytes, ConstantPool constant_pool)
             throws IOException {
         return codeToString(bytes, constant_pool, true);
     }
 
 
     /**
-     * Shorten long class names, <em>java/lang/String</em> becomes 
+     * Shorten long class names, <em>java/lang/String</em> becomes
      * <em>String</em>.
      *
      * @param str The long class name
      * @return Compacted class name
      */
-    public static final String compactClassName( String str ) {
+    public static final String compactClassName(String str) {
         return compactClassName(str, true);
     }
 
@@ -445,12 +446,12 @@ public abstract class Utility {
      * class name starts with this string and the flag <em>chopit</em> is true.
      * Slashes <em>/</em> are converted to dots <em>.</em>.
      *
-     * @param str The long class name
+     * @param str    The long class name
      * @param prefix The prefix the get rid off
      * @param chopit Flag that determines whether chopping is executed or not
      * @return Compacted class name
      */
-    public static final String compactClassName( String str, String prefix, boolean chopit ) {
+    public static final String compactClassName(String str, String prefix, boolean chopit) {
         int len = prefix.length();
         str = str.replace('/', '.'); // Is `/' on all systems, even DOS
         if (chopit) {
@@ -464,16 +465,16 @@ public abstract class Utility {
 
 
     /**
-     * Shorten long class names, <em>java/lang/String</em> becomes 
+     * Shorten long class names, <em>java/lang/String</em> becomes
      * <em>java.lang.String</em>,
      * e.g.. If <em>chopit</em> is <em>true</em> the prefix <em>java.lang</em>
      * is also removed.
      *
-     * @param str The long class name
+     * @param str    The long class name
      * @param chopit Flag that determines whether chopping is executed or not
      * @return Compacted class name
      */
-    public static final String compactClassName( String str, boolean chopit ) {
+    public static final String compactClassName(String str, boolean chopit) {
         return compactClassName(str, "java.lang.", chopit);
     }
 
@@ -481,7 +482,7 @@ public abstract class Utility {
     /**
      * @return `flag' with bit `i' set to 1
      */
-    public static final int setBit( int flag, int i ) {
+    public static final int setBit(int flag, int i) {
         return flag | pow2(i);
     }
 
@@ -489,7 +490,7 @@ public abstract class Utility {
     /**
      * @return `flag' with bit `i' set to 0
      */
-    public static final int clearBit( int flag, int i ) {
+    public static final int clearBit(int flag, int i) {
         int bit = pow2(i);
         return (flag & bit) == 0 ? flag : flag ^ bit;
     }
@@ -498,20 +499,20 @@ public abstract class Utility {
     /**
      * @return true, if bit `i' in `flag' is set
      */
-    public static final boolean isSet( int flag, int i ) {
+    public static final boolean isSet(int flag, int i) {
         return (flag & pow2(i)) != 0;
     }
 
 
     /**
-     * Converts string containing the method return and argument types 
+     * Converts string containing the method return and argument types
      * to a byte code method signature.
      *
-     * @param  ret Return type of method
-     * @param  argv Types of method arguments
+     * @param ret  Return type of method
+     * @param argv Types of method arguments
      * @return Byte code representation of method signature
      */
-    public final static String methodTypeToSignature( String ret, String[] argv )
+    public final static String methodTypeToSignature(String ret, String[] argv)
             throws ClassFormatException {
         StringBuffer buf = new StringBuffer("(");
         String str;
@@ -531,23 +532,23 @@ public abstract class Utility {
 
 
     /**
-     * @param  signature    Method signature
+     * @param signature Method signature
      * @return Array of argument types
-     * @throws  ClassFormatException  
+     * @throws ClassFormatException
      */
-    public static final String[] methodSignatureArgumentTypes( String signature )
+    public static final String[] methodSignatureArgumentTypes(String signature)
             throws ClassFormatException {
         return methodSignatureArgumentTypes(signature, true);
     }
 
 
     /**
-     * @param  signature    Method signature
-     * @param chopit Shorten class names ?
+     * @param signature Method signature
+     * @param chopit    Shorten class names ?
      * @return Array of argument types
-     * @throws  ClassFormatException  
+     * @throws ClassFormatException
      */
-    public static final String[] methodSignatureArgumentTypes( String signature, boolean chopit )
+    public static final String[] methodSignatureArgumentTypes(String signature, boolean chopit)
             throws ClassFormatException {
         List vec = new ArrayList();
         int index;
@@ -569,23 +570,23 @@ public abstract class Utility {
 
 
     /**
-     * @param  signature    Method signature
+     * @param signature Method signature
      * @return return type of method
-     * @throws  ClassFormatException  
+     * @throws ClassFormatException
      */
-    public static final String methodSignatureReturnType( String signature )
+    public static final String methodSignatureReturnType(String signature)
             throws ClassFormatException {
         return methodSignatureReturnType(signature, true);
     }
 
 
     /**
-     * @param  signature    Method signature
-     * @param chopit Shorten class names ?
+     * @param signature Method signature
+     * @param chopit    Shorten class names ?
      * @return return type of method
-     * @throws  ClassFormatException  
+     * @throws ClassFormatException
      */
-    public static final String methodSignatureReturnType( String signature, boolean chopit )
+    public static final String methodSignatureReturnType(String signature, boolean chopit)
             throws ClassFormatException {
         int index;
         String type;
@@ -604,17 +605,17 @@ public abstract class Utility {
      * Converts method signature to string with all class names compacted.
      *
      * @param signature to convert
-     * @param name of method
-     * @param access flags of method
+     * @param name      of method
+     * @param access    flags of method
      * @return Human readable signature
      */
-    public static final String methodSignatureToString( String signature, String name, String access ) {
+    public static final String methodSignatureToString(String signature, String name, String access) {
         return methodSignatureToString(signature, name, access, true);
     }
 
 
-    public static final String methodSignatureToString( String signature, String name,
-            String access, boolean chopit ) {
+    public static final String methodSignatureToString(String signature, String name,
+                                                       String access, boolean chopit) {
         return methodSignatureToString(signature, name, access, chopit, null);
     }
 
@@ -622,32 +623,32 @@ public abstract class Utility {
     /**
      * A return�type signature represents the return value from a method.
      * It is a series of bytes in the following grammar:
-     *
+     * <p/>
      * <return_signature> ::= <field_type> | V
-     *
+     * <p/>
      * The character V indicates that the method returns no value. Otherwise, the
      * signature indicates the type of the return value.
      * An argument signature represents an argument passed to a method:
-     *
+     * <p/>
      * <argument_signature> ::= <field_type>
-     *
+     * <p/>
      * A method signature represents the arguments that the method expects, and
      * the value that it returns.
      * <method_signature> ::= (<arguments_signature>) <return_signature>
      * <arguments_signature>::= <argument_signature>*
-     *
+     * <p/>
      * This method converts such a string into a Java type declaration like
-     * `void main(String[])' and throws a `ClassFormatException' when the parsed 
+     * `void main(String[])' and throws a `ClassFormatException' when the parsed
      * type is invalid.
      *
-     * @param  signature    Method signature
-     * @param  name         Method name
-     * @param  access       Method access rights
+     * @param signature Method signature
+     * @param name      Method name
+     * @param access    Method access rights
      * @return Java type declaration
-     * @throws  ClassFormatException  
+     * @throws ClassFormatException
      */
-    public static final String methodSignatureToString( String signature, String name,
-            String access, boolean chopit, LocalVariableTable vars ) throws ClassFormatException {
+    public static final String methodSignatureToString(String signature, String name,
+                                                       String access, boolean chopit, LocalVariableTable vars) throws ClassFormatException {
         StringBuffer buf = new StringBuffer("(");
         String type;
         int index;
@@ -693,7 +694,7 @@ public abstract class Utility {
 
 
     // Guess what this does
-    private static final int pow2( int n ) {
+    private static final int pow2(int n) {
         return 1 << n;
     }
 
@@ -701,12 +702,12 @@ public abstract class Utility {
     /**
      * Replace all occurences of <em>old</em> in <em>str</em> with <em>new</em>.
      *
-     * @param str String to permute
-     * @param old String to be replaced
+     * @param str  String to permute
+     * @param old  String to be replaced
      * @param new_ Replacement string
      * @return new String object
      */
-    public static final String replace( String str, String old, String new_ ) {
+    public static final String replace(String str, String old, String new_) {
         int index, old_index;
         StringBuffer buf = new StringBuffer();
         try {
@@ -734,23 +735,23 @@ public abstract class Utility {
      * @param signature to convert
      * @return Human readable signature
      */
-    public static final String signatureToString( String signature ) {
+    public static final String signatureToString(String signature) {
         return signatureToString(signature, true);
     }
 
 
     /**
-     * The field signature represents the value of an argument to a function or 
-     * the value of a variable. It is a series of bytes generated by the 
+     * The field signature represents the value of an argument to a function or
+     * the value of a variable. It is a series of bytes generated by the
      * following grammar:
-     *
+     * <p/>
      * <PRE>
      * <field_signature> ::= <field_type>
      * <field_type>      ::= <base_type>|<object_type>|<array_type>
      * <base_type>       ::= B|C|D|F|I|J|S|Z
      * <object_type>     ::= L<fullclassname>;
      * <array_type>      ::= [<field_type>
-     *
+     * <p/>
      * The meaning of the base types is as follows:
      * B byte signed byte
      * C char character
@@ -763,17 +764,17 @@ public abstract class Utility {
      * Z boolean true or false
      * [<field sig> ... array
      * </PRE>
-     *
+     * <p/>
      * This method converts this string into a Java type declaration such as
-     * `String[]' and throws a `ClassFormatException' when the parsed type is 
+     * `String[]' and throws a `ClassFormatException' when the parsed type is
      * invalid.
      *
-     * @param  signature  Class signature
-     * @param chopit Flag that determines whether chopping is executed or not
+     * @param signature Class signature
+     * @param chopit    Flag that determines whether chopping is executed or not
      * @return Java type declaration
      * @throws ClassFormatException
      */
-    public static final String signatureToString( String signature, boolean chopit ) {
+    public static final String signatureToString(String signature, boolean chopit) {
         //corrected concurrent private static field acess
         wrap(consumed_chars, 1); // This is the default, read just one char like `B'
         try {
@@ -833,18 +834,20 @@ public abstract class Utility {
     }
 
 
-    /** Parse Java type such as "char", or "java.lang.String[]" and return the
+    /**
+     * Parse Java type such as "char", or "java.lang.String[]" and return the
      * signature in byte code format, e.g. "C" or "[Ljava/lang/String;" respectively.
      *
-     * @param  type Java type
+     * @param type Java type
      * @return byte code signature
      */
-    public static String getSignature( String type ) {
+    public static String getSignature(String type) {
         StringBuffer buf = new StringBuffer();
         char[] chars = type.toCharArray();
         boolean char_found = false, delim = false;
         int index = -1;
-        loop: for (int i = 0; i < chars.length; i++) {
+        loop:
+        for (int i = 0; i < chars.length; i++) {
             switch (chars[i]) {
                 case ' ':
                 case '\t':
@@ -891,7 +894,7 @@ public abstract class Utility {
     }
 
 
-    private static int countBrackets( String brackets ) {
+    private static int countBrackets(String brackets) {
         char[] chars = brackets.toCharArray();
         int count = 0;
         boolean open = false;
@@ -924,11 +927,11 @@ public abstract class Utility {
     /**
      * Return type of method signature as a byte value as defined in <em>Constants</em>
      *
-     * @param  signature in format described above
+     * @param signature in format described above
      * @return type of method signature
-     * @see    Constants
+     * @see Constants
      */
-    public static final byte typeOfMethodSignature( String signature ) throws ClassFormatException {
+    public static final byte typeOfMethodSignature(String signature) throws ClassFormatException {
         int index;
         try {
             if (signature.charAt(0) != '(') {
@@ -945,11 +948,11 @@ public abstract class Utility {
     /**
      * Return type of signature as a byte value as defined in <em>Constants</em>
      *
-     * @param  signature in format described above
+     * @param signature in format described above
      * @return type of signature
-     * @see    Constants
+     * @see Constants
      */
-    public static final byte typeOfSignature( String signature ) throws ClassFormatException {
+    public static final byte typeOfSignature(String signature) throws ClassFormatException {
         try {
             switch (signature.charAt(0)) {
                 case 'B':
@@ -983,9 +986,10 @@ public abstract class Utility {
     }
 
 
-    /** Map opcode names to opcode numbers. E.g., return Constants.ALOAD for "aload"
+    /**
+     * Map opcode names to opcode numbers. E.g., return Constants.ALOAD for "aload"
      */
-    public static short searchOpcode( String name ) {
+    public static short searchOpcode(String name) {
         name = name.toLowerCase(Locale.ENGLISH);
         for (short i = 0; i < Constants.OPCODE_NAMES.length; i++) {
             if (Constants.OPCODE_NAMES[i].equals(name)) {
@@ -1000,16 +1004,17 @@ public abstract class Utility {
      * Convert (signed) byte to (unsigned) short value, i.e., all negative
      * values become positive.
      */
-    private static final short byteToShort( byte b ) {
+    private static final short byteToShort(byte b) {
         return (b < 0) ? (short) (256 + b) : (short) b;
     }
 
 
-    /** Convert bytes into hexidecimal string
+    /**
+     * Convert bytes into hexidecimal string
      *
      * @return bytes as hexidecimal string, e.g. 00 FA 12 ...
      */
-    public static final String toHexString( byte[] bytes ) {
+    public static final String toHexString(byte[] bytes) {
         StringBuffer buf = new StringBuffer();
         for (int i = 0; i < bytes.length; i++) {
             short b = byteToShort(bytes[i]);
@@ -1030,13 +1035,13 @@ public abstract class Utility {
      * Return a string for an integer justified left or right and filled up with
      * `fill' characters if necessary.
      *
-     * @param i integer to format
-     * @param length length of desired string
+     * @param i            integer to format
+     * @param length       length of desired string
      * @param left_justify format left or right
-     * @param fill fill character
+     * @param fill         fill character
      * @return formatted int
      */
-    public static final String format( int i, int length, boolean left_justify, char fill ) {
+    public static final String format(int i, int length, boolean left_justify, char fill) {
         return fillup(Integer.toString(i), length, left_justify, fill);
     }
 
@@ -1044,13 +1049,13 @@ public abstract class Utility {
     /**
      * Fillup char with up to length characters with char `fill' and justify it left or right.
      *
-     * @param str string to format
-     * @param length length of desired string
+     * @param str          string to format
+     * @param length       length of desired string
      * @param left_justify format left or right
-     * @param fill fill character
+     * @param fill         fill character
      * @return formatted string
      */
-    public static final String fillup( String str, int length, boolean left_justify, char fill ) {
+    public static final String fillup(String str, int length, boolean left_justify, char fill) {
         int len = length - str.length();
         char[] buf = new char[(len < 0) ? 0 : len];
         for (int j = 0; j < buf.length; j++) {
@@ -1063,7 +1068,7 @@ public abstract class Utility {
     }
 
 
-    static final boolean equals( byte[] a, byte[] b ) {
+    static final boolean equals(byte[] a, byte[] b) {
         int size;
         if ((size = a.length) != b.length) {
             return false;
@@ -1077,27 +1082,27 @@ public abstract class Utility {
     }
 
 
-    public static final void printArray( PrintStream out, Object[] obj ) {
+    public static final void printArray(PrintStream out, Object[] obj) {
         out.println(printArray(obj, true));
     }
 
 
-    public static final void printArray( PrintWriter out, Object[] obj ) {
+    public static final void printArray(PrintWriter out, Object[] obj) {
         out.println(printArray(obj, true));
     }
 
 
-    public static final String printArray( Object[] obj ) {
+    public static final String printArray(Object[] obj) {
         return printArray(obj, true);
     }
 
 
-    public static final String printArray( Object[] obj, boolean braces ) {
+    public static final String printArray(Object[] obj, boolean braces) {
         return printArray(obj, braces, false);
     }
 
 
-    public static final String printArray( Object[] obj, boolean braces, boolean quote ) {
+    public static final String printArray(Object[] obj, boolean braces, boolean quote) {
         if (obj == null) {
             return null;
         }
@@ -1123,15 +1128,17 @@ public abstract class Utility {
     }
 
 
-    /** @return true, if character is one of (a, ... z, A, ... Z, 0, ... 9, _)
+    /**
+     * @return true, if character is one of (a, ... z, A, ... Z, 0, ... 9, _)
      */
-    public static boolean isJavaIdentifierPart( char ch ) {
+    public static boolean isJavaIdentifierPart(char ch) {
         return ((ch >= 'a') && (ch <= 'z')) || ((ch >= 'A') && (ch <= 'Z'))
                 || ((ch >= '0') && (ch <= '9')) || (ch == '_');
     }
 
 
-    /** Encode byte array it into Java identifier string, i.e., a string
+    /**
+     * Encode byte array it into Java identifier string, i.e., a string
      * that only contains the following characters: (a, ... z, A, ... Z,
      * 0, ... 9, _, $).  The encoding algorithm itself is not too
      * clever: if the current byte's ASCII value already is a valid Java
@@ -1141,13 +1148,13 @@ public abstract class Utility {
      * 200..247</li> <li>a Java identifier char not used in a lowercase
      * hexadecimal string, if the value is in the range
      * 200..247</li><ul></p>
-     *
+     * <p/>
      * <p>This operation inflates the original byte array by roughly 40-50%</p>
      *
-     * @param bytes the byte array to convert
+     * @param bytes    the byte array to convert
      * @param compress use gzip to minimize string
      */
-    public static String encode( byte[] bytes, boolean compress ) throws IOException {
+    public static String encode(byte[] bytes, boolean compress) throws IOException {
         if (compress) {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             GZIPOutputStream gos = new GZIPOutputStream(baos);
@@ -1166,12 +1173,13 @@ public abstract class Utility {
     }
 
 
-    /** Decode a string back to a byte array.
+    /**
+     * Decode a string back to a byte array.
      *
-     * @param s the string to convert
+     * @param s          the string to convert
      * @param uncompress use gzip to uncompress the stream of bytes
      */
-    public static byte[] decode( String s, boolean uncompress ) throws IOException {
+    public static byte[] decode(String s, boolean uncompress) throws IOException {
         char[] chars = s.toCharArray();
         CharArrayReader car = new CharArrayReader(chars);
         JavaReader jr = new JavaReader(car);
@@ -1203,6 +1211,7 @@ public abstract class Utility {
     static int[] CHAR_MAP = new int[FREE_CHARS];
     static int[] MAP_CHAR = new int[256]; // Reverse map
     private static final char ESCAPE_CHAR = '$';
+
     static {
         int j = 0;
         for (int i = 'A'; i <= 'Z'; i++) {
@@ -1222,7 +1231,8 @@ public abstract class Utility {
         MAP_CHAR['_'] = j;
     }
 
-    /** Decode characters into bytes.
+    /**
+     * Decode characters into bytes.
      * Used by <a href="Utility.html#decode(java.lang.String, boolean)">decode()</a>
      */
     private static class JavaReader extends FilterReader {
@@ -1256,7 +1266,7 @@ public abstract class Utility {
         }
 
 
-        public int read( char[] cbuf, int off, int len ) throws IOException {
+        public int read(char[] cbuf, int off, int len) throws IOException {
             for (int i = 0; i < len; i++) {
                 cbuf[off + i] = (char) read();
             }
@@ -1264,7 +1274,8 @@ public abstract class Utility {
         }
     }
 
-    /** Encode bytes into valid java identifier characters.
+    /**
+     * Encode bytes into valid java identifier characters.
      * Used by <a href="Utility.html#encode(byte[], boolean)">encode()</a>
      */
     private static class JavaWriter extends FilterWriter {
@@ -1274,7 +1285,7 @@ public abstract class Utility {
         }
 
 
-        public void write( int b ) throws IOException {
+        public void write(int b) throws IOException {
             if (isJavaIdentifierPart((char) b) && (b != ESCAPE_CHAR)) {
                 out.write(b);
             } else {
@@ -1296,14 +1307,14 @@ public abstract class Utility {
         }
 
 
-        public void write( char[] cbuf, int off, int len ) throws IOException {
+        public void write(char[] cbuf, int off, int len) throws IOException {
             for (int i = 0; i < len; i++) {
                 write(cbuf[off + i]);
             }
         }
 
 
-        public void write( String str, int off, int len ) throws IOException {
+        public void write(String str, int off, int len) throws IOException {
             write(str.toCharArray(), off, len);
         }
     }
@@ -1312,7 +1323,7 @@ public abstract class Utility {
     /**
      * Escape all occurences of newline chars '\n', quotes \", etc.
      */
-    public static final String convertString( String label ) {
+    public static final String convertString(String label) {
         char[] ch = label.toCharArray();
         StringBuffer buf = new StringBuffer();
         for (int i = 0; i < ch.length; i++) {

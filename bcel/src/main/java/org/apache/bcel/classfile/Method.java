@@ -16,25 +16,26 @@
  */
 package org.apache.bcel.classfile;
 
-import java.io.DataInputStream;
-import java.io.IOException;
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.Type;
 import org.apache.bcel.util.BCELComparator;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+
 /**
- * This class represents the method info structure, i.e., the representation 
+ * This class represents the method info structure, i.e., the representation
  * for a method in the class. See JVM specification for details.
  * A method has access flags, a name, a signature and a number of attributes.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: Method.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public final class Method extends FieldOrMethod {
 
     private static BCELComparator _cmp = new BCELComparator() {
 
-        public boolean equals( Object o1, Object o2 ) {
+        public boolean equals(Object o1, Object o2) {
             Method THIS = (Method) o1;
             Method THAT = (Method) o2;
             return THIS.getName().equals(THAT.getName())
@@ -42,7 +43,7 @@ public final class Method extends FieldOrMethod {
         }
 
 
-        public int hashCode( Object o ) {
+        public int hashCode(Object o) {
             Method THIS = (Method) o;
             return THIS.getSignature().hashCode() ^ THIS.getName().hashCode();
         }
@@ -68,6 +69,7 @@ public final class Method extends FieldOrMethod {
 
     /**
      * Construct object from file stream.
+     *
      * @param file Input stream
      * @throws IOException
      * @throws ClassFormatException
@@ -79,14 +81,14 @@ public final class Method extends FieldOrMethod {
 
 
     /**
-     * @param access_flags Access rights of method
-     * @param name_index Points to field name in constant pool
+     * @param access_flags    Access rights of method
+     * @param name_index      Points to field name in constant pool
      * @param signature_index Points to encoded signature
-     * @param attributes Collection of attributes
-     * @param constant_pool Array of constants
+     * @param attributes      Collection of attributes
+     * @param constant_pool   Array of constants
      */
     public Method(int access_flags, int name_index, int signature_index, Attribute[] attributes,
-            ConstantPool constant_pool) {
+                  ConstantPool constant_pool) {
         super(access_flags, name_index, signature_index, attributes, constant_pool);
     }
 
@@ -98,7 +100,7 @@ public final class Method extends FieldOrMethod {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitMethod(this);
     }
 
@@ -130,7 +132,8 @@ public final class Method extends FieldOrMethod {
     }
 
 
-    /** @return LocalVariableTable of code attribute if any, i.e. the call is forwarded
+    /**
+     * @return LocalVariableTable of code attribute if any, i.e. the call is forwarded
      * to the Code atribute.
      */
     public final LocalVariableTable getLocalVariableTable() {
@@ -142,7 +145,8 @@ public final class Method extends FieldOrMethod {
     }
 
 
-    /** @return LineNumberTable of code attribute if any, i.e. the call is forwarded
+    /**
+     * @return LineNumberTable of code attribute if any, i.e. the call is forwarded
      * to the Code atribute.
      */
     public final LineNumberTable getLineNumberTable() {
@@ -193,7 +197,7 @@ public final class Method extends FieldOrMethod {
     /**
      * @return deep copy of this method
      */
-    public final Method copy( ConstantPool _constant_pool ) {
+    public final Method copy(ConstantPool _constant_pool) {
         return (Method) copy_(_constant_pool);
     }
 
@@ -225,7 +229,7 @@ public final class Method extends FieldOrMethod {
     /**
      * @param comparator Comparison strategy object
      */
-    public static void setComparator( BCELComparator comparator ) {
+    public static void setComparator(BCELComparator comparator) {
         _cmp = comparator;
     }
 
@@ -234,10 +238,10 @@ public final class Method extends FieldOrMethod {
      * Return value as defined by given BCELComparator strategy.
      * By default two method objects are said to be equal when
      * their names and signatures are equal.
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
-    public boolean equals( Object obj ) {
+    public boolean equals(Object obj) {
         return _cmp.equals(this, obj);
     }
 
@@ -245,7 +249,7 @@ public final class Method extends FieldOrMethod {
     /**
      * Return value as defined by given BCELComparator strategy.
      * By default return the hashcode of the method's name XOR signature.
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     public int hashCode() {

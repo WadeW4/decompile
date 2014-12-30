@@ -16,12 +16,12 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * FSTORE - Store float into local variable
  * <PRE>Stack: ..., value -&gt; ... </PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: FSTORE.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class FSTORE extends StoreInstruction {
 
@@ -34,7 +34,9 @@ public class FSTORE extends StoreInstruction {
     }
 
 
-    /** Store float into local variable
+    /**
+     * Store float into local variable
+     *
      * @param n index of local variable
      */
     public FSTORE(int n) {
@@ -50,7 +52,7 @@ public class FSTORE extends StoreInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         super.accept(v);
         v.visitFSTORE(this);
     }

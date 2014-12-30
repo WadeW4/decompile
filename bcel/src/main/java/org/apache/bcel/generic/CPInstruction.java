@@ -16,23 +16,23 @@
  */
 package org.apache.bcel.generic;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 import org.apache.bcel.classfile.Constant;
 import org.apache.bcel.classfile.ConstantClass;
 import org.apache.bcel.classfile.ConstantPool;
 import org.apache.bcel.util.ByteSequence;
 
-/** 
- * Abstract super class for instructions that use an index into the 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+/**
+ * Abstract super class for instructions that use an index into the
  * constant pool such as LDC, INVOKEVIRTUAL, etc.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
+ * @version $Id: CPInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @see ConstantPoolGen
  * @see LDC
  * @see INVOKEVIRTUAL
- *
- * @version $Id: CPInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class CPInstruction extends Instruction implements TypedInstruction,
         IndexedInstruction {
@@ -59,9 +59,10 @@ public abstract class CPInstruction extends Instruction implements TypedInstruct
 
     /**
      * Dump instruction as byte code to stream out.
+     *
      * @param out Output stream
      */
-    public void dump( DataOutputStream out ) throws IOException {
+    public void dump(DataOutputStream out) throws IOException {
         out.writeByte(opcode);
         out.writeShort(index);
     }
@@ -69,14 +70,14 @@ public abstract class CPInstruction extends Instruction implements TypedInstruct
 
     /**
      * Long output format:
-     *
-     * &lt;name of opcode&gt; "["&lt;opcode number&gt;"]" 
+     * <p/>
+     * &lt;name of opcode&gt; "["&lt;opcode number&gt;"]"
      * "("&lt;length of instruction&gt;")" "&lt;"&lt; constant pool index&gt;"&gt;"
      *
      * @param verbose long/short format switch
      * @return mnemonic for instruction
      */
-    public String toString( boolean verbose ) {
+    public String toString(boolean verbose) {
         return super.toString(verbose) + " " + index;
     }
 
@@ -84,7 +85,7 @@ public abstract class CPInstruction extends Instruction implements TypedInstruct
     /**
      * @return mnemonic for instruction with symbolic references resolved
      */
-    public String toString( ConstantPool cp ) {
+    public String toString(ConstantPool cp) {
         Constant c = cp.getConstant(index);
         String str = cp.constantToString(c);
         if (c instanceof ConstantClass) {
@@ -96,10 +97,11 @@ public abstract class CPInstruction extends Instruction implements TypedInstruct
 
     /**
      * Read needed data (i.e., index) from file.
+     *
      * @param bytes input stream
-     * @param wide wide prefix?
+     * @param wide  wide prefix?
      */
-    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
+    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
         setIndex(bytes.readUnsignedShort());
         length = 3;
     }
@@ -115,9 +117,10 @@ public abstract class CPInstruction extends Instruction implements TypedInstruct
 
     /**
      * Set the index to constant pool.
+     *
      * @param index in  constant pool.
      */
-    public void setIndex( int index ) {
+    public void setIndex(int index) {
         if (index < 0) {
             throw new ClassGenException("Negative index value: " + index);
         }
@@ -125,9 +128,10 @@ public abstract class CPInstruction extends Instruction implements TypedInstruct
     }
 
 
-    /** @return type related with this instruction.
+    /**
+     * @return type related with this instruction.
      */
-    public Type getType( ConstantPoolGen cpg ) {
+    public Type getType(ConstantPoolGen cpg) {
         ConstantPool cp = cpg.getConstantPool();
         String name = cp.getConstantString(index, org.apache.bcel.Constants.CONSTANT_Class);
         if (!name.startsWith("[")) {

@@ -25,10 +25,10 @@ import java.io.IOException;
  * local variables and the the of stack items at a given byte code offset.
  * See CLDC specification �5.3.1.2
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: StackMapEntry.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     StackMap
- * @see     StackMapType
+ * @see StackMap
+ * @see StackMapType
  */
 public final class StackMapEntry implements Cloneable {
 
@@ -42,6 +42,7 @@ public final class StackMapEntry implements Cloneable {
 
     /**
      * Construct object from file stream.
+     *
      * @param file Input stream
      * @throws IOException
      */
@@ -60,8 +61,8 @@ public final class StackMapEntry implements Cloneable {
 
 
     public StackMapEntry(int byte_code_offset, int number_of_locals,
-            StackMapType[] types_of_locals, int number_of_stack_items,
-            StackMapType[] types_of_stack_items, ConstantPool constant_pool) {
+                         StackMapType[] types_of_locals, int number_of_stack_items,
+                         StackMapType[] types_of_stack_items, ConstantPool constant_pool) {
         this.byte_code_offset = byte_code_offset;
         this.number_of_locals = number_of_locals;
         this.types_of_locals = types_of_locals;
@@ -77,7 +78,7 @@ public final class StackMapEntry implements Cloneable {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         file.writeShort(byte_code_offset);
         file.writeShort(number_of_locals);
         for (int i = 0; i < number_of_locals; i++) {
@@ -121,7 +122,7 @@ public final class StackMapEntry implements Cloneable {
     }
 
 
-    public void setByteCodeOffset( int b ) {
+    public void setByteCodeOffset(int b) {
         byte_code_offset = b;
     }
 
@@ -131,7 +132,7 @@ public final class StackMapEntry implements Cloneable {
     }
 
 
-    public void setNumberOfLocals( int n ) {
+    public void setNumberOfLocals(int n) {
         number_of_locals = n;
     }
 
@@ -141,7 +142,7 @@ public final class StackMapEntry implements Cloneable {
     }
 
 
-    public void setTypesOfLocals( StackMapType[] t ) {
+    public void setTypesOfLocals(StackMapType[] t) {
         types_of_locals = t;
     }
 
@@ -151,7 +152,7 @@ public final class StackMapEntry implements Cloneable {
     }
 
 
-    public void setNumberOfStackItems( int n ) {
+    public void setNumberOfStackItems(int n) {
         number_of_stack_items = n;
     }
 
@@ -161,7 +162,7 @@ public final class StackMapEntry implements Cloneable {
     }
 
 
-    public void setTypesOfStackItems( StackMapType[] t ) {
+    public void setTypesOfStackItems(StackMapType[] t) {
         types_of_stack_items = t;
     }
 
@@ -190,7 +191,7 @@ public final class StackMapEntry implements Cloneable {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackMapEntry(this);
     }
 
@@ -206,7 +207,7 @@ public final class StackMapEntry implements Cloneable {
     /**
      * @param constant_pool Constant pool to be used for this object.
      */
-    public final void setConstantPool( ConstantPool constant_pool ) {
+    public final void setConstantPool(ConstantPool constant_pool) {
         this.constant_pool = constant_pool;
     }
 }

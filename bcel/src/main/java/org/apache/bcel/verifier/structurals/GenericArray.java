@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License. 
  *
- */ 
+ */
 package org.apache.bcel.verifier.structurals;
 
 
@@ -22,12 +22,12 @@ package org.apache.bcel.verifier.structurals;
  * has some of the properties arrays have. They implement java.lang.Cloneable
  * and java.io.Serializable and they extend java.lang.Object.
  *
- * @version $Id: GenericArray.java 371539 2006-01-23 14:08:00Z tcurdt $
  * @author Enver Haase
- */ 
-public class GenericArray extends java.lang.Object implements java.lang.Cloneable, java.io.Serializable{
-	
-	protected Object clone() throws CloneNotSupportedException {
-		return super.clone();
-	}
+ * @version $Id: GenericArray.java 371539 2006-01-23 14:08:00Z tcurdt $
+ */
+public class GenericArray extends java.lang.Object implements java.lang.Cloneable, java.io.Serializable {
+
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

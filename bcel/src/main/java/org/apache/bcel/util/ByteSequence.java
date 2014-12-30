@@ -21,11 +21,11 @@ import java.io.DataInputStream;
 
 /**
  * Utility class that implements a sequence of bytes which can be read
- * via the `readByte()' method. This is used to implement a wrapper for the 
+ * via the `readByte()' method. This is used to implement a wrapper for the
  * Java byte code stream to gain some more readability.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ByteSequence.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public final class ByteSequence extends DataInputStream {
 

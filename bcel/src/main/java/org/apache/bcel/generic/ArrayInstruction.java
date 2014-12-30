@@ -19,8 +19,8 @@ package org.apache.bcel.generic;
 /**
  * Super class for instructions dealing with array access such as IALOAD.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ArrayInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class ArrayInstruction extends Instruction implements ExceptionThrower,
         TypedInstruction {
@@ -46,9 +46,10 @@ public abstract class ArrayInstruction extends Instruction implements ExceptionT
     }
 
 
-    /** @return type associated with the instruction
+    /**
+     * @return type associated with the instruction
      */
-    public Type getType( ConstantPoolGen cp ) {
+    public Type getType(ConstantPoolGen cp) {
         switch (opcode) {
             case org.apache.bcel.Constants.IALOAD:
             case org.apache.bcel.Constants.IASTORE:

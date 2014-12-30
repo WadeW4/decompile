@@ -16,10 +16,11 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.apache.bcel.Constants;
 
 /**
  * This class represents a stack map attribute used for
@@ -30,11 +31,11 @@ import org.apache.bcel.Constants;
  * within the Code attribute of a method. See CLDC specification
  * �5.3.1.2
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: StackMap.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     Code
- * @see     StackMapEntry
- * @see     StackMapType
+ * @see Code
+ * @see StackMapEntry
+ * @see StackMapType
  */
 public final class StackMap extends Attribute implements Node {
 
@@ -56,9 +57,10 @@ public final class StackMap extends Attribute implements Node {
 
     /**
      * Construct object from file stream.
-     * @param name_index Index of name
-     * @param length Content length in bytes
-     * @param file Input stream
+     *
+     * @param name_index    Index of name
+     * @param length        Content length in bytes
+     * @param file          Input stream
      * @param constant_pool Array of constants
      * @throws IOException
      */
@@ -79,7 +81,7 @@ public final class StackMap extends Attribute implements Node {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         super.dump(file);
         file.writeShort(map_length);
         for (int i = 0; i < map_length; i++) {
@@ -99,7 +101,7 @@ public final class StackMap extends Attribute implements Node {
     /**
      * @param map Array of stack map entries
      */
-    public final void setStackMap( StackMapEntry[] map ) {
+    public final void setStackMap(StackMapEntry[] map) {
         this.map = map;
         map_length = (map == null) ? 0 : map.length;
     }
@@ -124,7 +126,7 @@ public final class StackMap extends Attribute implements Node {
     /**
      * @return deep copy of this attribute
      */
-    public Attribute copy( ConstantPool _constant_pool ) {
+    public Attribute copy(ConstantPool _constant_pool) {
         StackMap c = (StackMap) clone();
         c.map = new StackMapEntry[map_length];
         for (int i = 0; i < map_length; i++) {
@@ -142,7 +144,7 @@ public final class StackMap extends Attribute implements Node {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackMap(this);
     }
 

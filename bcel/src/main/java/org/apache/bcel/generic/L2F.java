@@ -20,8 +20,8 @@ package org.apache.bcel.generic;
  * L2F - Convert long to float
  * <PRE>Stack: ..., value.word1, value.word2 -&gt; ..., result</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: L2F.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class L2F extends ConversionInstruction {
 
@@ -38,7 +38,7 @@ public class L2F extends ConversionInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitTypedInstruction(this);
         v.visitStackProducer(this);
         v.visitStackConsumer(this);

@@ -16,19 +16,20 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
-import org.apache.bcel.Constants;
 
 /**
  * This class represents a local variable within a method. It contains its
  * scope, name, signature and index on the method's frame.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: LocalVariable.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     LocalVariableTable
+ * @see LocalVariableTable
  */
 public final class LocalVariable implements Constants, Cloneable, Node, Serializable {
 
@@ -54,6 +55,7 @@ public final class LocalVariable implements Constants, Cloneable, Node, Serializ
 
     /**
      * Construct object from file stream.
+     *
      * @param file Input stream
      * @throws IOException
      */
@@ -64,15 +66,15 @@ public final class LocalVariable implements Constants, Cloneable, Node, Serializ
 
 
     /**
-     * @param start_pc Range in which the variable
-     * @param length ... is valid
-     * @param name_index Index in constant pool of variable name
+     * @param start_pc        Range in which the variable
+     * @param length          ... is valid
+     * @param name_index      Index in constant pool of variable name
      * @param signature_index Index of variable's signature
-     * @param index Variable is `index'th local variable on the method's frame
-     * @param constant_pool Array of constants
+     * @param index           Variable is `index'th local variable on the method's frame
+     * @param constant_pool   Array of constants
      */
     public LocalVariable(int start_pc, int length, int name_index, int signature_index, int index,
-            ConstantPool constant_pool) {
+                         ConstantPool constant_pool) {
         this.start_pc = start_pc;
         this.length = length;
         this.name_index = name_index;
@@ -89,7 +91,7 @@ public final class LocalVariable implements Constants, Cloneable, Node, Serializ
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitLocalVariable(this);
     }
 
@@ -100,7 +102,7 @@ public final class LocalVariable implements Constants, Cloneable, Node, Serializ
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         file.writeShort(start_pc);
         file.writeShort(length);
         file.writeShort(name_index);
@@ -180,7 +182,7 @@ public final class LocalVariable implements Constants, Cloneable, Node, Serializ
     /**
      * @param constant_pool Constant pool to be used for this object.
      */
-    public final void setConstantPool( ConstantPool constant_pool ) {
+    public final void setConstantPool(ConstantPool constant_pool) {
         this.constant_pool = constant_pool;
     }
 
@@ -188,7 +190,7 @@ public final class LocalVariable implements Constants, Cloneable, Node, Serializ
     /**
      * @param length the length of this local variable
      */
-    public final void setLength( int length ) {
+    public final void setLength(int length) {
         this.length = length;
     }
 
@@ -196,7 +198,7 @@ public final class LocalVariable implements Constants, Cloneable, Node, Serializ
     /**
      * @param name_index the index into the constant pool for the name of this variable
      */
-    public final void setNameIndex( int name_index ) {
+    public final void setNameIndex(int name_index) {
         this.name_index = name_index;
     }
 
@@ -204,7 +206,7 @@ public final class LocalVariable implements Constants, Cloneable, Node, Serializ
     /**
      * @param signature_index the index into the constant pool for the signature of this variable
      */
-    public final void setSignatureIndex( int signature_index ) {
+    public final void setSignatureIndex(int signature_index) {
         this.signature_index = signature_index;
     }
 
@@ -212,7 +214,7 @@ public final class LocalVariable implements Constants, Cloneable, Node, Serializ
     /**
      * @param index the index in the local variable table of this variable
      */
-    public final void setIndex( int index ) {
+    public final void setIndex(int index) {
         this.index = index;
     }
 
@@ -220,7 +222,7 @@ public final class LocalVariable implements Constants, Cloneable, Node, Serializ
     /**
      * @param start_pc Specify range where the local variable is valid.
      */
-    public final void setStartPC( int start_pc ) {
+    public final void setStartPC(int start_pc) {
         this.start_pc = start_pc;
     }
 

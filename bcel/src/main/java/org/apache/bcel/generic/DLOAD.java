@@ -16,12 +16,12 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * DLOAD - Load double from local variable
  * <PRE>Stack ... -&gt; ..., result.word1, result.word2</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: DLOAD.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class DLOAD extends LoadInstruction {
 
@@ -34,7 +34,9 @@ public class DLOAD extends LoadInstruction {
     }
 
 
-    /** Load double from local variable
+    /**
+     * Load double from local variable
+     *
      * @param n index of local variable
      */
     public DLOAD(int n) {
@@ -50,7 +52,7 @@ public class DLOAD extends LoadInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         super.accept(v);
         v.visitDLOAD(this);
     }

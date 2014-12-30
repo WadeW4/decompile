@@ -16,11 +16,12 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
-import org.apache.bcel.Constants;
 
 /**
  * This class represents the constant pool, i.e., a table of constants, of
@@ -29,11 +30,11 @@ import org.apache.bcel.Constants;
  * long) entry.  Those interested in generating constant pools
  * programatically should see <a href="../generic/ConstantPoolGen.html">
  * ConstantPoolGen</a>.
-
- * @version $Id: ConstantPool.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @see     Constant
- * @see     org.apache.bcel.generic.ConstantPoolGen
+ *
  * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
+ * @version $Id: ConstantPool.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @see Constant
+ * @see org.apache.bcel.generic.ConstantPoolGen
  */
 public class ConstantPool implements Cloneable, Node, Serializable {
 
@@ -87,7 +88,7 @@ public class ConstantPool implements Cloneable, Node, Serializable {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitConstantPool(this);
     }
 
@@ -95,10 +96,10 @@ public class ConstantPool implements Cloneable, Node, Serializable {
     /**
      * Resolve constant to a string representation.
      *
-     * @param  c Constant to be printed
+     * @param c Constant to be printed
      * @return String representation
      */
-    public String constantToString( Constant c ) throws ClassFormatException {
+    public String constantToString(Constant c) throws ClassFormatException {
         String str;
         int i;
         byte tag = c.getTag();
@@ -148,7 +149,7 @@ public class ConstantPool implements Cloneable, Node, Serializable {
     }
 
 
-    private static final String escape( String str ) {
+    private static final String escape(String str) {
         int len = str.length();
         StringBuffer buf = new StringBuffer(len + 5);
         char[] ch = str.toCharArray();
@@ -181,23 +182,23 @@ public class ConstantPool implements Cloneable, Node, Serializable {
      * Retrieve constant at `index' from constant pool and resolve it to
      * a string representation.
      *
-     * @param  index of constant in constant pool
-     * @param  tag expected type
+     * @param index of constant in constant pool
+     * @param tag   expected type
      * @return String representation
      */
-    public String constantToString( int index, byte tag ) throws ClassFormatException {
+    public String constantToString(int index, byte tag) throws ClassFormatException {
         Constant c = getConstant(index, tag);
         return constantToString(c);
     }
 
 
-    /** 
+    /**
      * Dump constant pool to file stream in binary format.
      *
      * @param file Output file stream
      * @throws IOException
      */
-    public void dump( DataOutputStream file ) throws IOException {
+    public void dump(DataOutputStream file) throws IOException {
         file.writeShort(constant_pool_count);
         for (int i = 1; i < constant_pool_count; i++) {
             if (constant_pool[i] != null) {
@@ -210,11 +211,11 @@ public class ConstantPool implements Cloneable, Node, Serializable {
     /**
      * Get constant from constant pool.
      *
-     * @param  index Index in constant pool
+     * @param index Index in constant pool
      * @return Constant value
-     * @see    Constant
+     * @see Constant
      */
-    public Constant getConstant( int index ) {
+    public Constant getConstant(int index) {
         if (index >= constant_pool.length || index < 0) {
             throw new ClassFormatException("Invalid constant pool reference: " + index
                     + ". Constant pool size is: " + constant_pool.length);
@@ -227,13 +228,13 @@ public class ConstantPool implements Cloneable, Node, Serializable {
      * Get constant from constant pool and check whether it has the
      * expected type.
      *
-     * @param  index Index in constant pool
-     * @param  tag Tag of expected constant, i.e., its type
+     * @param index Index in constant pool
+     * @param tag   Tag of expected constant, i.e., its type
      * @return Constant value
-     * @see    Constant
-     * @throws  ClassFormatException
+     * @throws ClassFormatException
+     * @see Constant
      */
-    public Constant getConstant( int index, byte tag ) throws ClassFormatException {
+    public Constant getConstant(int index, byte tag) throws ClassFormatException {
         Constant c;
         c = getConstant(index);
         if (c == null) {
@@ -249,7 +250,7 @@ public class ConstantPool implements Cloneable, Node, Serializable {
 
     /**
      * @return Array of constants.
-     * @see    Constant
+     * @see Constant
      */
     public Constant[] getConstantPool() {
         return constant_pool;
@@ -257,19 +258,19 @@ public class ConstantPool implements Cloneable, Node, Serializable {
 
 
     /**
-     * Get string from constant pool and bypass the indirection of 
+     * Get string from constant pool and bypass the indirection of
      * `ConstantClass' and `ConstantString' objects. I.e. these classes have
      * an index field that points to another entry of the constant pool of
      * type `ConstantUtf8' which contains the real data.
      *
-     * @param  index Index in constant pool
-     * @param  tag Tag of expected constant, either ConstantClass or ConstantString
+     * @param index Index in constant pool
+     * @param tag   Tag of expected constant, either ConstantClass or ConstantString
      * @return Contents of string reference
-     * @see    ConstantClass
-     * @see    ConstantString
-     * @throws  ClassFormatException
+     * @throws ClassFormatException
+     * @see ConstantClass
+     * @see ConstantString
      */
-    public String getConstantString( int index, byte tag ) throws ClassFormatException {
+    public String getConstantString(int index, byte tag) throws ClassFormatException {
         Constant c;
         int i;
         c = getConstant(index, tag);
@@ -307,7 +308,7 @@ public class ConstantPool implements Cloneable, Node, Serializable {
     /**
      * @param constant Constant to set
      */
-    public void setConstant( int index, Constant constant ) {
+    public void setConstant(int index, Constant constant) {
         constant_pool[index] = constant;
     }
 
@@ -315,7 +316,7 @@ public class ConstantPool implements Cloneable, Node, Serializable {
     /**
      * @param constant_pool
      */
-    public void setConstantPool( Constant[] constant_pool ) {
+    public void setConstantPool(Constant[] constant_pool) {
         this.constant_pool = constant_pool;
         constant_pool_count = (constant_pool == null) ? 0 : constant_pool.length;
     }

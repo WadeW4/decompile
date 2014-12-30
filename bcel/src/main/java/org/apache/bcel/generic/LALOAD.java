@@ -16,16 +16,17 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * LALOAD - Load long from array
  * <PRE>Stack: ..., arrayref, index -&gt; ..., value1, value2</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: LALOAD.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class LALOAD extends ArrayInstruction implements StackProducer {
 
-    /** Load long from array
+    /**
+     * Load long from array
      */
     public LALOAD() {
         super(org.apache.bcel.Constants.LALOAD);
@@ -40,7 +41,7 @@ public class LALOAD extends ArrayInstruction implements StackProducer {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackProducer(this);
         v.visitExceptionThrower(this);
         v.visitTypedInstruction(this);

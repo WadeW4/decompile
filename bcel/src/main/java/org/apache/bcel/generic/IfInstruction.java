@@ -19,8 +19,8 @@ package org.apache.bcel.generic;
 /**
  * Super class for the IFxxx family of instructions.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: IfInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class IfInstruction extends BranchInstruction implements StackConsumer {
 

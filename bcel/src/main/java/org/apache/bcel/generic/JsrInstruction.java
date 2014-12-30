@@ -16,11 +16,11 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * Super class for JSR - Jump to subroutine
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: JsrInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class JsrInstruction extends BranchInstruction implements UnconditionalBranch,
         TypedInstruction, StackProducer {
@@ -38,9 +38,10 @@ public abstract class JsrInstruction extends BranchInstruction implements Uncond
     }
 
 
-    /** @return return address type
+    /**
+     * @return return address type
      */
-    public Type getType( ConstantPoolGen cp ) {
+    public Type getType(ConstantPoolGen cp) {
         return new ReturnaddressType(physicalSuccessor());
     }
 
@@ -53,6 +54,7 @@ public abstract class JsrInstruction extends BranchInstruction implements Uncond
      * Formally, there must not be InstructionHandle objects
      * i, j where i != j and i.getInstruction() == this ==
      * j.getInstruction().
+     *
      * @return an InstructionHandle to the "next" instruction that
      * will be executed when RETurned from a subroutine.
      */

@@ -16,10 +16,11 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.apache.bcel.Constants;
 
 /**
  * This class is derived from <em>Attribute</em> and represents a reference
@@ -27,9 +28,9 @@ import org.apache.bcel.Constants;
  * should appear per classfile.  The intention of this class is that it is
  * instantiated from the <em>Attribute.readAttribute()</em> method.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: SourceFile.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     Attribute
+ * @see Attribute
  */
 public final class SourceFile extends Attribute {
 
@@ -47,9 +48,10 @@ public final class SourceFile extends Attribute {
 
     /**
      * Construct object from file stream.
-     * @param name_index Index in constant pool to CONSTANT_Utf8
-     * @param length Content length in bytes
-     * @param file Input stream
+     *
+     * @param name_index    Index in constant pool to CONSTANT_Utf8
+     * @param length        Content length in bytes
+     * @param file          Input stream
      * @param constant_pool Array of constants
      * @throws IOException
      */
@@ -60,17 +62,17 @@ public final class SourceFile extends Attribute {
 
 
     /**
-     * @param name_index Index in constant pool to CONSTANT_Utf8, which
-     * should represent the string "SourceFile".
-     * @param length Content length in bytes, the value should be 2.
-     * @param constant_pool The constant pool that this attribute is
-     * associated with.
+     * @param name_index       Index in constant pool to CONSTANT_Utf8, which
+     *                         should represent the string "SourceFile".
+     * @param length           Content length in bytes, the value should be 2.
+     * @param constant_pool    The constant pool that this attribute is
+     *                         associated with.
      * @param sourcefile_index Index in constant pool to CONSTANT_Utf8.  This
-     * string will be interpreted as the name of the file from which this
-     * class was compiled.  It will not be interpreted as indicating the name
-     * of the directory contqining the file or an absolute path; this
-     * information has to be supplied the consumer of this attribute - in
-     * many cases, the JVM.
+     *                         string will be interpreted as the name of the file from which this
+     *                         class was compiled.  It will not be interpreted as indicating the name
+     *                         of the directory contqining the file or an absolute path; this
+     *                         information has to be supplied the consumer of this attribute - in
+     *                         many cases, the JVM.
      */
     public SourceFile(int name_index, int length, int sourcefile_index, ConstantPool constant_pool) {
         super(Constants.ATTR_SOURCE_FILE, name_index, length, constant_pool);
@@ -85,7 +87,7 @@ public final class SourceFile extends Attribute {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitSourceFile(this);
     }
 
@@ -96,7 +98,7 @@ public final class SourceFile extends Attribute {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         super.dump(file);
         file.writeShort(sourcefile_index);
     }
@@ -113,7 +115,7 @@ public final class SourceFile extends Attribute {
     /**
      * @param sourcefile_index
      */
-    public final void setSourceFileIndex( int sourcefile_index ) {
+    public final void setSourceFileIndex(int sourcefile_index) {
         this.sourcefile_index = sourcefile_index;
     }
 
@@ -139,7 +141,7 @@ public final class SourceFile extends Attribute {
     /**
      * @return deep copy of this attribute
      */
-    public Attribute copy( ConstantPool _constant_pool ) {
+    public Attribute copy(ConstantPool _constant_pool) {
         return (SourceFile) clone();
     }
 }

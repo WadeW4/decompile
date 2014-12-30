@@ -16,16 +16,17 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * BALOAD - Load byte or boolean from array
  * <PRE>Stack: ..., arrayref, index -&gt; ..., value</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: BALOAD.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class BALOAD extends ArrayInstruction implements StackProducer {
 
-    /** Load byte or boolean from array
+    /**
+     * Load byte or boolean from array
      */
     public BALOAD() {
         super(org.apache.bcel.Constants.BALOAD);
@@ -40,7 +41,7 @@ public class BALOAD extends ArrayInstruction implements StackProducer {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackProducer(this);
         v.visitExceptionThrower(this);
         v.visitTypedInstruction(this);

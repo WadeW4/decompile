@@ -16,15 +16,16 @@
  */
 package org.apache.bcel.generic;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 import org.apache.bcel.util.ByteSequence;
 
-/** 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+/**
  * JSR_W - Jump to subroutine
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: JSR_W.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class JSR_W extends JsrInstruction {
 
@@ -44,9 +45,10 @@ public class JSR_W extends JsrInstruction {
 
     /**
      * Dump instruction as byte code to stream out.
+     *
      * @param out Output stream
      */
-    public void dump( DataOutputStream out ) throws IOException {
+    public void dump(DataOutputStream out) throws IOException {
         index = getTargetOffset();
         out.writeByte(opcode);
         out.writeInt(index);
@@ -56,7 +58,7 @@ public class JSR_W extends JsrInstruction {
     /**
      * Read needed data (e.g. index) from file.
      */
-    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
+    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
         index = bytes.readInt();
         length = 5;
     }
@@ -70,7 +72,7 @@ public class JSR_W extends JsrInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackProducer(this);
         v.visitBranchInstruction(this);
         v.visitJsrInstruction(this);

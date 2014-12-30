@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License. 
  *
- */ 
+ */
 package org.apache.bcel.verifier.exc;
 
 
@@ -22,19 +22,25 @@ import java.io.StringWriter;
 
 /**
  * A utility class providing convenience methods concerning Throwable instances.
- * @version $Id: Utility.java 371539 2006-01-23 14:08:00Z tcurdt $
+ *
  * @author Enver Haase
+ * @version $Id: Utility.java 371539 2006-01-23 14:08:00Z tcurdt $
  * @see java.lang.Throwable
  */
-public final class Utility{
-	/** This class is not instantiable. */
-	private Utility(){}
+public final class Utility {
+    /**
+     * This class is not instantiable.
+     */
+    private Utility() {
+    }
 
-	/** This method returns the stack trace of a Throwable instance as a String. */
-	public static String getStackTrace(Throwable t){
-		StringWriter sw = new StringWriter();
-		PrintWriter pw = new PrintWriter(sw);
-		t.printStackTrace(pw);
-		return sw.toString();
-	}
+    /**
+     * This method returns the stack trace of a Throwable instance as a String.
+     */
+    public static String getStackTrace(Throwable t) {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        t.printStackTrace(pw);
+        return sw.toString();
+    }
 }

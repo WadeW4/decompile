@@ -16,19 +16,20 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.apache.bcel.Constants;
 
-/** 
- * This class is derived from the abstract 
- * <A HREF="org.apache.bcel.classfile.Constant.html">Constant</A> class 
+/**
+ * This class is derived from the abstract
+ * <A HREF="org.apache.bcel.classfile.Constant.html">Constant</A> class
  * and represents a reference to a (external) class.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ConstantClass.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     Constant
+ * @see Constant
  */
 public final class ConstantClass extends Constant implements ConstantObject {
 
@@ -56,7 +57,7 @@ public final class ConstantClass extends Constant implements ConstantObject {
 
     /**
      * @param name_index Name index in constant pool.  Should refer to a
-     * ConstantUtf8.
+     *                   ConstantUtf8.
      */
     public ConstantClass(int name_index) {
         super(Constants.CONSTANT_Class);
@@ -71,18 +72,18 @@ public final class ConstantClass extends Constant implements ConstantObject {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitConstantClass(this);
     }
 
 
-    /** 
+    /**
      * Dump constant class to file stream in binary format.
      *
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         file.writeByte(tag);
         file.writeShort(name_index);
     }
@@ -99,22 +100,24 @@ public final class ConstantClass extends Constant implements ConstantObject {
     /**
      * @param name_index the name index in the constant pool of this Constant Class
      */
-    public final void setNameIndex( int name_index ) {
+    public final void setNameIndex(int name_index) {
         this.name_index = name_index;
     }
 
 
-    /** @return String object
+    /**
+     * @return String object
      */
-    public Object getConstantValue( ConstantPool cp ) {
+    public Object getConstantValue(ConstantPool cp) {
         Constant c = cp.getConstant(name_index, Constants.CONSTANT_Utf8);
         return ((ConstantUtf8) c).getBytes();
     }
 
 
-    /** @return dereferenced string
+    /**
+     * @return dereferenced string
      */
-    public String getBytes( ConstantPool cp ) {
+    public String getBytes(ConstantPool cp) {
         return (String) getConstantValue(cp);
     }
 

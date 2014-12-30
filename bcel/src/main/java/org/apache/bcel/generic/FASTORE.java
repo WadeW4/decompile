@@ -16,16 +16,17 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * FASTORE -  Store into float array
  * <PRE>Stack: ..., arrayref, index, value -&gt; ...</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: FASTORE.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class FASTORE extends ArrayInstruction implements StackConsumer {
 
-    /** Store float into array
+    /**
+     * Store float into array
      */
     public FASTORE() {
         super(org.apache.bcel.Constants.FASTORE);
@@ -40,7 +41,7 @@ public class FASTORE extends ArrayInstruction implements StackConsumer {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackConsumer(this);
         v.visitExceptionThrower(this);
         v.visitTypedInstruction(this);

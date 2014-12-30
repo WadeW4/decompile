@@ -20,23 +20,25 @@ package org.apache.bcel.generic;
  * IDIV - Divide ints
  * <PRE>Stack: ..., value1, value2 -&gt; result</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: IDIV.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class IDIV extends ArithmeticInstruction implements ExceptionThrower {
 
-    /** Divide ints
+    /**
+     * Divide ints
      */
     public IDIV() {
         super(org.apache.bcel.Constants.IDIV);
     }
 
 
-    /** @return exceptions this instruction may cause
+    /**
+     * @return exceptions this instruction may cause
      */
     public Class[] getExceptions() {
-        return new Class[] {
-            org.apache.bcel.ExceptionConstants.ARITHMETIC_EXCEPTION
+        return new Class[]{
+                org.apache.bcel.ExceptionConstants.ARITHMETIC_EXCEPTION
         };
     }
 
@@ -49,7 +51,7 @@ public class IDIV extends ArithmeticInstruction implements ExceptionThrower {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitExceptionThrower(this);
         v.visitTypedInstruction(this);
         v.visitStackProducer(this);

@@ -16,19 +16,20 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.apache.bcel.Constants;
 
 /**
- * This class is derived from <em>Attribute</em> and represents a constant 
+ * This class is derived from <em>Attribute</em> and represents a constant
  * value, i.e., a default value for initializing a class field.
  * This class is instantiated by the <em>Attribute.readAttribute()</em> method.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ConstantValue.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     Attribute
+ * @see Attribute
  */
 public final class ConstantValue extends Attribute {
 
@@ -46,9 +47,10 @@ public final class ConstantValue extends Attribute {
 
     /**
      * Construct object from file stream.
-     * @param name_index Name index in constant pool
-     * @param length Content length in bytes
-     * @param file Input stream
+     *
+     * @param name_index    Name index in constant pool
+     * @param length        Content length in bytes
+     * @param file          Input stream
      * @param constant_pool Array of constants
      * @throws IOException
      */
@@ -59,13 +61,13 @@ public final class ConstantValue extends Attribute {
 
 
     /**
-     * @param name_index Name index in constant pool
-     * @param length Content length in bytes
+     * @param name_index          Name index in constant pool
+     * @param length              Content length in bytes
      * @param constantvalue_index Index in constant pool
-     * @param constant_pool Array of constants
+     * @param constant_pool       Array of constants
      */
     public ConstantValue(int name_index, int length, int constantvalue_index,
-            ConstantPool constant_pool) {
+                         ConstantPool constant_pool) {
         super(Constants.ATTR_CONSTANT_VALUE, name_index, length, constant_pool);
         this.constantvalue_index = constantvalue_index;
     }
@@ -78,7 +80,7 @@ public final class ConstantValue extends Attribute {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitConstantValue(this);
     }
 
@@ -89,7 +91,7 @@ public final class ConstantValue extends Attribute {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         super.dump(file);
         file.writeShort(constantvalue_index);
     }
@@ -106,7 +108,7 @@ public final class ConstantValue extends Attribute {
     /**
      * @param constantvalue_index the index info the constant pool of this constant value
      */
-    public final void setConstantValueIndex( int constantvalue_index ) {
+    public final void setConstantValueIndex(int constantvalue_index) {
         this.constantvalue_index = constantvalue_index;
     }
 
@@ -147,7 +149,7 @@ public final class ConstantValue extends Attribute {
     /**
      * @return deep copy of this attribute
      */
-    public Attribute copy( ConstantPool _constant_pool ) {
+    public Attribute copy(ConstantPool _constant_pool) {
         ConstantValue c = (ConstantValue) clone();
         c.constant_pool = _constant_pool;
         return c;

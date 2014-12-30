@@ -16,16 +16,17 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * DASTORE -  Store into double array
  * <PRE>Stack: ..., arrayref, index, value.word1, value.word2 -&gt; ...</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: DASTORE.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class DASTORE extends ArrayInstruction implements StackConsumer {
 
-    /** Store double into array
+    /**
+     * Store double into array
      */
     public DASTORE() {
         super(org.apache.bcel.Constants.DASTORE);
@@ -40,7 +41,7 @@ public class DASTORE extends ArrayInstruction implements StackConsumer {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackConsumer(this);
         v.visitExceptionThrower(this);
         v.visitTypedInstruction(this);

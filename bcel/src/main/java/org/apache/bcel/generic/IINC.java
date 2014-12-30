@@ -16,15 +16,16 @@
  */
 package org.apache.bcel.generic;
 
+import org.apache.bcel.util.ByteSequence;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.apache.bcel.util.ByteSequence;
 
 /**
  * IINC - Increment local variable by constant
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: IINC.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class IINC extends LocalVariableInstruction {
 
@@ -55,9 +56,10 @@ public class IINC extends LocalVariableInstruction {
 
     /**
      * Dump instruction as byte code to stream out.
+     *
      * @param out Output stream
      */
-    public void dump( DataOutputStream out ) throws IOException {
+    public void dump(DataOutputStream out) throws IOException {
         if (wide) {
             out.writeByte(org.apache.bcel.Constants.WIDE);
         }
@@ -85,7 +87,7 @@ public class IINC extends LocalVariableInstruction {
     /**
      * Read needed data (e.g. index) from file.
      */
-    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
+    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
         this.wide = wide;
         if (wide) {
             length = 6;
@@ -102,7 +104,7 @@ public class IINC extends LocalVariableInstruction {
     /**
      * @return mnemonic for instruction
      */
-    public String toString( boolean verbose ) {
+    public String toString(boolean verbose) {
         return super.toString(verbose) + " " + c;
     }
 
@@ -110,7 +112,7 @@ public class IINC extends LocalVariableInstruction {
     /**
      * Set index of local variable.
      */
-    public final void setIndex( int n ) {
+    public final void setIndex(int n) {
         if (n < 0) {
             throw new ClassGenException("Negative index value: " + n);
         }
@@ -130,15 +132,16 @@ public class IINC extends LocalVariableInstruction {
     /**
      * Set increment factor.
      */
-    public final void setIncrement( int c ) {
+    public final void setIncrement(int c) {
         this.c = c;
         setWide();
     }
 
 
-    /** @return int type
+    /**
+     * @return int type
      */
-    public Type getType( ConstantPoolGen cp ) {
+    public Type getType(ConstantPoolGen cp) {
         return Type.INT;
     }
 
@@ -151,7 +154,7 @@ public class IINC extends LocalVariableInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitLocalVariableInstruction(this);
         v.visitIINC(this);
     }

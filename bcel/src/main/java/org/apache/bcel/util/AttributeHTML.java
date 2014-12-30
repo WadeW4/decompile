@@ -16,9 +16,6 @@
  */
 package org.apache.bcel.util;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
 import org.apache.bcel.classfile.Attribute;
 import org.apache.bcel.classfile.Code;
 import org.apache.bcel.classfile.CodeException;
@@ -35,12 +32,15 @@ import org.apache.bcel.classfile.LocalVariableTable;
 import org.apache.bcel.classfile.SourceFile;
 import org.apache.bcel.classfile.Utility;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 /**
  * Convert found attributes into HTML file.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: AttributeHTML.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * 
  */
 final class AttributeHTML implements org.apache.bcel.Constants {
 
@@ -52,7 +52,7 @@ final class AttributeHTML implements org.apache.bcel.Constants {
 
 
     AttributeHTML(String dir, String class_name, ConstantPool constant_pool,
-            ConstantHTML constant_html) throws IOException {
+                  ConstantHTML constant_html) throws IOException {
         this.class_name = class_name;
         this.constant_pool = constant_pool;
         this.constant_html = constant_html;
@@ -61,7 +61,7 @@ final class AttributeHTML implements org.apache.bcel.Constants {
     }
 
 
-    private final String codeLink( int link, int method_number ) {
+    private final String codeLink(int link, int method_number) {
         return "<A HREF=\"" + class_name + "_code.html#code" + method_number + "@" + link
                 + "\" TARGET=Code>" + link + "</A>";
     }
@@ -73,12 +73,12 @@ final class AttributeHTML implements org.apache.bcel.Constants {
     }
 
 
-    final void writeAttribute( Attribute attribute, String anchor ) throws IOException {
+    final void writeAttribute(Attribute attribute, String anchor) throws IOException {
         writeAttribute(attribute, anchor, 0);
     }
 
 
-    final void writeAttribute( Attribute attribute, String anchor, int method_number )
+    final void writeAttribute(Attribute attribute, String anchor, int method_number)
             throws IOException {
         byte tag = attribute.getTag();
         int index;

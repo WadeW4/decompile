@@ -19,21 +19,25 @@ package org.apache.bcel;
 /**
  * Exception constants.
  *
+ * @author E. Haase
  * @version $Id: ExceptionConstants.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  E. Haase
  */
 public interface ExceptionConstants {
 
-    /** The mother of all exceptions
+    /**
+     * The mother of all exceptions
      */
     public static final Class THROWABLE = Throwable.class;
-    /** Super class of any run-time exception
+    /**
+     * Super class of any run-time exception
      */
     public static final Class RUNTIME_EXCEPTION = RuntimeException.class;
-    /** Super class of any linking exception (aka Linkage Error)
+    /**
+     * Super class of any linking exception (aka Linkage Error)
      */
     public static final Class LINKING_EXCEPTION = LinkageError.class;
-    /** Linking Exceptions
+    /**
+     * Linking Exceptions
      */
     public static final Class CLASS_CIRCULARITY_ERROR = ClassCircularityError.class;
     public static final Class CLASS_FORMAT_ERROR = ClassFormatError.class;
@@ -49,7 +53,8 @@ public interface ExceptionConstants {
     public static final Class VERIFY_ERROR = VerifyError.class;
     /* UnsupportedClassVersionError is new in JDK 1.2 */
     //public static final Class UnsupportedClassVersionError = UnsupportedClassVersionError.class;
-    /** Run-Time Exceptions 
+    /**
+     * Run-Time Exceptions
      */
     public static final Class NULL_POINTER_EXCEPTION = NullPointerException.class;
     public static final Class ARRAY_INDEX_OUT_OF_BOUNDS_EXCEPTION = ArrayIndexOutOfBoundsException.class;
@@ -57,8 +62,9 @@ public interface ExceptionConstants {
     public static final Class NEGATIVE_ARRAY_SIZE_EXCEPTION = NegativeArraySizeException.class;
     public static final Class CLASS_CAST_EXCEPTION = ClassCastException.class;
     public static final Class ILLEGAL_MONITOR_STATE = IllegalMonitorStateException.class;
-    /** Pre-defined exception arrays according to chapters 5.1-5.4 of the Java Virtual
-     * Machine Specification 
+    /**
+     * Pre-defined exception arrays according to chapters 5.1-5.4 of the Java Virtual
+     * Machine Specification
      */
     public static final Class[] EXCS_CLASS_AND_INTERFACE_RESOLUTION = {
             NO_CLASS_DEF_FOUND_ERROR, CLASS_FORMAT_ERROR, VERIFY_ERROR, ABSTRACT_METHOD_ERROR,

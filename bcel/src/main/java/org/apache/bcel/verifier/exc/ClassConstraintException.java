@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License. 
  *
- */ 
+ */
 package org.apache.bcel.verifier.exc;
 
 
@@ -22,21 +22,21 @@ package org.apache.bcel.verifier.exc;
  * when a class file to verify does not pass the verification pass 2 as described
  * in the Java Virtual Machine specification, 2nd edition.
  *
- * @version $Id: ClassConstraintException.java 371539 2006-01-23 14:08:00Z tcurdt $
  * @author Enver Haase
+ * @version $Id: ClassConstraintException.java 371539 2006-01-23 14:08:00Z tcurdt $
  */
-public class ClassConstraintException extends VerificationException{
-	/**
-	 * Constructs a new ClassConstraintException with null as its error message string.
-	 */
-	public ClassConstraintException(){
-		super();
-	}
-	
-	/**
-	 * Constructs a new ClassConstraintException with the specified error message.
-	 */
-	public ClassConstraintException(String message){
-		super (message);
-	}
+public class ClassConstraintException extends VerificationException {
+    /**
+     * Constructs a new ClassConstraintException with null as its error message string.
+     */
+    public ClassConstraintException() {
+        super();
+    }
+
+    /**
+     * Constructs a new ClassConstraintException with the specified error message.
+     */
+    public ClassConstraintException(String message) {
+        super(message);
+    }
 }

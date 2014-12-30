@@ -16,16 +16,16 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * IASTORE -  Store into int array
  * <PRE>Stack: ..., arrayref, index, value -&gt; ...</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: IASTORE.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class IASTORE extends ArrayInstruction implements StackConsumer {
 
-    /** 
+    /**
      * Store into int array
      */
     public IASTORE() {
@@ -41,7 +41,7 @@ public class IASTORE extends ArrayInstruction implements StackConsumer {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackConsumer(this);
         v.visitExceptionThrower(this);
         v.visitTypedInstruction(this);

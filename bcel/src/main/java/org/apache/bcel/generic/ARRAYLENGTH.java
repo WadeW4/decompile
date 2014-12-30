@@ -16,27 +16,29 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * ARRAYLENGTH -  Get length of array
  * <PRE>Stack: ..., arrayref -&gt; ..., length</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ARRAYLENGTH.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class ARRAYLENGTH extends Instruction implements ExceptionThrower, StackProducer {
 
-    /** Get length of array
+    /**
+     * Get length of array
      */
     public ARRAYLENGTH() {
         super(org.apache.bcel.Constants.ARRAYLENGTH, (short) 1);
     }
 
 
-    /** @return exceptions this instruction may cause
+    /**
+     * @return exceptions this instruction may cause
      */
     public Class[] getExceptions() {
-        return new Class[] {
-            org.apache.bcel.ExceptionConstants.NULL_POINTER_EXCEPTION
+        return new Class[]{
+                org.apache.bcel.ExceptionConstants.NULL_POINTER_EXCEPTION
         };
     }
 
@@ -49,7 +51,7 @@ public class ARRAYLENGTH extends Instruction implements ExceptionThrower, StackP
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitExceptionThrower(this);
         v.visitStackProducer(this);
         v.visitARRAYLENGTH(this);

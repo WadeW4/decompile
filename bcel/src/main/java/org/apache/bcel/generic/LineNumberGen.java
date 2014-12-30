@@ -18,14 +18,14 @@ package org.apache.bcel.generic;
 
 import org.apache.bcel.classfile.LineNumber;
 
-/** 
+/**
  * This class represents a line number within a method, i.e., give an instruction
  * a line number corresponding to the source code line.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: LineNumberGen.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     LineNumber
- * @see     MethodGen
+ * @see LineNumber
+ * @see MethodGen
  */
 public class LineNumberGen implements InstructionTargeter, Cloneable, java.io.Serializable {
 
@@ -47,7 +47,7 @@ public class LineNumberGen implements InstructionTargeter, Cloneable, java.io.Se
     /**
      * @return true, if ih is target of this line number
      */
-    public boolean containsTarget( InstructionHandle ih ) {
+    public boolean containsTarget(InstructionHandle ih) {
         return this.ih == ih;
     }
 
@@ -56,7 +56,7 @@ public class LineNumberGen implements InstructionTargeter, Cloneable, java.io.Se
      * @param old_ih old target
      * @param new_ih new target
      */
-    public void updateTarget( InstructionHandle old_ih, InstructionHandle new_ih ) {
+    public void updateTarget(InstructionHandle old_ih, InstructionHandle new_ih) {
         if (old_ih != ih) {
             throw new ClassGenException("Not targeting " + old_ih + ", but " + ih + "}");
         } else {
@@ -67,7 +67,7 @@ public class LineNumberGen implements InstructionTargeter, Cloneable, java.io.Se
 
     /**
      * Get LineNumber attribute .
-     *
+     * <p/>
      * This relies on that the instruction list has already been dumped to byte code or
      * or that the `setPositions' methods has been called for the instruction list.
      */
@@ -76,7 +76,7 @@ public class LineNumberGen implements InstructionTargeter, Cloneable, java.io.Se
     }
 
 
-    public void setInstruction( InstructionHandle ih ) {
+    public void setInstruction(InstructionHandle ih) {
         BranchInstruction.notifyTarget(this.ih, ih, this);
         this.ih = ih;
     }
@@ -97,7 +97,7 @@ public class LineNumberGen implements InstructionTargeter, Cloneable, java.io.Se
     }
 
 
-    public void setSourceLine( int src_line ) {
+    public void setSourceLine(int src_line) {
         this.src_line = src_line;
     }
 

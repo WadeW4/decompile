@@ -24,8 +24,8 @@ import java.util.Stack;
  * class supplies the traversal strategy, other classes can make use
  * of it.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: DescendingVisitor.java 388707 2006-03-25 05:40:28Z tcurdt $
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A> 
  */
 public class DescendingVisitor implements Visitor {
 
@@ -34,7 +34,8 @@ public class DescendingVisitor implements Visitor {
     private Stack stack = new Stack();
 
 
-    /** @return container of current entitity, i.e., predecessor during traversal
+    /**
+     * @return container of current entitity, i.e., predecessor during traversal
      */
     public Object predecessor() {
         return predecessor(0);
@@ -45,7 +46,7 @@ public class DescendingVisitor implements Visitor {
      * @param level nesting level, i.e., 0 returns the direct predecessor
      * @return container of current entitity, i.e., predecessor during traversal
      */
-    public Object predecessor( int level ) {
+    public Object predecessor(int level) {
         int size = stack.size();
         if ((size < 2) || (level < 0)) {
             return null;
@@ -55,7 +56,8 @@ public class DescendingVisitor implements Visitor {
     }
 
 
-    /** @return current object
+    /**
+     * @return current object
      */
     public Object current() {
         return stack.peek();
@@ -63,7 +65,7 @@ public class DescendingVisitor implements Visitor {
 
 
     /**
-     * @param clazz Class to traverse
+     * @param clazz   Class to traverse
      * @param visitor visitor object to apply to all components
      */
     public DescendingVisitor(JavaClass clazz, Visitor visitor) {
@@ -80,7 +82,7 @@ public class DescendingVisitor implements Visitor {
     }
 
 
-    public void visitJavaClass( JavaClass _clazz ) {
+    public void visitJavaClass(JavaClass _clazz) {
         stack.push(_clazz);
         _clazz.accept(visitor);
         Field[] fields = _clazz.getFields();
@@ -100,7 +102,7 @@ public class DescendingVisitor implements Visitor {
     }
 
 
-    public void visitField( Field field ) {
+    public void visitField(Field field) {
         stack.push(field);
         field.accept(visitor);
         Attribute[] attributes = field.getAttributes();
@@ -111,14 +113,14 @@ public class DescendingVisitor implements Visitor {
     }
 
 
-    public void visitConstantValue( ConstantValue cv ) {
+    public void visitConstantValue(ConstantValue cv) {
         stack.push(cv);
         cv.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitMethod( Method method ) {
+    public void visitMethod(Method method) {
         stack.push(method);
         method.accept(visitor);
         Attribute[] attributes = method.getAttributes();
@@ -129,14 +131,14 @@ public class DescendingVisitor implements Visitor {
     }
 
 
-    public void visitExceptionTable( ExceptionTable table ) {
+    public void visitExceptionTable(ExceptionTable table) {
         stack.push(table);
         table.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitCode( Code code ) {
+    public void visitCode(Code code) {
         stack.push(code);
         code.accept(visitor);
         CodeException[] table = code.getExceptionTable();
@@ -151,14 +153,14 @@ public class DescendingVisitor implements Visitor {
     }
 
 
-    public void visitCodeException( CodeException ce ) {
+    public void visitCodeException(CodeException ce) {
         stack.push(ce);
         ce.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitLineNumberTable( LineNumberTable table ) {
+    public void visitLineNumberTable(LineNumberTable table) {
         stack.push(table);
         table.accept(visitor);
         LineNumber[] numbers = table.getLineNumberTable();
@@ -169,14 +171,14 @@ public class DescendingVisitor implements Visitor {
     }
 
 
-    public void visitLineNumber( LineNumber number ) {
+    public void visitLineNumber(LineNumber number) {
         stack.push(number);
         number.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitLocalVariableTable( LocalVariableTable table ) {
+    public void visitLocalVariableTable(LocalVariableTable table) {
         stack.push(table);
         table.accept(visitor);
         LocalVariable[] vars = table.getLocalVariableTable();
@@ -187,7 +189,7 @@ public class DescendingVisitor implements Visitor {
     }
 
 
-    public void visitStackMap( StackMap table ) {
+    public void visitStackMap(StackMap table) {
         stack.push(table);
         table.accept(visitor);
         StackMapEntry[] vars = table.getStackMap();
@@ -198,21 +200,21 @@ public class DescendingVisitor implements Visitor {
     }
 
 
-    public void visitStackMapEntry( StackMapEntry var ) {
+    public void visitStackMapEntry(StackMapEntry var) {
         stack.push(var);
         var.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitLocalVariable( LocalVariable var ) {
+    public void visitLocalVariable(LocalVariable var) {
         stack.push(var);
         var.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitConstantPool( ConstantPool cp ) {
+    public void visitConstantPool(ConstantPool cp) {
         stack.push(cp);
         cp.accept(visitor);
         Constant[] constants = cp.getConstantPool();
@@ -225,84 +227,84 @@ public class DescendingVisitor implements Visitor {
     }
 
 
-    public void visitConstantClass( ConstantClass constant ) {
+    public void visitConstantClass(ConstantClass constant) {
         stack.push(constant);
         constant.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitConstantDouble( ConstantDouble constant ) {
+    public void visitConstantDouble(ConstantDouble constant) {
         stack.push(constant);
         constant.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitConstantFieldref( ConstantFieldref constant ) {
+    public void visitConstantFieldref(ConstantFieldref constant) {
         stack.push(constant);
         constant.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitConstantFloat( ConstantFloat constant ) {
+    public void visitConstantFloat(ConstantFloat constant) {
         stack.push(constant);
         constant.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitConstantInteger( ConstantInteger constant ) {
+    public void visitConstantInteger(ConstantInteger constant) {
         stack.push(constant);
         constant.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitConstantInterfaceMethodref( ConstantInterfaceMethodref constant ) {
+    public void visitConstantInterfaceMethodref(ConstantInterfaceMethodref constant) {
         stack.push(constant);
         constant.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitConstantLong( ConstantLong constant ) {
+    public void visitConstantLong(ConstantLong constant) {
         stack.push(constant);
         constant.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitConstantMethodref( ConstantMethodref constant ) {
+    public void visitConstantMethodref(ConstantMethodref constant) {
         stack.push(constant);
         constant.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitConstantNameAndType( ConstantNameAndType constant ) {
+    public void visitConstantNameAndType(ConstantNameAndType constant) {
         stack.push(constant);
         constant.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitConstantString( ConstantString constant ) {
+    public void visitConstantString(ConstantString constant) {
         stack.push(constant);
         constant.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitConstantUtf8( ConstantUtf8 constant ) {
+    public void visitConstantUtf8(ConstantUtf8 constant) {
         stack.push(constant);
         constant.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitInnerClasses( InnerClasses ic ) {
+    public void visitInnerClasses(InnerClasses ic) {
         stack.push(ic);
         ic.accept(visitor);
         InnerClass[] ics = ic.getInnerClasses();
@@ -313,42 +315,42 @@ public class DescendingVisitor implements Visitor {
     }
 
 
-    public void visitInnerClass( InnerClass inner ) {
+    public void visitInnerClass(InnerClass inner) {
         stack.push(inner);
         inner.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitDeprecated( Deprecated attribute ) {
+    public void visitDeprecated(Deprecated attribute) {
         stack.push(attribute);
         attribute.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitSignature( Signature attribute ) {
+    public void visitSignature(Signature attribute) {
         stack.push(attribute);
         attribute.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitSourceFile( SourceFile attribute ) {
+    public void visitSourceFile(SourceFile attribute) {
         stack.push(attribute);
         attribute.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitSynthetic( Synthetic attribute ) {
+    public void visitSynthetic(Synthetic attribute) {
         stack.push(attribute);
         attribute.accept(visitor);
         stack.pop();
     }
 
 
-    public void visitUnknown( Unknown attribute ) {
+    public void visitUnknown(Unknown attribute) {
         stack.push(attribute);
         attribute.accept(visitor);
         stack.pop();

@@ -16,16 +16,17 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * LASTORE -  Store into long array
  * <PRE>Stack: ..., arrayref, index, value.word1, value.word2 -&gt; ...</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: LASTORE.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class LASTORE extends ArrayInstruction implements StackConsumer {
 
-    /** Store long into array
+    /**
+     * Store long into array
      */
     public LASTORE() {
         super(org.apache.bcel.Constants.LASTORE);
@@ -40,7 +41,7 @@ public class LASTORE extends ArrayInstruction implements StackConsumer {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackConsumer(this);
         v.visitExceptionThrower(this);
         v.visitTypedInstruction(this);

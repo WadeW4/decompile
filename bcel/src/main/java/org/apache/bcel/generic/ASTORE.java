@@ -16,12 +16,12 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * ASTORE - Store reference into local variable
  * <PRE>Stack ..., objectref -&gt; ... </PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ASTORE.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class ASTORE extends StoreInstruction {
 
@@ -34,7 +34,9 @@ public class ASTORE extends StoreInstruction {
     }
 
 
-    /** Store reference into local variable
+    /**
+     * Store reference into local variable
+     *
      * @param n index of local variable
      */
     public ASTORE(int n) {
@@ -50,7 +52,7 @@ public class ASTORE extends StoreInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         super.accept(v);
         v.visitASTORE(this);
     }

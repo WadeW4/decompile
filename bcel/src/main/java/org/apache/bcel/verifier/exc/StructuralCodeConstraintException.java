@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License. 
  *
- */ 
+ */
 package org.apache.bcel.verifier.exc;
 
 /**
@@ -26,20 +26,21 @@ package org.apache.bcel.verifier.exc;
  * These are the constraints where data-flow analysis is needed to verify if they hold.
  * The data flow analysis of pass 3 is called pass 3b in JustIce.
  *
- * @version $Id: StructuralCodeConstraintException.java 371539 2006-01-23 14:08:00Z tcurdt $
  * @author Enver Haase
+ * @version $Id: StructuralCodeConstraintException.java 371539 2006-01-23 14:08:00Z tcurdt $
  */
-public class StructuralCodeConstraintException extends CodeConstraintException{
-	/**
-	 * Constructs a new StructuralCodeConstraintException with the specified error message.
-	 */
-	public StructuralCodeConstraintException(String message){
-		super(message);
-	}
-	/**
-	 * Constructs a new StructuralCodeConstraintException with null as its error message string.
-	 */
-	public StructuralCodeConstraintException(){
-		super();
-	}
+public class StructuralCodeConstraintException extends CodeConstraintException {
+    /**
+     * Constructs a new StructuralCodeConstraintException with the specified error message.
+     */
+    public StructuralCodeConstraintException(String message) {
+        super(message);
+    }
+
+    /**
+     * Constructs a new StructuralCodeConstraintException with null as its error message string.
+     */
+    public StructuralCodeConstraintException() {
+        super();
+    }
 }

@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License. 
  *
- */ 
+ */
 package org.apache.bcel.verifier.structurals;
 
 
@@ -26,42 +26,48 @@ import org.apache.bcel.generic.ReferenceType;
  * Virtual Machine Specification, Second Edition, page 147: 4.9.4 for
  * more details.
  *
- * @version $Id: UninitializedObjectType.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @author Enver Haase
+ * @version $Id: UninitializedObjectType.java 386056 2006-03-15 11:31:56Z tcurdt $
  */
-public class UninitializedObjectType extends ReferenceType implements Constants{
+public class UninitializedObjectType extends ReferenceType implements Constants {
 
-	/** The "initialized" version. */
-	private ObjectType initialized;
-	
-	/** Creates a new instance. */
-	public UninitializedObjectType(ObjectType t){
-		super(T_UNKNOWN, "<UNINITIALIZED OBJECT OF TYPE '"+t.getClassName()+"'>");
-		initialized = t;
-	}
-
-	/**
-	 * Returns the ObjectType of the same class as the one of the uninitialized object
-	 * represented by this UninitializedObjectType instance.
-	 */
-	public ObjectType getInitialized(){
-		return initialized;
-	}
-
-	/** @return a hash code value for the object.
+    /**
+     * The "initialized" version.
      */
-	public int hashCode() { return initialized.hashCode(); }
+    private ObjectType initialized;
 
-	/**
-	 * Returns true on equality of this and o.
-	 * Equality means the ObjectType instances of "initialized"
-	 * equal one another in this and the o instance.
-	 *
-	 */
-	public boolean equals(Object o){
-		if (! (o instanceof UninitializedObjectType)) {
+    /**
+     * Creates a new instance.
+     */
+    public UninitializedObjectType(ObjectType t) {
+        super(T_UNKNOWN, "<UNINITIALIZED OBJECT OF TYPE '" + t.getClassName() + "'>");
+        initialized = t;
+    }
+
+    /**
+     * Returns the ObjectType of the same class as the one of the uninitialized object
+     * represented by this UninitializedObjectType instance.
+     */
+    public ObjectType getInitialized() {
+        return initialized;
+    }
+
+    /**
+     * @return a hash code value for the object.
+     */
+    public int hashCode() {
+        return initialized.hashCode();
+    }
+
+    /**
+     * Returns true on equality of this and o.
+     * Equality means the ObjectType instances of "initialized"
+     * equal one another in this and the o instance.
+     */
+    public boolean equals(Object o) {
+        if (!(o instanceof UninitializedObjectType)) {
             return false;
         }
-		return initialized.equals(((UninitializedObjectType)o).initialized);
-	}
+        return initialized.equals(((UninitializedObjectType) o).initialized);
+    }
 }

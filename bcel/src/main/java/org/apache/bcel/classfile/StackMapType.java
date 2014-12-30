@@ -16,20 +16,21 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.apache.bcel.Constants;
 
 /**
  * This class represents the type of a local variable or item on stack
  * used in the StackMap entries.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: StackMapType.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     StackMapEntry
- * @see     StackMap
- * @see     Constants
+ * @see StackMapEntry
+ * @see StackMap
+ * @see Constants
  */
 public final class StackMapType implements Cloneable {
 
@@ -40,6 +41,7 @@ public final class StackMapType implements Cloneable {
 
     /**
      * Construct object from file stream.
+     *
      * @param file Input stream
      * @throws IOException
      */
@@ -53,7 +55,7 @@ public final class StackMapType implements Cloneable {
 
 
     /**
-     * @param type type tag as defined in the Constants interface
+     * @param type  type tag as defined in the Constants interface
      * @param index index to constant pool, or byte code offset
      */
     public StackMapType(byte type, int index, ConstantPool constant_pool) {
@@ -63,7 +65,7 @@ public final class StackMapType implements Cloneable {
     }
 
 
-    public void setType( byte t ) {
+    public void setType(byte t) {
         if ((t < Constants.ITEM_Bogus) || (t > Constants.ITEM_NewObject)) {
             throw new RuntimeException("Illegal type for StackMapType: " + t);
         }
@@ -76,12 +78,13 @@ public final class StackMapType implements Cloneable {
     }
 
 
-    public void setIndex( int t ) {
+    public void setIndex(int t) {
         index = t;
     }
 
 
-    /** @return index to constant pool if type == ITEM_Object, or offset
+    /**
+     * @return index to constant pool if type == ITEM_Object, or offset
      * in byte code, if type == ITEM_NewObject, and -1 otherwise
      */
     public int getIndex() {
@@ -95,7 +98,7 @@ public final class StackMapType implements Cloneable {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         file.writeByte(type);
         if (hasIndex()) {
             file.writeShort(getIndex());
@@ -103,7 +106,8 @@ public final class StackMapType implements Cloneable {
     }
 
 
-    /** @return true, if type is either ITEM_Object or ITEM_NewObject
+    /**
+     * @return true, if type is either ITEM_Object or ITEM_NewObject
      */
     public final boolean hasIndex() {
         return ((type == Constants.ITEM_Object) || (type == Constants.ITEM_NewObject));
@@ -155,7 +159,7 @@ public final class StackMapType implements Cloneable {
     /**
      * @param constant_pool Constant pool to be used for this object.
      */
-    public final void setConstantPool( ConstantPool constant_pool ) {
+    public final void setConstantPool(ConstantPool constant_pool) {
         this.constant_pool = constant_pool;
     }
 }

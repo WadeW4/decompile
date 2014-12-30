@@ -16,28 +16,29 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.apache.bcel.Constants;
 
-/** 
+/**
  * This class represents a chunk of Java byte code contained in a
  * method. It is instantiated by the
  * <em>Attribute.readAttribute()</em> method. A <em>Code</em>
  * attribute contains informations about operand stack, local
  * variables, byte code and the exceptions handled within this
  * method.
- *
+ * <p/>
  * This attribute has attributes itself, namely <em>LineNumberTable</em> which
- * is used for debugging purposes and <em>LocalVariableTable</em> which 
+ * is used for debugging purposes and <em>LocalVariableTable</em> which
  * contains information about the local variables.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: Code.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     Attribute
- * @see     CodeException
- * @see     LineNumberTable
+ * @see Attribute
+ * @see CodeException
+ * @see LineNumberTable
  * @see LocalVariableTable
  */
 public final class Code extends Attribute {
@@ -63,9 +64,9 @@ public final class Code extends Attribute {
 
 
     /**
-     * @param name_index Index pointing to the name <em>Code</em>
-     * @param length Content length in bytes
-     * @param file Input stream
+     * @param name_index    Index pointing to the name <em>Code</em>
+     * @param length        Content length in bytes
+     * @param file          Input stream
      * @param constant_pool Array of constants
      */
     Code(int name_index, int length, DataInputStream file, ConstantPool constant_pool)
@@ -101,17 +102,17 @@ public final class Code extends Attribute {
 
 
     /**
-     * @param name_index Index pointing to the name <em>Code</em>
-     * @param length Content length in bytes
-     * @param max_stack Maximum size of stack
-     * @param max_locals Number of local variables
-     * @param code Actual byte code
+     * @param name_index      Index pointing to the name <em>Code</em>
+     * @param length          Content length in bytes
+     * @param max_stack       Maximum size of stack
+     * @param max_locals      Number of local variables
+     * @param code            Actual byte code
      * @param exception_table Table of handled exceptions
-     * @param attributes Attributes of code: LineNumber or LocalVariable
-     * @param constant_pool Array of constants
+     * @param attributes      Attributes of code: LineNumber or LocalVariable
+     * @param constant_pool   Array of constants
      */
     public Code(int name_index, int length, int max_stack, int max_locals, byte[] code,
-            CodeException[] exception_table, Attribute[] attributes, ConstantPool constant_pool) {
+                CodeException[] exception_table, Attribute[] attributes, ConstantPool constant_pool) {
         super(Constants.ATTR_CODE, name_index, length, constant_pool);
         this.max_stack = max_stack;
         this.max_locals = max_locals;
@@ -128,7 +129,7 @@ public final class Code extends Attribute {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitCode(this);
     }
 
@@ -139,7 +140,7 @@ public final class Code extends Attribute {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         super.dump(file);
         file.writeShort(max_stack);
         file.writeShort(max_locals);
@@ -225,11 +226,11 @@ public final class Code extends Attribute {
 
 
     /**
-     * @return the internal length of this code attribute (minus the first 6 bytes) 
+     * @return the internal length of this code attribute (minus the first 6 bytes)
      * and excluding all its attributes
      */
     private final int getInternalLength() {
-        return 2 /*max_stack*/+ 2 /*max_locals*/+ 4 /*code length*/
+        return 2 /*max_stack*/ + 2 /*max_locals*/ + 4 /*code length*/
                 + code_length /*byte-code*/
                 + 2 /*exception-table length*/
                 + 8 * exception_table_length /* exception table */
@@ -253,7 +254,7 @@ public final class Code extends Attribute {
     /**
      * @param attributes the attributes to set for this Code
      */
-    public final void setAttributes( Attribute[] attributes ) {
+    public final void setAttributes(Attribute[] attributes) {
         this.attributes = attributes;
         attributes_count = (attributes == null) ? 0 : attributes.length;
         length = calculateLength(); // Adjust length
@@ -263,7 +264,7 @@ public final class Code extends Attribute {
     /**
      * @param code byte code
      */
-    public final void setCode( byte[] code ) {
+    public final void setCode(byte[] code) {
         this.code = code;
         code_length = (code == null) ? 0 : code.length;
     }
@@ -272,7 +273,7 @@ public final class Code extends Attribute {
     /**
      * @param exception_table exception table
      */
-    public final void setExceptionTable( CodeException[] exception_table ) {
+    public final void setExceptionTable(CodeException[] exception_table) {
         this.exception_table = exception_table;
         exception_table_length = (exception_table == null) ? 0 : exception_table.length;
     }
@@ -281,7 +282,7 @@ public final class Code extends Attribute {
     /**
      * @param max_locals maximum number of local variables
      */
-    public final void setMaxLocals( int max_locals ) {
+    public final void setMaxLocals(int max_locals) {
         this.max_locals = max_locals;
     }
 
@@ -289,7 +290,7 @@ public final class Code extends Attribute {
     /**
      * @param max_stack maximum stack size
      */
-    public final void setMaxStack( int max_stack ) {
+    public final void setMaxStack(int max_stack) {
         this.max_stack = max_stack;
     }
 
@@ -297,7 +298,7 @@ public final class Code extends Attribute {
     /**
      * @return String representation of code chunk.
      */
-    public final String toString( boolean verbose ) {
+    public final String toString(boolean verbose) {
         StringBuffer buf;
         buf = new StringBuffer(100);
         buf.append("Code(max_stack = ").append(max_stack).append(", max_locals = ").append(
@@ -328,11 +329,10 @@ public final class Code extends Attribute {
 
 
     /**
-     * @return deep copy of this attribute
-     * 
      * @param _constant_pool the constant pool to duplicate
+     * @return deep copy of this attribute
      */
-    public Attribute copy( ConstantPool _constant_pool ) {
+    public Attribute copy(ConstantPool _constant_pool) {
         Code c = (Code) clone();
         if (code != null) {
             c.code = new byte[code.length];

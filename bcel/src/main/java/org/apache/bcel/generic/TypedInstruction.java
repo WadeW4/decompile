@@ -20,10 +20,10 @@ package org.apache.bcel.generic;
  * Get the type associated with an instruction, int for ILOAD, or the type
  * of the field of a PUTFIELD instruction, e.g..
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: TypedInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public interface TypedInstruction {
 
-    public Type getType( ConstantPoolGen cpg );
+    public Type getType(ConstantPoolGen cpg);
 }

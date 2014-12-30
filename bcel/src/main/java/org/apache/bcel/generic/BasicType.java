@@ -18,11 +18,11 @@ package org.apache.bcel.generic;
 
 import org.apache.bcel.Constants;
 
-/** 
+/**
  * Denotes basic type such as int.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: BasicType.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public final class BasicType extends Type {
 
@@ -40,7 +40,7 @@ public final class BasicType extends Type {
     }
 
 
-    public static final BasicType getType( byte type ) {
+    public static final BasicType getType(byte type) {
         switch (type) {
             case Constants.T_VOID:
                 return VOID;
@@ -66,16 +66,18 @@ public final class BasicType extends Type {
     }
 
 
-    /** @return a hash code value for the object.
+    /**
+     * @return a hash code value for the object.
      */
     public int hashCode() {
         return type;
     }
 
 
-    /** @return true if both type objects refer to the same type
+    /**
+     * @return true if both type objects refer to the same type
      */
-    public boolean equals( Object _type ) {
+    public boolean equals(Object _type) {
         return (_type instanceof BasicType) ? ((BasicType) _type).type == this.type : false;
     }
 }

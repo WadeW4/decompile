@@ -16,13 +16,13 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * ICONST - Push value between -1, ..., 5, other values cause an exception
- *
+ * <p/>
  * <PRE>Stack: ... -&gt; ..., </PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ICONST.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class ICONST extends Instruction implements ConstantPushInstruction, TypedInstruction {
 
@@ -53,9 +53,10 @@ public class ICONST extends Instruction implements ConstantPushInstruction, Type
     }
 
 
-    /** @return Type.INT
+    /**
+     * @return Type.INT
      */
-    public Type getType( ConstantPoolGen cp ) {
+    public Type getType(ConstantPoolGen cp) {
         return Type.INT;
     }
 
@@ -68,7 +69,7 @@ public class ICONST extends Instruction implements ConstantPushInstruction, Type
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitPushInstruction(this);
         v.visitStackProducer(this);
         v.visitTypedInstruction(this);

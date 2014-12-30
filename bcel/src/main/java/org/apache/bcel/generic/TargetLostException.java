@@ -21,31 +21,31 @@ package org.apache.bcel.generic;
  * are still being referenced by a InstructionTargeter object. I.e. the
  * InstructionTargeter has to be notified that (one of) the InstructionHandle it
  * is referencing is being removed from the InstructionList and thus not valid anymore.
- *
+ * <p/>
  * Making this an exception instead of a return value forces the user to handle
  * these case explicitely in a try { ... } catch. The following code illustrates
  * how this may be done:
- *
+ * <p/>
  * <PRE>
- *     ...
- *     try {
- *	il.delete(start_ih, end_ih);
- *     } catch(TargetLostException e) {
- *       InstructionHandle[] targets = e.getTargets();
- *	 for(int i=0; i < targets.length; i++) {
- *	   InstructionTargeter[] targeters = targets[i].getTargeters();
- *     
- *	   for(int j=0; j < targeters.length; j++)
- *	     targeters[j].updateTarget(targets[i], new_target);
- *       }
- *     }
+ * ...
+ * try {
+ * il.delete(start_ih, end_ih);
+ * } catch(TargetLostException e) {
+ * InstructionHandle[] targets = e.getTargets();
+ * for(int i=0; i < targets.length; i++) {
+ * InstructionTargeter[] targeters = targets[i].getTargeters();
+ * <p/>
+ * for(int j=0; j < targeters.length; j++)
+ * targeters[j].updateTarget(targets[i], new_target);
+ * }
+ * }
  * </PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
+ * @version $Id: TargetLostException.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @see InstructionHandle
  * @see InstructionList
  * @see InstructionTargeter
- * @version $Id: TargetLostException.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public final class TargetLostException extends Exception {
 

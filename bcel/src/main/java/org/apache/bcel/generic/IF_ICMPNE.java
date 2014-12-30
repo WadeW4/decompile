@@ -16,13 +16,13 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * IF_ICMPNE - Branch if int comparison doesn't succeed
- *
+ * <p/>
  * <PRE>Stack: ..., value1, value2 -&gt; ...</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: IF_ICMPNE.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class IF_ICMPNE extends IfInstruction {
 
@@ -55,7 +55,7 @@ public class IF_ICMPNE extends IfInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackConsumer(this);
         v.visitBranchInstruction(this);
         v.visitIfInstruction(this);

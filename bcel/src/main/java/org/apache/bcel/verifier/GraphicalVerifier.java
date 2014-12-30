@@ -16,23 +16,25 @@
  */
 package org.apache.bcel.verifier;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import javax.swing.UIManager; 
 import org.apache.bcel.generic.Type;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * A graphical user interface application demonstrating JustIce.
  *
- * @version $Id: GraphicalVerifier.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @author Enver Haase
+ * @version $Id: GraphicalVerifier.java 386056 2006-03-15 11:31:56Z tcurdt $
  */
 public class GraphicalVerifier {
 
     boolean packFrame = false;
 
 
-    /** Constructor. */
+    /**
+     * Constructor.
+     */
     public GraphicalVerifier() {
         VerifierAppFrame frame = new VerifierAppFrame();
         //Frames �berpr�fen, die voreingestellte Gr��e haben
@@ -60,8 +62,10 @@ public class GraphicalVerifier {
     }
 
 
-    /** Main method. */
-    public static void main( String[] args ) {
+    /**
+     * Main method.
+     */
+    public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {

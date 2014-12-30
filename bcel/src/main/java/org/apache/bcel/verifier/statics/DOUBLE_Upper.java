@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License. 
  *
- */ 
+ */
 package org.apache.bcel.verifier.statics;
 
 
@@ -22,21 +22,28 @@ import org.apache.bcel.generic.Type;
 
 /**
  * This class represents the upper half of a DOUBLE variable.
- * @version $Id: DOUBLE_Upper.java 371539 2006-01-23 14:08:00Z tcurdt $
+ *
  * @author Enver Haase
+ * @version $Id: DOUBLE_Upper.java 371539 2006-01-23 14:08:00Z tcurdt $
  */
-public final class DOUBLE_Upper extends Type{
+public final class DOUBLE_Upper extends Type {
 
-	/** The one and only instance of this class. */
-	private static DOUBLE_Upper singleInstance = new DOUBLE_Upper();
+    /**
+     * The one and only instance of this class.
+     */
+    private static DOUBLE_Upper singleInstance = new DOUBLE_Upper();
 
-	/** The constructor; this class must not be instantiated from the outside. */
-	private DOUBLE_Upper(){
-		super(Constants.T_UNKNOWN, "Long_Upper");
-	}
+    /**
+     * The constructor; this class must not be instantiated from the outside.
+     */
+    private DOUBLE_Upper() {
+        super(Constants.T_UNKNOWN, "Long_Upper");
+    }
 
-	/** Use this method to get the single instance of this class. */
-	public static DOUBLE_Upper theInstance(){
-		return singleInstance;
-	}
+    /**
+     * Use this method to get the single instance of this class.
+     */
+    public static DOUBLE_Upper theInstance() {
+        return singleInstance;
+    }
 }

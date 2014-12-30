@@ -16,17 +16,18 @@
  */
 package org.apache.bcel.generic;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 import org.apache.bcel.util.ByteSequence;
 
-/** 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+/**
  * LDC - Push item from constant pool.
- *
+ * <p/>
  * <PRE>Stack: ... -&gt; ..., item</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: LDC.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class LDC extends CPInstruction implements PushInstruction, ExceptionThrower,
         TypedInstruction {
@@ -59,9 +60,10 @@ public class LDC extends CPInstruction implements PushInstruction, ExceptionThro
 
     /**
      * Dump instruction as byte code to stream out.
+     *
      * @param out Output stream
      */
-    public void dump( DataOutputStream out ) throws IOException {
+    public void dump(DataOutputStream out) throws IOException {
         out.writeByte(opcode);
         if (length == 2) {
             out.writeByte(index);
@@ -74,7 +76,7 @@ public class LDC extends CPInstruction implements PushInstruction, ExceptionThro
     /**
      * Set the index to constant pool and adjust size.
      */
-    public final void setIndex( int index ) {
+    public final void setIndex(int index) {
         super.setIndex(index);
         setSize();
     }
@@ -83,13 +85,13 @@ public class LDC extends CPInstruction implements PushInstruction, ExceptionThro
     /**
      * Read needed data (e.g. index) from file.
      */
-    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
+    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
         length = 2;
         index = bytes.readUnsignedByte();
     }
 
 
-    public Object getValue( ConstantPoolGen cpg ) {
+    public Object getValue(ConstantPoolGen cpg) {
         org.apache.bcel.classfile.Constant c = cpg.getConstantPool().getConstant(index);
         switch (c.getTag()) {
             case org.apache.bcel.Constants.CONSTANT_String:
@@ -108,7 +110,7 @@ public class LDC extends CPInstruction implements PushInstruction, ExceptionThro
     }
 
 
-    public Type getType( ConstantPoolGen cpg ) {
+    public Type getType(ConstantPoolGen cpg) {
         switch (cpg.getConstantPool().getConstant(index).getTag()) {
             case org.apache.bcel.Constants.CONSTANT_String:
                 return Type.STRING;
@@ -137,7 +139,7 @@ public class LDC extends CPInstruction implements PushInstruction, ExceptionThro
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackProducer(this);
         v.visitPushInstruction(this);
         v.visitExceptionThrower(this);

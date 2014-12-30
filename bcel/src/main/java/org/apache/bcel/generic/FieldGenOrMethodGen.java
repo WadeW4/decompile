@@ -16,18 +16,19 @@
  */
 package org.apache.bcel.generic;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.bcel.Constants;
 import org.apache.bcel.classfile.AccessFlags;
 import org.apache.bcel.classfile.Attribute;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Super class for FieldGen and MethodGen objects, since they have
  * some methods in common!
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: FieldGenOrMethodGen.java 410087 2006-05-29 12:12:19Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class FieldGenOrMethodGen extends AccessFlags implements NamedAndTyped, Cloneable {
 
@@ -41,7 +42,7 @@ public abstract class FieldGenOrMethodGen extends AccessFlags implements NamedAn
     }
 
 
-    public void setType( Type type ) {
+    public void setType(Type type) {
         if (type.getType() == Constants.T_ADDRESS) {
             throw new IllegalArgumentException("Type can not be " + type);
         }
@@ -54,14 +55,15 @@ public abstract class FieldGenOrMethodGen extends AccessFlags implements NamedAn
     }
 
 
-    /** @return name of method/field.
+    /**
+     * @return name of method/field.
      */
     public String getName() {
         return name;
     }
 
 
-    public void setName( String name ) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -71,7 +73,7 @@ public abstract class FieldGenOrMethodGen extends AccessFlags implements NamedAn
     }
 
 
-    public void setConstantPool( ConstantPoolGen cp ) {
+    public void setConstantPool(ConstantPoolGen cp) {
         this.cp = cp;
     }
 
@@ -84,7 +86,7 @@ public abstract class FieldGenOrMethodGen extends AccessFlags implements NamedAn
      *
      * @param a attribute to be added
      */
-    public void addAttribute( Attribute a ) {
+    public void addAttribute(Attribute a) {
         attribute_vec.add(a);
     }
 
@@ -92,7 +94,7 @@ public abstract class FieldGenOrMethodGen extends AccessFlags implements NamedAn
     /**
      * Remove an attribute.
      */
-    public void removeAttribute( Attribute a ) {
+    public void removeAttribute(Attribute a) {
         attribute_vec.remove(a);
     }
 
@@ -115,7 +117,8 @@ public abstract class FieldGenOrMethodGen extends AccessFlags implements NamedAn
     }
 
 
-    /** @return signature of method/field.
+    /**
+     * @return signature of method/field.
      */
     public abstract String getSignature();
 

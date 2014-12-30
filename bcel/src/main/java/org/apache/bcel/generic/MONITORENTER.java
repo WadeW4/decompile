@@ -16,12 +16,12 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * MONITORENTER - Enter monitor for object
  * <PRE>Stack: ..., objectref -&gt; ...</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: MONITORENTER.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class MONITORENTER extends Instruction implements ExceptionThrower, StackConsumer {
 
@@ -31,8 +31,8 @@ public class MONITORENTER extends Instruction implements ExceptionThrower, Stack
 
 
     public Class[] getExceptions() {
-        return new Class[] {
-            org.apache.bcel.ExceptionConstants.NULL_POINTER_EXCEPTION
+        return new Class[]{
+                org.apache.bcel.ExceptionConstants.NULL_POINTER_EXCEPTION
         };
     }
 
@@ -45,7 +45,7 @@ public class MONITORENTER extends Instruction implements ExceptionThrower, Stack
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitExceptionThrower(this);
         v.visitStackConsumer(this);
         v.visitMONITORENTER(this);

@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License. 
  *
- */ 
+ */
 package org.apache.bcel.verifier.exc;
 
 
@@ -26,20 +26,21 @@ package org.apache.bcel.verifier.exc;
  * edition, page 164, 5.4.1 where verification as a part of the linking process is
  * defined to be the verification happening in passes 2 and 3.
  *
- * @version $Id: VerificationException.java 371539 2006-01-23 14:08:00Z tcurdt $
  * @author Enver Haase
+ * @version $Id: VerificationException.java 371539 2006-01-23 14:08:00Z tcurdt $
  */
-public abstract class VerificationException extends VerifierConstraintViolatedException{
-	/**
-	 * Constructs a new VerificationException with null as its error message string.
-	 */
-	VerificationException(){
-		super();
-	}
-	/**
-	 * Constructs a new VerificationException with the specified error message.
-	 */
-	VerificationException(String message){
-		super(message);
-	}
+public abstract class VerificationException extends VerifierConstraintViolatedException {
+    /**
+     * Constructs a new VerificationException with null as its error message string.
+     */
+    VerificationException() {
+        super();
+    }
+
+    /**
+     * Constructs a new VerificationException with the specified error message.
+     */
+    VerificationException(String message) {
+        super(message);
+    }
 }

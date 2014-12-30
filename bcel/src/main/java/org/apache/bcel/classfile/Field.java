@@ -16,24 +16,25 @@
  */
 package org.apache.bcel.classfile;
 
-import java.io.DataInputStream;
-import java.io.IOException;
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.Type;
 import org.apache.bcel.util.BCELComparator;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+
 /**
- * This class represents the field info structure, i.e., the representation 
+ * This class represents the field info structure, i.e., the representation
  * for a variable in the class. See JVM specification for details.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: Field.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public final class Field extends FieldOrMethod {
 
     private static BCELComparator _cmp = new BCELComparator() {
 
-        public boolean equals( Object o1, Object o2 ) {
+        public boolean equals(Object o1, Object o2) {
             Field THIS = (Field) o1;
             Field THAT = (Field) o2;
             return THIS.getName().equals(THAT.getName())
@@ -41,7 +42,7 @@ public final class Field extends FieldOrMethod {
         }
 
 
-        public int hashCode( Object o ) {
+        public int hashCode(Object o) {
             Field THIS = (Field) o;
             return THIS.getSignature().hashCode() ^ THIS.getName().hashCode();
         }
@@ -59,6 +60,7 @@ public final class Field extends FieldOrMethod {
 
     /**
      * Construct object from file stream.
+     *
      * @param file Input stream
      */
     Field(DataInputStream file, ConstantPool constant_pool) throws IOException,
@@ -68,14 +70,14 @@ public final class Field extends FieldOrMethod {
 
 
     /**
-     * @param access_flags Access rights of field
-     * @param name_index Points to field name in constant pool
+     * @param access_flags    Access rights of field
+     * @param name_index      Points to field name in constant pool
      * @param signature_index Points to encoded signature
-     * @param attributes Collection of attributes
-     * @param constant_pool Array of constants
+     * @param attributes      Collection of attributes
+     * @param constant_pool   Array of constants
      */
     public Field(int access_flags, int name_index, int signature_index, Attribute[] attributes,
-            ConstantPool constant_pool) {
+                 ConstantPool constant_pool) {
         super(access_flags, name_index, signature_index, attributes, constant_pool);
     }
 
@@ -87,7 +89,7 @@ public final class Field extends FieldOrMethod {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitField(this);
     }
 
@@ -137,7 +139,7 @@ public final class Field extends FieldOrMethod {
     /**
      * @return deep copy of this field
      */
-    public final Field copy( ConstantPool _constant_pool ) {
+    public final Field copy(ConstantPool _constant_pool) {
         return (Field) copy_(_constant_pool);
     }
 
@@ -161,7 +163,7 @@ public final class Field extends FieldOrMethod {
     /**
      * @param comparator Comparison strategy object
      */
-    public static void setComparator( BCELComparator comparator ) {
+    public static void setComparator(BCELComparator comparator) {
         _cmp = comparator;
     }
 
@@ -170,10 +172,10 @@ public final class Field extends FieldOrMethod {
      * Return value as defined by given BCELComparator strategy.
      * By default two Field objects are said to be equal when
      * their names and signatures are equal.
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
-    public boolean equals( Object obj ) {
+    public boolean equals(Object obj) {
         return _cmp.equals(this, obj);
     }
 
@@ -181,7 +183,7 @@ public final class Field extends FieldOrMethod {
     /**
      * Return value as defined by given BCELComparator strategy.
      * By default return the hashcode of the field's name XOR signature.
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     public int hashCode() {

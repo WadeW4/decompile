@@ -31,8 +31,8 @@ import java.lang.reflect.Modifier;
  * <pre>java org.apache.bcel.util.JavaWrapper -Dbcel.classloader=foo.MyLoader &lt;real.class.name&gt; [arguments]</pre>
  * </p>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: JavaWrapper.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @see ClassLoader
  */
 public class JavaWrapper {
@@ -63,17 +63,18 @@ public class JavaWrapper {
     }
 
 
-    /** Runs the main method of the given class with the arguments passed in argv
+    /**
+     * Runs the main method of the given class with the arguments passed in argv
      *
      * @param class_name the fully qualified class name
-     * @param argv the arguments just as you would pass them directly
+     * @param argv       the arguments just as you would pass them directly
      */
-    public void runMain( String class_name, String[] argv ) throws ClassNotFoundException {
+    public void runMain(String class_name, String[] argv) throws ClassNotFoundException {
         Class cl = loader.loadClass(class_name);
         Method method = null;
         try {
-            method = cl.getMethod("main", new Class[] {
-                argv.getClass()
+            method = cl.getMethod("main", new Class[]{
+                    argv.getClass()
             });
             /* Method main is sane ?
              */
@@ -89,8 +90,8 @@ public class JavaWrapper {
             return;
         }
         try {
-            method.invoke(null, new Object[] {
-                argv
+            method.invoke(null, new Object[]{
+                    argv
             });
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -98,10 +99,11 @@ public class JavaWrapper {
     }
 
 
-    /** Default main method used as wrapper, expects the fully qualified class name
+    /**
+     * Default main method used as wrapper, expects the fully qualified class name
      * of the real class as the first argument.
      */
-    public static void main( String[] argv ) throws Exception {
+    public static void main(String[] argv) throws Exception {
         /* Expects class name as first argument, other arguments are by-passed.
          */
         if (argv.length == 0) {

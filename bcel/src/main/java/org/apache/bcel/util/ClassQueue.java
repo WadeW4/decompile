@@ -16,22 +16,23 @@
  */
 package org.apache.bcel.util;
 
-import java.util.LinkedList;
 import org.apache.bcel.classfile.JavaClass;
 
-/** 
+import java.util.LinkedList;
+
+/**
  * Utility class implementing a (typesafe) queue of JavaClass
  * objects.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ClassQueue.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A> 
  */
 public class ClassQueue implements java.io.Serializable {
 
     protected LinkedList vec = new LinkedList();
 
 
-    public void enqueue( JavaClass clazz ) {
+    public void enqueue(JavaClass clazz) {
         vec.addLast(clazz);
     }
 

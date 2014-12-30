@@ -16,10 +16,11 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.apache.bcel.Constants;
 
 /**
  * This class is derived from <em>Attribute</em> and declares this class as
@@ -30,9 +31,9 @@ import org.apache.bcel.Constants;
  * is intended to be instantiated from the
  * <em>Attribute.readAttribute()</em> method.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: Synthetic.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     Attribute
+ * @see Attribute
  */
 public final class Synthetic extends Attribute {
 
@@ -49,12 +50,12 @@ public final class Synthetic extends Attribute {
 
 
     /**
-     * @param name_index Index in constant pool to CONSTANT_Utf8, which
-     * should represent the string "Synthetic".
-     * @param length Content length in bytes - should be zero.
-     * @param bytes Attribute contents
+     * @param name_index    Index in constant pool to CONSTANT_Utf8, which
+     *                      should represent the string "Synthetic".
+     * @param length        Content length in bytes - should be zero.
+     * @param bytes         Attribute contents
      * @param constant_pool The constant pool this attribute is associated
-     * with.
+     *                      with.
      */
     public Synthetic(int name_index, int length, byte[] bytes, ConstantPool constant_pool) {
         super(Constants.ATTR_SYNTHETIC, name_index, length, constant_pool);
@@ -64,9 +65,10 @@ public final class Synthetic extends Attribute {
 
     /**
      * Construct object from file stream.
-     * @param name_index Index in constant pool to CONSTANT_Utf8
-     * @param length Content length in bytes
-     * @param file Input stream
+     *
+     * @param name_index    Index in constant pool to CONSTANT_Utf8
+     * @param length        Content length in bytes
+     * @param file          Input stream
      * @param constant_pool Array of constants
      * @throws IOException
      */
@@ -88,7 +90,7 @@ public final class Synthetic extends Attribute {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitSynthetic(this);
     }
 
@@ -99,7 +101,7 @@ public final class Synthetic extends Attribute {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         super.dump(file);
         if (length > 0) {
             file.write(bytes, 0, length);
@@ -118,7 +120,7 @@ public final class Synthetic extends Attribute {
     /**
      * @param bytes
      */
-    public final void setBytes( byte[] bytes ) {
+    public final void setBytes(byte[] bytes) {
         this.bytes = bytes;
     }
 
@@ -138,7 +140,7 @@ public final class Synthetic extends Attribute {
     /**
      * @return deep copy of this attribute
      */
-    public Attribute copy( ConstantPool _constant_pool ) {
+    public Attribute copy(ConstantPool _constant_pool) {
         Synthetic c = (Synthetic) clone();
         if (bytes != null) {
             c.bytes = new byte[bytes.length];

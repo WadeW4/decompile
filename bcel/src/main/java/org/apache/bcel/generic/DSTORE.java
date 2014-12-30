@@ -16,12 +16,12 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * DSTORE - Store double into local variable
  * <pre>Stack: ..., value.word1, value.word2 -&gt; ... </PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: DSTORE.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class DSTORE extends StoreInstruction {
 
@@ -34,7 +34,9 @@ public class DSTORE extends StoreInstruction {
     }
 
 
-    /** Store double into local variable
+    /**
+     * Store double into local variable
+     *
      * @param n index of local variable
      */
     public DSTORE(int n) {
@@ -50,7 +52,7 @@ public class DSTORE extends StoreInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         super.accept(v);
         v.visitDSTORE(this);
     }

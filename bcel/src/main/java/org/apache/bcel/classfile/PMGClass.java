@@ -16,18 +16,19 @@
  */
 package org.apache.bcel.classfile;
 
+import org.apache.bcel.Constants;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.apache.bcel.Constants;
 
 /**
  * This class is derived from <em>Attribute</em> and represents a reference
  * to a PMG attribute.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: PMGClass.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @see     Attribute
+ * @see Attribute
  */
 public final class PMGClass extends Attribute {
 
@@ -46,9 +47,10 @@ public final class PMGClass extends Attribute {
 
     /**
      * Construct object from file stream.
-     * @param name_index Index in constant pool to CONSTANT_Utf8
-     * @param length Content length in bytes
-     * @param file Input stream
+     *
+     * @param name_index    Index in constant pool to CONSTANT_Utf8
+     * @param length        Content length in bytes
+     * @param file          Input stream
      * @param constant_pool Array of constants
      * @throws IOException
      */
@@ -59,14 +61,14 @@ public final class PMGClass extends Attribute {
 
 
     /**
-     * @param name_index Index in constant pool to CONSTANT_Utf8
-     * @param length Content length in bytes
-     * @param pmg_index index in constant pool for source file name
+     * @param name_index      Index in constant pool to CONSTANT_Utf8
+     * @param length          Content length in bytes
+     * @param pmg_index       index in constant pool for source file name
      * @param pmg_class_index Index in constant pool to CONSTANT_Utf8
-     * @param constant_pool Array of constants
+     * @param constant_pool   Array of constants
      */
     public PMGClass(int name_index, int length, int pmg_index, int pmg_class_index,
-            ConstantPool constant_pool) {
+                    ConstantPool constant_pool) {
         super(Constants.ATTR_PMG, name_index, length, constant_pool);
         this.pmg_index = pmg_index;
         this.pmg_class_index = pmg_class_index;
@@ -80,7 +82,7 @@ public final class PMGClass extends Attribute {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         System.err.println("Visiting non-standard PMGClass object");
     }
 
@@ -91,7 +93,7 @@ public final class PMGClass extends Attribute {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump( DataOutputStream file ) throws IOException {
+    public final void dump(DataOutputStream file) throws IOException {
         super.dump(file);
         file.writeShort(pmg_index);
         file.writeShort(pmg_class_index);
@@ -109,7 +111,7 @@ public final class PMGClass extends Attribute {
     /**
      * @param pmg_class_index
      */
-    public final void setPMGClassIndex( int pmg_class_index ) {
+    public final void setPMGClassIndex(int pmg_class_index) {
         this.pmg_class_index = pmg_class_index;
     }
 
@@ -125,7 +127,7 @@ public final class PMGClass extends Attribute {
     /**
      * @param pmg_index
      */
-    public final void setPMGIndex( int pmg_index ) {
+    public final void setPMGIndex(int pmg_index) {
         this.pmg_index = pmg_index;
     }
 
@@ -161,7 +163,7 @@ public final class PMGClass extends Attribute {
     /**
      * @return deep copy of this attribute
      */
-    public Attribute copy( ConstantPool _constant_pool ) {
+    public Attribute copy(ConstantPool _constant_pool) {
         return (PMGClass) clone();
     }
 }

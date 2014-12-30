@@ -20,10 +20,10 @@ package org.apache.bcel.generic;
  * Implement this interface if you're interested in changes to a ClassGen object
  * and register yourself with addObserver().
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ClassObserver.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public interface ClassObserver {
 
-    public void notify( ClassGen clazz );
+    public void notify(ClassGen clazz);
 }

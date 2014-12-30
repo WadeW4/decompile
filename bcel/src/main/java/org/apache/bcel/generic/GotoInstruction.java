@@ -16,11 +16,11 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * Super class for GOTO
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: GotoInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class GotoInstruction extends BranchInstruction implements UnconditionalBranch {
 

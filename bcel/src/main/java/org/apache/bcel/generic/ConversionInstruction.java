@@ -21,8 +21,8 @@ import org.apache.bcel.Constants;
 /**
  * Super class for the x2y family of instructions.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ConversionInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class ConversionInstruction extends Instruction implements TypedInstruction,
         StackProducer, StackConsumer {
@@ -43,9 +43,10 @@ public abstract class ConversionInstruction extends Instruction implements Typed
     }
 
 
-    /** @return type associated with the instruction
+    /**
+     * @return type associated with the instruction
      */
-    public Type getType( ConstantPoolGen cp ) {
+    public Type getType(ConstantPoolGen cp) {
         switch (opcode) {
             case Constants.D2I:
             case Constants.F2I:

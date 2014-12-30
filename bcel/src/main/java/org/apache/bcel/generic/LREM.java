@@ -20,8 +20,8 @@ package org.apache.bcel.generic;
  * LREM - Remainder of long
  * <PRE>Stack: ..., value1, value2 -&gt; result</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: LREM.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class LREM extends ArithmeticInstruction implements ExceptionThrower {
 
@@ -31,8 +31,8 @@ public class LREM extends ArithmeticInstruction implements ExceptionThrower {
 
 
     public Class[] getExceptions() {
-        return new Class[] {
-            org.apache.bcel.ExceptionConstants.ARITHMETIC_EXCEPTION
+        return new Class[]{
+                org.apache.bcel.ExceptionConstants.ARITHMETIC_EXCEPTION
         };
     }
 
@@ -45,7 +45,7 @@ public class LREM extends ArithmeticInstruction implements ExceptionThrower {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitExceptionThrower(this);
         v.visitTypedInstruction(this);
         v.visitStackProducer(this);

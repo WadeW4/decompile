@@ -16,12 +16,12 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * SWAP - Swa top operand stack word
  * <PRE>Stack: ..., word2, word1 -&gt; ..., word1, word2</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: SWAP.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class SWAP extends StackInstruction implements StackConsumer, StackProducer {
 
@@ -38,7 +38,7 @@ public class SWAP extends StackInstruction implements StackConsumer, StackProduc
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackConsumer(this);
         v.visitStackProducer(this);
         v.visitStackInstruction(this);

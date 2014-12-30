@@ -16,17 +16,17 @@
  */
 package org.apache.bcel.util;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.bcel.classfile.JavaClass;
 
-/** 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
  * Utility class implementing a (typesafe) collection of JavaClass
  * objects. Contains the most important methods of a Vector.
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ClassVector.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A> 
- * 
  * @deprecated as of 5.1.1 - 7/17/2005
  */
 public class ClassVector implements java.io.Serializable {
@@ -34,17 +34,17 @@ public class ClassVector implements java.io.Serializable {
     protected List vec = new ArrayList();
 
 
-    public void addElement( JavaClass clazz ) {
+    public void addElement(JavaClass clazz) {
         vec.add(clazz);
     }
 
 
-    public JavaClass elementAt( int index ) {
+    public JavaClass elementAt(int index) {
         return (JavaClass) vec.get(index);
     }
 
 
-    public void removeElementAt( int index ) {
+    public void removeElementAt(int index) {
         vec.remove(index);
     }
 

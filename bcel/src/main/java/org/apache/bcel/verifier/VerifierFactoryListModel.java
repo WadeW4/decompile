@@ -22,8 +22,8 @@ import javax.swing.event.ListDataEvent;
  * This class implements an adapter; it implements both a Swing ListModel and
  * a VerifierFactoryObserver.
  *
- * @version $Id: VerifierFactoryListModel.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @author Enver Haase
+ * @version $Id: VerifierFactoryListModel.java 386056 2006-03-15 11:31:56Z tcurdt $
  */
 public class VerifierFactoryListModel implements org.apache.bcel.verifier.VerifierFactoryObserver,
         javax.swing.ListModel {
@@ -38,7 +38,7 @@ public class VerifierFactoryListModel implements org.apache.bcel.verifier.Verifi
     }
 
 
-    public synchronized void update( String s ) {
+    public synchronized void update(String s) {
         int size = listeners.size();
         Verifier[] verifiers = VerifierFactory.getVerifiers();
         int num_of_verifiers = verifiers.length;
@@ -54,12 +54,12 @@ public class VerifierFactoryListModel implements org.apache.bcel.verifier.Verifi
     }
 
 
-    public synchronized void addListDataListener( javax.swing.event.ListDataListener l ) {
+    public synchronized void addListDataListener(javax.swing.event.ListDataListener l) {
         listeners.add(l);
     }
 
 
-    public synchronized void removeListDataListener( javax.swing.event.ListDataListener l ) {
+    public synchronized void removeListDataListener(javax.swing.event.ListDataListener l) {
         listeners.remove(l);
     }
 
@@ -69,7 +69,7 @@ public class VerifierFactoryListModel implements org.apache.bcel.verifier.Verifi
     }
 
 
-    public synchronized Object getElementAt( int index ) {
+    public synchronized Object getElementAt(int index) {
         return (cache.toArray())[index];
     }
 }

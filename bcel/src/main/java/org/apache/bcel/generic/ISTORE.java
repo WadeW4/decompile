@@ -16,12 +16,12 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * ISTORE - Store int from stack into local variable
  * <PRE>Stack: ..., value -&gt; ... </PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ISTORE.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class ISTORE extends StoreInstruction {
 
@@ -34,7 +34,9 @@ public class ISTORE extends StoreInstruction {
     }
 
 
-    /** Store int into local variable
+    /**
+     * Store int into local variable
+     *
      * @param n index of local variable
      */
     public ISTORE(int n) {
@@ -50,7 +52,7 @@ public class ISTORE extends StoreInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         super.accept(v);
         v.visitISTORE(this);
     }

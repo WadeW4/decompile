@@ -16,12 +16,12 @@
  */
 package org.apache.bcel.generic;
 
-/** 
+/**
  * DUP_X1 - Duplicate top operand stack word and put two down
  * <PRE>Stack: ..., word2, word1 -&gt; ..., word1, word2, word1</PRE>
  *
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: DUP_X1.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class DUP_X1 extends StackInstruction {
 
@@ -38,7 +38,7 @@ public class DUP_X1 extends StackInstruction {
      *
      * @param v Visitor object
      */
-    public void accept( Visitor v ) {
+    public void accept(Visitor v) {
         v.visitStackInstruction(this);
         v.visitDUP_X1(this);
     }
