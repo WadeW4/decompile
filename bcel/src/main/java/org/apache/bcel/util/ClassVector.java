@@ -1,7 +1,7 @@
 /*
  * Copyright  2000-2004 The Apache Software Foundation
  *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
+ *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
  *
@@ -11,47 +11,44 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.util;
 
-import org.apache.bcel.classfile.JavaClass;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.bcel.classfile.JavaClass;
+
 /**
- * Utility class implementing a (typesafe) collection of JavaClass
- * objects. Contains the most important methods of a Vector.
+ * Utility class implementing a (typesafe) collection of JavaClass objects.
+ * Contains the most important methods of a Vector.
  *
  * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @version $Id: ClassVector.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @deprecated as of 5.1.1 - 7/17/2005
  */
+@Deprecated
 public class ClassVector implements java.io.Serializable {
-
-    protected List vec = new ArrayList();
-
+    private static final long serialVersionUID = 5600397075672780806L;
+    protected List<JavaClass> vec = new ArrayList<JavaClass>();
 
     public void addElement(JavaClass clazz) {
-        vec.add(clazz);
+	vec.add(clazz);
     }
-
 
     public JavaClass elementAt(int index) {
-        return (JavaClass) vec.get(index);
+	return vec.get(index);
     }
-
 
     public void removeElementAt(int index) {
-        vec.remove(index);
+	vec.remove(index);
     }
 
-
     public JavaClass[] toArray() {
-        JavaClass[] classes = new JavaClass[vec.size()];
-        vec.toArray(classes);
-        return classes;
+	JavaClass[] classes = new JavaClass[vec.size()];
+	vec.toArray(classes);
+	return classes;
     }
 }
