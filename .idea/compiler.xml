@@ -22,8 +22,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="decompile" />
+        <module name="bcel" />
+        <module name="decompile-sample-app" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="bcel" target="1.7" />
+      <module name="decompile-sample-app" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
