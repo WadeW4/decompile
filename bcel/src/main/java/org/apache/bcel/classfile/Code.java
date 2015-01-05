@@ -299,7 +299,7 @@ public final class Code extends Attribute {
     public final String toString(boolean verbose, String indent) {
 	StringBuffer buf;
 	buf = new StringBuffer(100);
-	buf.append("Code(max_stack = ").append(max_stack).append(", max_locals = ").append(max_locals).append(", code_length = ").append(code_length).append(")\n").append(Utility.codeToString(code, constant_pool, 0, -1, verbose, indent));
+	buf.append("Code(max_stack = ").append(max_stack).append(", max_locals = ").append(max_locals).append(", code_length = ").append(code_length).append(")\n").append(Utility.codeToString(code,  constant_pool, 0, -1, verbose, indent));
 	if (exception_table_length > 0) {
 	    buf.append("\n" + indent + "Exception handler(s) = \n").append("From\tTo\tHandler\tType\n");
 	    for (int i = 0; i < exception_table_length; i++) {

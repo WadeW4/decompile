@@ -149,7 +149,7 @@ public abstract class Utility {
      *            be verbose, e.g. print constant pool index
      * @return String representation of byte codes
      */
-    public static final String codeToString(byte[] code, ConstantPool constant_pool, int index, int length, boolean verbose, String indent) {
+    public static final String  codeToString(byte[] code, ConstantPool constant_pool, int index, int length, boolean verbose, String indent) {
 	StringBuffer buf = new StringBuffer(code.length * 20); // Should be
 	// sufficient
 	ByteSequence stream = new ByteSequence(code);
