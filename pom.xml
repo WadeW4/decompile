@@ -51,7 +51,6 @@
 	</profiles>
 
 	<build>
-		<pluginManagement>
 			<plugins>
 				<plugin>
 					<artifactId>maven-surefire-plugin</artifactId>
@@ -110,6 +109,5 @@
 					</executions>
 				</plugin>
 			</plugins>
-		</pluginManagement>
 	</build>
 </project>

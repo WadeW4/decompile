@@ -28,6 +28,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="bcel" target="1.7" />
+      <module name="decompile" target="1.7" />
       <module name="decompile-sample-app" target="1.7" />
     </bytecodeTargetLevel>
   </component>
