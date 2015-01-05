@@ -1,54 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9c4a045f-9a0a-464a-97e9-83e04c4e108a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/AccessFlags.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/AccessFlags.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Attribute.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Attribute.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/util/AttributeHTML.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/util/AttributeHTML.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/util/BCELFactory.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/util/BCELFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/util/BCELifier.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/util/BCELifier.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/util/Class2HTML.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/util/Class2HTML.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/util/ClassLoader.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/util/ClassLoader.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Code.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Code.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/CodeException.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/CodeException.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/util/CodeHTML.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/util/CodeHTML.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/util/ConstantHTML.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/util/ConstantHTML.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/ConstantPool.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/ConstantPool.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/ConstantUtf8.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/ConstantUtf8.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/ConstantValue.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/ConstantValue.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/ExceptionTable.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/ExceptionTable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Field$1.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Field$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Field.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Field.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/FieldGen$1.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/FieldGen$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/FieldGen.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/FieldGen.class" />
+    <list default="true" id="9c4a045f-9a0a-464a-97e9-83e04c4e108a" name="Default" comment="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/FieldOrMethod.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/FieldOrMethod.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/InnerClass.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/InnerClass.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/InstructionHandle.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/InstructionHandle.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/JavaClass$1.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/JavaClass$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/JavaClass.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/JavaClass.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/LocalVariable.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/LocalVariable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Method$1.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Method$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Method.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Method.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/MethodGen$1.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/MethodGen$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/MethodGen$BranchStack.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/MethodGen$BranchStack.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/MethodGen$BranchTarget.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/MethodGen$BranchTarget.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/MethodGen.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/MethodGen.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/util/MethodHTML.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/util/MethodHTML.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/verifier/statics/Pass1Verifier.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/verifier/statics/Pass1Verifier.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Synthetic.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Synthetic.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/Type$1.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/Type$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/Type$2.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/Type$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/Type$3.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/Type$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/Type.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/Type.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Unknown.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Unknown.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Utility$1.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Utility$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Utility$JavaReader.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Utility$JavaReader.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Utility$JavaWriter.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Utility$JavaWriter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Utility.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/Utility.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/src/main/java/org/apache/bcel/classfile/Attribute.java" afterPath="$PROJECT_DIR$/bcel/src/main/java/org/apache/bcel/classfile/Attribute.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/src/main/java/org/apache/bcel/classfile/Code.java" afterPath="$PROJECT_DIR$/bcel/src/main/java/org/apache/bcel/classfile/Code.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/src/main/java/org/apache/bcel/classfile/FieldOrMethod.java" afterPath="$PROJECT_DIR$/bcel/src/main/java/org/apache/bcel/classfile/FieldOrMethod.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/src/main/java/org/apache/bcel/classfile/Utility.java" afterPath="$PROJECT_DIR$/bcel/src/main/java/org/apache/bcel/classfile/Utility.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="decompile.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -316,76 +275,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="decompile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bcel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="decompile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="decompile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bcel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="decompile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="decompile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bcel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="decompile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="decompile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bcel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -717,7 +606,7 @@
       <workItem from="1420474801375" duration="268000" />
       <workItem from="1420489992520" duration="37000" />
       <workItem from="1420490076617" duration="182000" />
-      <workItem from="1420490570173" duration="21000" />
+      <workItem from="1420490570173" duration="72000" />
     </task>
     <task id="LOCAL-00001" summary="Basic start and class file read">
       <created>1419383389280</created>
@@ -773,11 +662,17 @@
       <option name="project" value="LOCAL" />
       <updated>1420490233454</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
+      <created>1420490614978</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1420490614978</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6052000" />
+    <option name="totallyTimeSpent" value="6103000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1672" y="-8" width="1696" height="1066" extended-state="6" />
@@ -785,7 +680,7 @@
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4829483" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4829483" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -797,18 +692,18 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32821077" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991454" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24969475" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17338218" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26190478" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4094402" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4094402" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991454" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -832,7 +727,8 @@
     <MESSAGE value="Basic start and class file read" />
     <MESSAGE value="Merge branch 'master' of https://github.com/cwade179/decompile.git&#10;&#10;Conflicts:&#10;&#9;src/main/java/com/wade/decompile/ClassFileData.java&#10;&#9;src/main/java/com/wade/decompile/ConstantPool.java&#10;&#9;src/main/java/com/wade/decompile/Decompiler.java&#10;&#9;src/main/java/com/wade/decompile/pool/ClassTagInfo.java&#10;&#9;src/main/java/com/wade/decompile/pool/DoubleTagInfo.java&#10;&#9;src/main/java/com/wade/decompile/pool/FieldRefTagInfo.java&#10;&#9;src/main/java/com/wade/decompile/pool/FloatTagInfo.java&#10;&#9;src/main/java/com/wade/decompile/pool/IntegerTagInfo.java&#10;&#9;src/main/java/com/wade/decompile/pool/InterfaceMethodRefTagInfo.java&#10;&#9;src/main/java/com/wade/decompile/pool/LongTagInfo.java&#10;&#9;src/main/java/com/wade/decompile/pool/MethodRefTagInfo.java&#10;&#9;src/main/java/com/wade/decompile/pool/NameAndTypeTagInfo.java&#10;&#9;src/main/java/com/wade/decompile/pool/StringTagInfo.java&#10;&#9;src/main/java/com/wade/decompile/pool/TagInfo.java&#10;&#9;src/main/java/com/wade/decompile/pool/UTF8TagInfo.java&#10;" />
     <MESSAGE value="Merge branch 'master' of https://github.com/cwade179/decompile&#10;&#10;Conflicts:&#10;&#9;.idea/compiler.xml&#10;&#9;.idea/encodings.xml&#10;&#9;.idea/misc.xml&#10;&#9;.idea/modules.xml&#10;&#9;.idea/workspace.xml&#10;&#9;.project&#10;&#9;decompile.iml&#10;&#9;pom.xml&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://github.com/cwade179/decompile&#10;&#10;Conflicts:&#10;&#9;.idea/compiler.xml&#10;&#9;.idea/encodings.xml&#10;&#9;.idea/misc.xml&#10;&#9;.idea/modules.xml&#10;&#9;.idea/workspace.xml&#10;&#9;.project&#10;&#9;decompile.iml&#10;&#9;pom.xml&#10;" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />

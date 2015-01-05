@@ -67,15 +67,15 @@ public abstract class Utility {
      * internally.
      */
     private static boolean wide = false; /*
-					  * The `WIDE' instruction is used in
-					  * the byte code to allow 16-bit wide
-					  * indices for local variables. This
-					  * opcode precedes an `ILOAD', e.g..
-					  * The opcode immediately following
-					  * takes an extra byte which is
-					  * combined with the following byte to
-					  * form a 16-bit value.
-					  */
+     * The `WIDE' instruction is used in
+     * the byte code to allow 16-bit wide
+     * indices for local variables. This
+     * opcode precedes an `ILOAD', e.g..
+     * The opcode immediately following
+     * takes an extra byte which is
+     * combined with the following byte to
+     * form a 16-bit value.
+     */
 
     /**
      * Convert bit field of flags into string such as `static final'.
@@ -149,7 +149,7 @@ public abstract class Utility {
      *            be verbose, e.g. print constant pool index
      * @return String representation of byte codes
      */
-    public static final String  codeToString(byte[] code, ConstantPool constant_pool, int index, int length, boolean verbose, String indent) {
+    public static final String codeToString(byte[] code, ConstantPool constant_pool, int index, int length, boolean verbose, String indent) {
 	StringBuffer buf = new StringBuffer(code.length * 20); // Should be
 	// sufficient
 	ByteSequence stream = new ByteSequence(code);
@@ -210,9 +210,9 @@ public abstract class Utility {
 	    default_offset = bytes.readInt();
 	}
 	switch (opcode) {
-	/*
-	 * Table switch has variable length arguments.
-	 */
+	    /*
+	     * Table switch has variable length arguments.
+	     */
 	    case Constants.TABLESWITCH:
 		low = bytes.readInt();
 		high = bytes.readInt();
@@ -229,9 +229,9 @@ public abstract class Utility {
 		}
 		buf.append(")");
 		break;
-	    /*
-	     * Lookup switch has variable length arguments.
-	     */
+		/*
+		 * Lookup switch has variable length arguments.
+		 */
 	    case Constants.LOOKUPSWITCH: {
 		npairs = bytes.readInt();
 		offset = bytes.getIndex() - 8 - no_pad_bytes - 1;
@@ -249,7 +249,7 @@ public abstract class Utility {
 		}
 		buf.append(")");
 	    }
-		break;
+	    break;
 	    /*
 	     * Two address bytes + offset from start of byte stream form the
 	     * jump target
@@ -274,16 +274,16 @@ public abstract class Utility {
 	    case Constants.IF_ICMPNE:
 		buf.append("\t\t#").append((bytes.getIndex() - 1) + bytes.readShort());
 		break;
-	    /*
-	     * 32-bit wide jumps
-	     */
+		/*
+		 * 32-bit wide jumps
+		 */
 	    case Constants.GOTO_W:
 	    case Constants.JSR_W:
 		buf.append("\t\t#").append(((bytes.getIndex() - 1) + bytes.readInt()));
 		break;
-	    /*
-	     * Index byte references local variable (register)
-	     */
+		/*
+		 * Index byte references local variable (register)
+		 */
 	    case Constants.ALOAD:
 	    case Constants.ASTORE:
 	    case Constants.DLOAD:
@@ -303,24 +303,24 @@ public abstract class Utility {
 		}
 		buf.append("\t\t%").append(vindex);
 		break;
-	    /*
-	     * Remember wide byte which is used to form a 16-bit address in the
-	     * following instruction. Relies on that the method is called again
-	     * with the following opcode.
-	     */
+		/*
+		 * Remember wide byte which is used to form a 16-bit address in the
+		 * following instruction. Relies on that the method is called again
+		 * with the following opcode.
+		 */
 	    case Constants.WIDE:
 		wide = true;
 		buf.append("\t(wide)");
 		break;
-	    /*
-	     * Array of basic type.
-	     */
+		/*
+		 * Array of basic type.
+		 */
 	    case Constants.NEWARRAY:
 		buf.append("\t\t<").append(Constants.TYPE_NAMES[bytes.readByte()]).append(">");
 		break;
-	    /*
-	     * Access object/class fields.
-	     */
+		/*
+		 * Access object/class fields.
+		 */
 	    case Constants.GETFIELD:
 	    case Constants.GETSTATIC:
 	    case Constants.PUTFIELD:
@@ -328,9 +328,9 @@ public abstract class Utility {
 		index = bytes.readUnsignedShort();
 		buf.append("\t\t").append(constant_pool.constantToString(index, Constants.CONSTANT_Fieldref)).append((verbose ? " (" + index + ")" : ""));
 		break;
-	    /*
-	     * Operands are references to classes in constant pool
-	     */
+		/*
+		 * Operands are references to classes in constant pool
+		 */
 	    case Constants.NEW:
 	    case Constants.CHECKCAST:
 		buf.append("\t");
@@ -338,9 +338,9 @@ public abstract class Utility {
 		index = bytes.readUnsignedShort();
 		buf.append("\t<").append(constant_pool.constantToString(index, Constants.CONSTANT_Class)).append(">").append((verbose ? " (" + index + ")" : ""));
 		break;
-	    /*
-	     * Operands are references to methods in constant pool
-	     */
+		/*
+		 * Operands are references to methods in constant pool
+		 */
 	    case Constants.INVOKESPECIAL:
 	    case Constants.INVOKESTATIC:
 	    case Constants.INVOKEVIRTUAL:
@@ -357,9 +357,9 @@ public abstract class Utility {
 		// reserved
 		// space
 		break;
-	    /*
-	     * Operands are references to items in constant pool
-	     */
+		/*
+		 * Operands are references to items in constant pool
+		 */
 	    case Constants.LDC_W:
 	    case Constants.LDC2_W:
 		index = bytes.readUnsignedShort();
@@ -369,22 +369,22 @@ public abstract class Utility {
 		index = bytes.readUnsignedByte();
 		buf.append("\t\t").append(constant_pool.constantToString(index, constant_pool.getConstant(index).getTag())).append((verbose ? " (" + index + ")" : ""));
 		break;
-	    /*
-	     * Array of references.
-	     */
+		/*
+		 * Array of references.
+		 */
 	    case Constants.ANEWARRAY:
 		index = bytes.readUnsignedShort();
 		buf.append("\t\t<").append(compactClassName(constant_pool.getConstantString(index, Constants.CONSTANT_Class), false)).append(">").append((verbose ? " (" + index + ")" : ""));
 		break;
-	    /*
-	     * Multidimensional array of references.
-	     */
+		/*
+		 * Multidimensional array of references.
+		 */
 	    case Constants.MULTIANEWARRAY: {
 		index = bytes.readUnsignedShort();
 		int dimensions = bytes.readUnsignedByte();
 		buf.append("\t<").append(compactClassName(constant_pool.getConstantString(index, Constants.CONSTANT_Class), false)).append(">\t").append(dimensions).append((verbose ? " (" + index + ")" : ""));
 	    }
-		break;
+	    break;
 	    /*
 	     * Increment local variable.
 	     */
