@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9c4a045f-9a0a-464a-97e9-83e04c4e108a" name="Default" comment="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
+    <list default="true" id="9c4a045f-9a0a-464a-97e9-83e04c4e108a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/FieldOrMethod.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/classfile/FieldOrMethod.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/src/main/java/org/apache/bcel/classfile/Attribute.java" afterPath="$PROJECT_DIR$/bcel/src/main/java/org/apache/bcel/classfile/Attribute.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/src/main/java/org/apache/bcel/classfile/Code.java" afterPath="$PROJECT_DIR$/bcel/src/main/java/org/apache/bcel/classfile/Code.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/src/main/java/org/apache/bcel/classfile/FieldOrMethod.java" afterPath="$PROJECT_DIR$/bcel/src/main/java/org/apache/bcel/classfile/FieldOrMethod.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/src/main/java/org/apache/bcel/classfile/Utility.java" afterPath="$PROJECT_DIR$/bcel/src/main/java/org/apache/bcel/classfile/Utility.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="decompile.iws" />
@@ -606,7 +602,7 @@
       <workItem from="1420474801375" duration="268000" />
       <workItem from="1420489992520" duration="37000" />
       <workItem from="1420490076617" duration="182000" />
-      <workItem from="1420490570173" duration="72000" />
+      <workItem from="1420490570173" duration="87000" />
     </task>
     <task id="LOCAL-00001" summary="Basic start and class file read">
       <created>1419383389280</created>
@@ -668,11 +664,17 @@
       <option name="project" value="LOCAL" />
       <updated>1420490614978</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
+      <created>1420490645796</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1420490645796</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6103000" />
+    <option name="totallyTimeSpent" value="6118000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1672" y="-8" width="1696" height="1066" extended-state="6" />
