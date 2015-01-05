@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9c4a045f-9a0a-464a-97e9-83e04c4e108a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bcel/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/decompile-sample-app/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/AALOAD.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/AALOAD.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/AASTORE.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/AASTORE.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/ACONST_NULL.class" afterPath="$PROJECT_DIR$/bcel/target/classes/org/apache/bcel/generic/ACONST_NULL.class" />
@@ -294,8 +292,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/bcel-1.0.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/bcel/target/bcel-1.0.0-SNAPSHOT.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/decompile-sample-app/target/decompile-sample-app-1.0.0-SNAPSHOT-tests.jar" afterPath="$PROJECT_DIR$/decompile-sample-app/target/decompile-sample-app-1.0.0-SNAPSHOT-tests.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/decompile-sample-app/target/decompile-sample-app-1.0.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/decompile-sample-app/target/decompile-sample-app-1.0.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/.classpath" afterPath="$PROJECT_DIR$/bcel/.classpath" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/decompile-sample-app/.classpath" afterPath="$PROJECT_DIR$/decompile-sample-app/.classpath" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/bcel.iml" afterPath="$PROJECT_DIR$/bcel/bcel.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/bcel/target/maven-archiver/pom.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/decompile-sample-app/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/decompile-sample-app/target/maven-archiver/pom.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -856,7 +853,7 @@
       <workItem from="1420490076617" duration="182000" />
       <workItem from="1420490570173" duration="107000" />
       <workItem from="1420495114392" duration="25000" />
-      <workItem from="1420496711725" duration="41000" />
+      <workItem from="1420496711725" duration="100000" />
     </task>
     <task id="LOCAL-00001" summary="Basic start and class file read">
       <created>1419383389280</created>
@@ -930,11 +927,17 @@
       <option name="project" value="LOCAL" />
       <updated>1420490660875</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
+      <created>1420496771625</created>
+      <option name="number" value="00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1420496771625</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6204000" />
+    <option name="totallyTimeSpent" value="6263000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -943,6 +946,7 @@
       <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5606838" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991454" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -967,7 +971,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991454" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4094402" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
