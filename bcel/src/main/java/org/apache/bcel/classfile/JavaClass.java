@@ -46,6 +46,7 @@ import org.apache.bcel.util.SyntheticRepository;
  * @version $Id: JavaClass.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @see org.apache.bcel.generic.ClassGen
  */
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class JavaClass extends AccessFlags implements Cloneable, Node, Comparable {
     private static final long serialVersionUID = -576477198468778092L;
     private String file_name;
