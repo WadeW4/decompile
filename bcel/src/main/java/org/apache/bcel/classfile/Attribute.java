@@ -1,19 +1,3 @@
-/*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
- */
 package org.apache.bcel.classfile;
 
 import java.io.DataInputStream;
@@ -48,10 +32,10 @@ import org.apache.bcel.Constants;
  * @see Signature
  */
 public abstract class Attribute implements Cloneable, Node, Serializable {
-
-    protected int name_index; // Points to attribute name in constant pool
-    protected int length; // Content length of attribute field
-    protected byte tag; // Tag to distiguish subclasses
+    private static final long serialVersionUID = 2499152391260194885L;
+    protected int name_index;
+    protected int length;
+    protected byte tag;
     protected ConstantPool constant_pool;
 
     protected Attribute(byte tag, int name_index, int length, ConstantPool constant_pool) {
@@ -84,7 +68,7 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
 	file.writeInt(length);
     }
 
-    private static Map readers = new HashMap();
+    private static Map<String, AttributeReader> readers = new HashMap<String, AttributeReader>();
 
     /**
      * Add an Attribute reader capable of parsing (user-defined) attributes
@@ -151,7 +135,7 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
 	// Call proper constructor, depending on `tag'
 	switch (tag) {
 	    case Constants.ATTR_UNKNOWN:
-		AttributeReader r = (AttributeReader) readers.get(name);
+		AttributeReader r = readers.get(name);
 		if (r != null) {
 		    return r.createAttribute(name_index, length, file, constant_pool);
 		}
