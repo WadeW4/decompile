@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,32 +12,32 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.generic;
 
-import org.apache.bcel.Constants;
-import org.apache.bcel.util.ByteSequence;
-
 import java.io.DataOutputStream;
 import java.io.IOException;
+import org.apache.bcel.Constants;
+import org.apache.bcel.util.ByteSequence;
 
 /**
  * Abstract super class for instructions dealing with local variables.
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: LocalVariableInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @version $Id: LocalVariableInstruction.java 1627906 2014-09-26 22:41:39Z ebourg $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class LocalVariableInstruction extends Instruction implements TypedInstruction,
         IndexedInstruction {
 
+    private static final long serialVersionUID = 8322269736316122743L;
     protected int n = -1; // index of referenced variable
     private short c_tag = -1; // compact version, such as ILOAD_0
     private short canon_tag = -1; // canonical tag such as ILOAD
 
 
-    private final boolean wide() {
+    private boolean wide() {
         return n > Constants.MAX_BYTE;
     }
 
@@ -63,8 +64,8 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
 
     /**
      * @param opcode Instruction opcode
-     * @param c_tag  Instruction number for compact version, ALOAD_0, e.g.
-     * @param n      local variable index (unsigned short)
+     * @param c_tag Instruction number for compact version, ALOAD_0, e.g.
+     * @param n local variable index (unsigned short)
      */
     protected LocalVariableInstruction(short opcode, short c_tag, int n) {
         super(opcode, (short) 2);
@@ -76,10 +77,10 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
 
     /**
      * Dump instruction as byte code to stream out.
-     *
      * @param out Output stream
      */
-    public void dump(DataOutputStream out) throws IOException {
+    @Override
+    public void dump( DataOutputStream out ) throws IOException {
         if (wide()) {
             out.writeByte(Constants.WIDE);
         }
@@ -96,14 +97,15 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
 
     /**
      * Long output format:
-     * <p/>
-     * &lt;name of opcode&gt; "["&lt;opcode number&gt;"]"
+     *
+     * &lt;name of opcode&gt; "["&lt;opcode number&gt;"]" 
      * "("&lt;length of instruction&gt;")" "&lt;"&lt; local variable index&gt;"&gt;"
      *
      * @param verbose long/short format switch
      * @return mnemonic for instruction
      */
-    public String toString(boolean verbose) {
+    @Override
+    public String toString( boolean verbose ) {
         if (((opcode >= Constants.ILOAD_0) && (opcode <= Constants.ALOAD_3))
                 || ((opcode >= Constants.ISTORE_0) && (opcode <= Constants.ASTORE_3))) {
             return super.toString(verbose);
@@ -115,9 +117,12 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
 
     /**
      * Read needed data (e.g. index) from file.
-     * PRE: (ILOAD <= tag <= ALOAD_3) || (ISTORE <= tag <= ASTORE_3)
+     * <pre>
+     * (ILOAD &lt;= tag &lt;= ALOAD_3) || (ISTORE &lt;= tag &lt;= ASTORE_3)
+     * </pre>
      */
-    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
+    @Override
+    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
         if (wide) {
             n = bytes.readUnsignedShort();
             length = 4;
@@ -146,7 +151,7 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
     /**
      * Set the local variable index
      */
-    public void setIndex(int n) {
+    public void setIndex( int n ) {
         if ((n < 0) || (n > Constants.MAX_SHORT)) {
             throw new ClassGenException("Illegal value: " + n);
         }
@@ -165,8 +170,7 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
     }
 
 
-    /**
-     * @return canonical tag for instruction, e.g., ALOAD for ALOAD_0
+    /** @return canonical tag for instruction, e.g., ALOAD for ALOAD_0
      */
     public short getCanonicalTag() {
         return canon_tag;
@@ -174,15 +178,14 @@ public abstract class LocalVariableInstruction extends Instruction implements Ty
 
 
     /**
-     * Returns the type associated with the instruction -
+     * Returns the type associated with the instruction - 
      * in case of ALOAD or ASTORE Type.OBJECT is returned.
      * This is just a bit incorrect, because ALOAD and ASTORE
      * may work on every ReferenceType (including Type.NULL) and
      * ASTORE may even work on a ReturnaddressType .
-     *
      * @return type associated with the instruction
      */
-    public Type getType(ConstantPoolGen cp) {
+    public Type getType( ConstantPoolGen cp ) {
         switch (canon_tag) {
             case Constants.ILOAD:
             case Constants.ISTORE:

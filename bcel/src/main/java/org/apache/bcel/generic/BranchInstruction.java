@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,27 +12,27 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.generic;
 
-import org.apache.bcel.util.ByteSequence;
-
 import java.io.DataOutputStream;
 import java.io.IOException;
+import org.apache.bcel.util.ByteSequence;
 
-/**
+/** 
  * Abstract super class for branching instructions like GOTO, IFEQ, etc..
- * Branch instructions may have a variable length, namely GOTO, JSR,
+ * Branch instructions may have a variable length, namely GOTO, JSR, 
  * LOOKUPSWITCH and TABLESWITCH.
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: BranchInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @see InstructionList
+ * @version $Id: BranchInstruction.java 1627906 2014-09-26 22:41:39Z ebourg $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class BranchInstruction extends Instruction implements InstructionTargeter {
 
+    private static final long serialVersionUID = 3225905281842405051L;
     protected int index; // Branch target relative to this instruction
     protected InstructionHandle target; // Target object in instruction list
     protected int position; // Byte code offset
@@ -45,9 +46,7 @@ public abstract class BranchInstruction extends Instruction implements Instructi
     }
 
 
-    /**
-     * Common super constructor
-     *
+    /** Common super constructor
      * @param opcode Instruction opcode
      * @param target instruction to branch to
      */
@@ -59,14 +58,14 @@ public abstract class BranchInstruction extends Instruction implements Instructi
 
     /**
      * Dump instruction as byte code to stream out.
-     *
      * @param out Output stream
      */
-    public void dump(DataOutputStream out) throws IOException {
+    @Override
+    public void dump( DataOutputStream out ) throws IOException {
         out.writeByte(opcode);
         index = getTargetOffset();
         if (Math.abs(index) >= 32767) {
-            throw new ClassGenException("Branch target offset too large for short");
+            throw new ClassGenException("Branch target offset too large for short: " + index);
         }
         out.writeShort(index); // May be negative, i.e., point backwards
     }
@@ -76,7 +75,7 @@ public abstract class BranchInstruction extends Instruction implements Instructi
      * @param _target branch target
      * @return the offset to  `target' relative to this instruction
      */
-    protected int getTargetOffset(InstructionHandle _target) {
+    protected int getTargetOffset( InstructionHandle _target ) {
         if (_target == null) {
             throw new ClassGenException("Target of " + super.toString(true)
                     + " is invalid null handle");
@@ -104,11 +103,11 @@ public abstract class BranchInstruction extends Instruction implements Instructi
      * performs multiple passes over the instruction list to calculate the
      * correct (byte) positions and offsets by calling this function.
      *
-     * @param offset     additional offset caused by preceding (variable length) instructions
+     * @param offset additional offset caused by preceding (variable length) instructions
      * @param max_offset the maximum offset that may be caused by these instructions
      * @return additional offset caused by possible change of this instruction's length
      */
-    protected int updatePosition(int offset, int max_offset) {
+    protected int updatePosition( int offset, int max_offset ) {
         position += offset;
         return 0;
     }
@@ -116,16 +115,17 @@ public abstract class BranchInstruction extends Instruction implements Instructi
 
     /**
      * Long output format:
-     * <p/>
+     *
      * &lt;position in byte code&gt;
-     * &lt;name of opcode&gt; "["&lt;opcode number&gt;"]"
+     * &lt;name of opcode&gt; "["&lt;opcode number&gt;"]" 
      * "("&lt;length of instruction&gt;")"
      * "&lt;"&lt;target instruction&gt;"&gt;" "@"&lt;branch target offset&gt;
      *
      * @param verbose long/short format switch
      * @return mnemonic for instruction
      */
-    public String toString(boolean verbose) {
+    @Override
+    public String toString( boolean verbose ) {
         String s = super.toString(verbose);
         String t = "null";
         if (verbose) {
@@ -153,10 +153,11 @@ public abstract class BranchInstruction extends Instruction implements Instructi
      * is done in InstructionList(byte[]).
      *
      * @param bytes input stream
-     * @param wide  wide prefix?
+     * @param wide wide prefix?
      * @see InstructionList
      */
-    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
+    @Override
+    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
         length = 3;
         index = bytes.readShort();
     }
@@ -180,10 +181,9 @@ public abstract class BranchInstruction extends Instruction implements Instructi
 
     /**
      * Set branch target
-     *
      * @param target branch target
      */
-    public void setTarget(InstructionHandle target) {
+    public void setTarget( InstructionHandle target ) {
         notifyTarget(this.target, target, this);
         this.target = target;
     }
@@ -192,8 +192,8 @@ public abstract class BranchInstruction extends Instruction implements Instructi
     /**
      * Used by BranchInstruction, LocalVariableGen, CodeExceptionGen
      */
-    static final void notifyTarget(InstructionHandle old_ih, InstructionHandle new_ih,
-                                   InstructionTargeter t) {
+    static void notifyTarget( InstructionHandle old_ih, InstructionHandle new_ih,
+            InstructionTargeter t ) {
         if (old_ih != null) {
             old_ih.removeTargeter(t);
         }
@@ -207,7 +207,7 @@ public abstract class BranchInstruction extends Instruction implements Instructi
      * @param old_ih old target
      * @param new_ih new target
      */
-    public void updateTarget(InstructionHandle old_ih, InstructionHandle new_ih) {
+    public void updateTarget( InstructionHandle old_ih, InstructionHandle new_ih ) {
         if (target == old_ih) {
             setTarget(new_ih);
         } else {
@@ -219,7 +219,7 @@ public abstract class BranchInstruction extends Instruction implements Instructi
     /**
      * @return true, if ih is target of this instruction
      */
-    public boolean containsTarget(InstructionHandle ih) {
+    public boolean containsTarget( InstructionHandle ih ) {
         return (target == ih);
     }
 
@@ -227,6 +227,7 @@ public abstract class BranchInstruction extends Instruction implements Instructi
     /**
      * Inform target that it's not targeted anymore.
      */
+    @Override
     void dispose() {
         setTarget(null);
         index = -1;

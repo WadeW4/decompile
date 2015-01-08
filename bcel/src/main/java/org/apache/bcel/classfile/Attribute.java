@@ -1,3 +1,20 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
 package org.apache.bcel.classfile;
 
 import java.io.DataInputStream;
@@ -17,8 +34,8 @@ import org.apache.bcel.Constants;
  * attributes are supported. The <em>Unknown</em> attribute stands for
  * non-standard-attributes.
  *
+ * @version $Id: Attribute.java 1646694 2014-12-19 12:57:12Z ebourg $
  * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: Attribute.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @see ConstantValue
  * @see SourceFile
  * @see Code
@@ -32,11 +49,19 @@ import org.apache.bcel.Constants;
  * @see Signature
  */
 public abstract class Attribute implements Cloneable, Node, Serializable {
-    private static final long serialVersionUID = 2499152391260194885L;
-    protected int name_index;
-    protected int length;
-    protected byte tag;
-    protected ConstantPool constant_pool;
+    private static final long serialVersionUID = -1707826820310002955L;
+
+    protected int name_index; // Points to attribute name in constant pool TODO
+    // make private (has getter & setter)
+
+    protected int length; // Content length of attribute field TODO make private
+    // (has getter & setter)
+
+    protected byte tag; // Tag to distinguish subclasses TODO make private &
+    // final; supposed to be immutable
+
+    protected ConstantPool constant_pool; // TODO make private (has getter &
+    // setter)
 
     protected Attribute(byte tag, int name_index, int length, ConstantPool constant_pool) {
 	this.tag = tag;
@@ -68,7 +93,7 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
 	file.writeInt(length);
     }
 
-    private static Map<String, AttributeReader> readers = new HashMap<String, AttributeReader>();
+    private static final Map<String, AttributeReader> readers = new HashMap<String, AttributeReader>();
 
     /**
      * Add an Attribute reader capable of parsing (user-defined) attributes
@@ -94,26 +119,23 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
 	readers.remove(name);
     }
 
-    /*
+    /**
      * Class method reads one attribute from the input data stream. This method
      * must not be accessible from the outside. It is called by the Field and
      * Method constructor methods.
-     * 
+     *
      * @see Field
-     * 
      * @see Method
-     * 
-     * @param file Input stream
-     * 
-     * @param constant_pool Array of constants
-     * 
+     *
+     * @param file
+     *            Input stream
+     * @param constant_pool
+     *            Array of constants
      * @return Attribute
-     * 
      * @throws IOException
-     * 
      * @throws ClassFormatException
      */
-    public static final Attribute readAttribute(DataInputStream file, ConstantPool constant_pool) throws IOException, ClassFormatException {
+    public static Attribute readAttribute(DataInputStream file, ConstantPool constant_pool) throws IOException, ClassFormatException {
 	ConstantUtf8 c;
 	String name;
 	int name_index;
@@ -126,6 +148,7 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
 	// Length of data in bytes
 	length = file.readInt();
 	// Compare strings to find known attribute
+	// System.out.println(name);
 	for (byte i = 0; i < Constants.KNOWN_ATTRIBUTES; i++) {
 	    if (name.equals(Constants.ATTRIBUTE_NAMES[i])) {
 		tag = i; // found!
@@ -164,24 +187,37 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
 		return new Signature(name_index, length, file, constant_pool);
 	    case Constants.ATTR_STACK_MAP:
 		return new StackMap(name_index, length, file, constant_pool);
-		// case Constants.ATTR_RUNTIMEVISIBLE_ANNOTATIONS:
-		// return new RuntimeVisibleAnnotations(name_index, length,
-		// file, constant_pool);
-		// case Constants.ATTR_RUNTIMEINVISIBLE_ANNOTATIONS:
-		// return new RuntimeInvisibleAnnotations(name_index, length,
-		// file, constant_pool);
-		// case Constants.ATTR_RUNTIMEVISIBLE_PARAMETER_ANNOTATIONS:
-		// return new RuntimeVisibleParameterAnnotations(name_index,
-		// length, file, constant_pool);
-		// case Constants.ATTR_RUNTIMEINVISIBLE_PARAMETER_ANNOTATIONS:
-		// return new RuntimeInvisibleParameterAnnotations(name_index,
-		// length, file, constant_pool);
-		// case Constants.ATTR_ANNOTATION_DEFAULT:
-		// return new AnnotationDefault(name_index, length, file,
-		// constant_pool);
+	    case Constants.ATTR_RUNTIME_VISIBLE_ANNOTATIONS:
+		return new RuntimeVisibleAnnotations(name_index, length, file, constant_pool);
+	    case Constants.ATTR_RUNTIME_INVISIBLE_ANNOTATIONS:
+		return new RuntimeInvisibleAnnotations(name_index, length, file, constant_pool);
+	    case Constants.ATTR_RUNTIME_VISIBLE_PARAMETER_ANNOTATIONS:
+		return new RuntimeVisibleParameterAnnotations(name_index, length, file, constant_pool);
+	    case Constants.ATTR_RUNTIME_INVISIBLE_PARAMETER_ANNOTATIONS:
+		return new RuntimeInvisibleParameterAnnotations(name_index, length, file, constant_pool);
+	    case Constants.ATTR_ANNOTATION_DEFAULT:
+		return new AnnotationDefault(name_index, length, file, constant_pool);
+	    case Constants.ATTR_LOCAL_VARIABLE_TYPE_TABLE:
+		return new LocalVariableTypeTable(name_index, length, file, constant_pool);
+	    case Constants.ATTR_ENCLOSING_METHOD:
+		return new EnclosingMethod(name_index, length, file, constant_pool);
+	    case Constants.ATTR_STACK_MAP_TABLE:
+		return new StackMapTable(name_index, length, file, constant_pool);
+	    case Constants.ATTR_BOOTSTRAP_METHODS:
+		return new BootstrapMethods(name_index, length, file, constant_pool);
+	    case Constants.ATTR_METHOD_PARAMETERS:
+		return new MethodParameters(name_index, length, file, constant_pool);
 	    default: // Never reached
-		throw new IllegalStateException("Ooops! default case reached.");
+		throw new IllegalStateException("Unrecognized attribute type tag parsed: " + tag);
 	}
+    }
+
+    /**
+     * @return Name of attribute
+     */
+    public String getName() {
+	ConstantUtf8 c = (ConstantUtf8) constant_pool.getConstant(name_index, Constants.CONSTANT_Utf8);
+	return c.getBytes();
     }
 
     /**
@@ -247,13 +283,13 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
      */
     @Override
     public Object clone() {
-	Object o = null;
+	Attribute attr = null;
 	try {
-	    o = super.clone();
+	    attr = (Attribute) super.clone();
 	} catch (CloneNotSupportedException e) {
-	    e.printStackTrace(); // Never occurs
+	    throw new Error("Clone Not Supported"); // never happens
 	}
-	return o;
+	return attr;
     }
 
     /**
@@ -264,6 +300,11 @@ public abstract class Attribute implements Cloneable, Node, Serializable {
     /**
      * @return attribute name.
      */
+    @Override
+    public String toString() {
+	return Constants.ATTRIBUTE_NAMES[tag];
+    }
+
     public String toString(String indent) {
 	return indent + Constants.ATTRIBUTE_NAMES[tag];
     }

@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -16,34 +17,36 @@
  */
 package org.apache.bcel.classfile;
 
-import org.apache.bcel.Constants;
-import org.apache.bcel.util.BCELComparator;
-
+import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+
+import org.apache.bcel.Constants;
+import org.apache.bcel.util.BCELComparator;
 
 /**
  * Abstract superclass for classes to represent the different constant types
  * in the constant pool of a class file. The classes keep closely to
  * the JVM specification.
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: Constant.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @version $Id: Constant.java 1646694 2014-12-19 12:57:12Z ebourg $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class Constant implements Cloneable, Node, Serializable {
 
+    private static final long serialVersionUID = 5739037344085356353L;
     private static BCELComparator _cmp = new BCELComparator() {
 
-        public boolean equals(Object o1, Object o2) {
+        public boolean equals( Object o1, Object o2 ) {
             Constant THIS = (Constant) o1;
             Constant THAT = (Constant) o2;
             return THIS.toString().equals(THAT.toString());
         }
 
 
-        public int hashCode(Object o) {
+        public int hashCode( Object o ) {
             Constant THIS = (Constant) o;
             return THIS.toString().hashCode();
         }
@@ -56,7 +59,7 @@ public abstract class Constant implements Cloneable, Node, Serializable {
      * need the tag as an index to select the corresponding class name from the 
      * `CONSTANT_NAMES' array.
      */
-    protected byte tag;
+    protected byte tag; // TODO should be private & final
 
 
     Constant(byte tag) {
@@ -71,10 +74,10 @@ public abstract class Constant implements Cloneable, Node, Serializable {
      *
      * @param v Visitor object
      */
-    public abstract void accept(Visitor v);
+    public abstract void accept( Visitor v );
 
 
-    public abstract void dump(DataOutputStream file) throws IOException;
+    public abstract void dump( DataOutputStream file ) throws IOException;
 
 
     /**
@@ -89,6 +92,7 @@ public abstract class Constant implements Cloneable, Node, Serializable {
     /**
      * @return String representation.
      */
+    @Override
     public String toString() {
         return Constants.CONSTANT_NAMES[tag] + "[" + tag + "]";
     }
@@ -106,43 +110,54 @@ public abstract class Constant implements Cloneable, Node, Serializable {
     }
 
 
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new Error("Clone Not Supported"); // never happens
+        }
     }
 
 
     /**
-     * Read one constant from the given file, the type depends on a tag byte.
+     * Read one constant from the given input, the type depends on a tag byte.
      *
-     * @param file Input stream
+     * @param input Input stream
      * @return Constant object
      */
-    static final Constant readConstant(DataInputStream file) throws IOException,
+    static Constant readConstant( DataInput input ) throws IOException,
             ClassFormatException {
-        byte b = file.readByte(); // Read tag byte
+        byte b = input.readByte(); // Read tag byte
         switch (b) {
             case Constants.CONSTANT_Class:
-                return new ConstantClass(file);
+                return new ConstantClass(input);
             case Constants.CONSTANT_Fieldref:
-                return new ConstantFieldref(file);
+                return new ConstantFieldref(input);
             case Constants.CONSTANT_Methodref:
-                return new ConstantMethodref(file);
+                return new ConstantMethodref(input);
             case Constants.CONSTANT_InterfaceMethodref:
-                return new ConstantInterfaceMethodref(file);
+                return new ConstantInterfaceMethodref(input);
             case Constants.CONSTANT_String:
-                return new ConstantString(file);
+                return new ConstantString(input);
             case Constants.CONSTANT_Integer:
-                return new ConstantInteger(file);
+                return new ConstantInteger(input);
             case Constants.CONSTANT_Float:
-                return new ConstantFloat(file);
+                return new ConstantFloat(input);
             case Constants.CONSTANT_Long:
-                return new ConstantLong(file);
+                return new ConstantLong(input);
             case Constants.CONSTANT_Double:
-                return new ConstantDouble(file);
+                return new ConstantDouble(input);
             case Constants.CONSTANT_NameAndType:
-                return new ConstantNameAndType(file);
+                return new ConstantNameAndType(input);
             case Constants.CONSTANT_Utf8:
-                return new ConstantUtf8(file);
+                return ConstantUtf8.getInstance(input);
+            case Constants.CONSTANT_MethodHandle:
+                return new ConstantMethodHandle(input);
+            case Constants.CONSTANT_MethodType:
+                return new ConstantMethodType(input);
+            case Constants.CONSTANT_InvokeDynamic:
+                return new ConstantInvokeDynamic(input);
             default:
                 throw new ClassFormatException("Invalid byte tag in constant pool: " + b);
         }
@@ -160,7 +175,7 @@ public abstract class Constant implements Cloneable, Node, Serializable {
     /**
      * @param comparator Comparison strategy object
      */
-    public static void setComparator(BCELComparator comparator) {
+    public static void setComparator( BCELComparator comparator ) {
         _cmp = comparator;
     }
 
@@ -169,10 +184,11 @@ public abstract class Constant implements Cloneable, Node, Serializable {
      * Return value as defined by given BCELComparator strategy.
      * By default two Constant objects are said to be equal when
      * the result of toString() is equal.
-     *
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
-    public boolean equals(Object obj) {
+    @Override
+    public boolean equals( Object obj ) {
         return _cmp.equals(this, obj);
     }
 
@@ -180,9 +196,10 @@ public abstract class Constant implements Cloneable, Node, Serializable {
     /**
      * Return value as defined by given BCELComparator strategy.
      * By default return the hashcode of the result of toString().
-     *
+     * 
      * @see java.lang.Object#hashCode()
      */
+    @Override
     public int hashCode() {
         return _cmp.hashCode(this);
     }

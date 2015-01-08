@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,23 +12,25 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.generic;
 
-import org.apache.bcel.util.ByteSequence;
-
 import java.io.DataOutputStream;
 import java.io.IOException;
+import org.apache.bcel.util.ByteSequence;
 
-/**
+/** 
  * GOTO_W - Branch always (to relative offset, not absolute address)
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: GOTO_W.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @version $Id: GOTO_W.java 1627906 2014-09-26 22:41:39Z ebourg $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class GOTO_W extends GotoInstruction {
+
+    private static final long serialVersionUID = -344799540124265957L;
+
 
     /**
      * Empty constructor needed for the Class.newInstance() statement in
@@ -45,10 +48,10 @@ public class GOTO_W extends GotoInstruction {
 
     /**
      * Dump instruction as byte code to stream out.
-     *
      * @param out Output stream
      */
-    public void dump(DataOutputStream out) throws IOException {
+    @Override
+    public void dump( DataOutputStream out ) throws IOException {
         index = getTargetOffset();
         out.writeByte(opcode);
         out.writeInt(index);
@@ -58,7 +61,8 @@ public class GOTO_W extends GotoInstruction {
     /**
      * Read needed data (e.g. index) from file.
      */
-    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
+    @Override
+    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
         index = bytes.readInt();
         length = 5;
     }
@@ -72,7 +76,8 @@ public class GOTO_W extends GotoInstruction {
      *
      * @param v Visitor object
      */
-    public void accept(Visitor v) {
+    @Override
+    public void accept( Visitor v ) {
         v.visitUnconditionalBranch(this);
         v.visitBranchInstruction(this);
         v.visitGotoInstruction(this);

@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,26 +12,29 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.classfile;
 
-import java.io.DataInputStream;
+import java.io.DataInput;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * This class represents a stack map entry recording the types of
  * local variables and the the of stack items at a given byte code offset.
  * See CLDC specification �5.3.1.2
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: StackMapEntry.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @see StackMap
- * @see StackMapType
+ * @version $Id: StackMapEntry.java 1646694 2014-12-19 12:57:12Z ebourg $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
+ * @see     StackMap
+ * @see     StackMapType
  */
-public final class StackMapEntry implements Cloneable {
+public final class StackMapEntry implements Cloneable, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private int byte_code_offset;
     private int number_of_locals;
@@ -41,28 +45,28 @@ public final class StackMapEntry implements Cloneable {
 
 
     /**
-     * Construct object from file stream.
-     *
-     * @param file Input stream
+     * Construct object from input stream.
+     * 
+     * @param input Input stream
      * @throws IOException
      */
-    StackMapEntry(DataInputStream file, ConstantPool constant_pool) throws IOException {
-        this(file.readShort(), file.readShort(), null, -1, null, constant_pool);
+    StackMapEntry(DataInput input, ConstantPool constant_pool) throws IOException {
+        this(input.readShort(), input.readShort(), null, -1, null, constant_pool);
         types_of_locals = new StackMapType[number_of_locals];
         for (int i = 0; i < number_of_locals; i++) {
-            types_of_locals[i] = new StackMapType(file, constant_pool);
+            types_of_locals[i] = new StackMapType(input, constant_pool);
         }
-        number_of_stack_items = file.readShort();
+        number_of_stack_items = input.readShort();
         types_of_stack_items = new StackMapType[number_of_stack_items];
         for (int i = 0; i < number_of_stack_items; i++) {
-            types_of_stack_items[i] = new StackMapType(file, constant_pool);
+            types_of_stack_items[i] = new StackMapType(input, constant_pool);
         }
     }
 
 
     public StackMapEntry(int byte_code_offset, int number_of_locals,
-                         StackMapType[] types_of_locals, int number_of_stack_items,
-                         StackMapType[] types_of_stack_items, ConstantPool constant_pool) {
+            StackMapType[] types_of_locals, int number_of_stack_items,
+            StackMapType[] types_of_stack_items, ConstantPool constant_pool) {
         this.byte_code_offset = byte_code_offset;
         this.number_of_locals = number_of_locals;
         this.types_of_locals = types_of_locals;
@@ -78,7 +82,7 @@ public final class StackMapEntry implements Cloneable {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump(DataOutputStream file) throws IOException {
+    public final void dump( DataOutputStream file ) throws IOException {
         file.writeShort(byte_code_offset);
         file.writeShort(number_of_locals);
         for (int i = 0; i < number_of_locals; i++) {
@@ -94,8 +98,9 @@ public final class StackMapEntry implements Cloneable {
     /**
      * @return String representation.
      */
+    @Override
     public final String toString() {
-        StringBuffer buf = new StringBuffer(64);
+        StringBuilder buf = new StringBuilder(64);
         buf.append("(offset=").append(byte_code_offset);
         if (number_of_locals > 0) {
             buf.append(", locals={");
@@ -122,7 +127,7 @@ public final class StackMapEntry implements Cloneable {
     }
 
 
-    public void setByteCodeOffset(int b) {
+    public void setByteCodeOffset( int b ) {
         byte_code_offset = b;
     }
 
@@ -132,7 +137,7 @@ public final class StackMapEntry implements Cloneable {
     }
 
 
-    public void setNumberOfLocals(int n) {
+    public void setNumberOfLocals( int n ) {
         number_of_locals = n;
     }
 
@@ -142,7 +147,7 @@ public final class StackMapEntry implements Cloneable {
     }
 
 
-    public void setTypesOfLocals(StackMapType[] t) {
+    public void setTypesOfLocals( StackMapType[] t ) {
         types_of_locals = t;
     }
 
@@ -152,7 +157,7 @@ public final class StackMapEntry implements Cloneable {
     }
 
 
-    public void setNumberOfStackItems(int n) {
+    public void setNumberOfStackItems( int n ) {
         number_of_stack_items = n;
     }
 
@@ -162,7 +167,7 @@ public final class StackMapEntry implements Cloneable {
     }
 
 
-    public void setTypesOfStackItems(StackMapType[] t) {
+    public void setTypesOfStackItems( StackMapType[] t ) {
         types_of_stack_items = t;
     }
 
@@ -191,7 +196,7 @@ public final class StackMapEntry implements Cloneable {
      *
      * @param v Visitor object
      */
-    public void accept(Visitor v) {
+    public void accept( Visitor v ) {
         v.visitStackMapEntry(this);
     }
 
@@ -207,7 +212,7 @@ public final class StackMapEntry implements Cloneable {
     /**
      * @param constant_pool Constant pool to be used for this object.
      */
-    public final void setConstantPool(ConstantPool constant_pool) {
+    public final void setConstantPool( ConstantPool constant_pool ) {
         this.constant_pool = constant_pool;
     }
 }

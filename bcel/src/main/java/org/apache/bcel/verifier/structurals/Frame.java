@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,21 +12,22 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
- */
+ */ 
 package org.apache.bcel.verifier.structurals;
+
 
 
 /**
  * This class represents a JVM execution frame; that means,
  * a local variable array and an operand stack.
  *
+ * @version $Id: Frame.java 1627977 2014-09-27 15:16:23Z ggregory $
  * @author Enver Haase
- * @version $Id: Frame.java 386056 2006-03-15 11:31:56Z tcurdt $
  */
 
-public class Frame {
+public class Frame{
 
     /**
      * For instance initialization methods, it is important to remember
@@ -38,17 +40,17 @@ public class Frame {
     /**
      *
      */
-    private LocalVariables locals;
+    private final LocalVariables locals;
 
     /**
      *
      */
-    private OperandStack stack;
+    private final OperandStack stack;
 
     /**
      *
      */
-    public Frame(int maxLocals, int maxStack) {
+    public Frame(int maxLocals, int maxStack){
         locals = new LocalVariables(maxLocals);
         stack = new OperandStack(maxStack);
     }
@@ -56,7 +58,7 @@ public class Frame {
     /**
      *
      */
-    public Frame(LocalVariables locals, OperandStack stack) {
+    public Frame(LocalVariables locals, OperandStack stack){
         this.locals = locals;
         this.stack = stack;
     }
@@ -64,7 +66,8 @@ public class Frame {
     /**
      *
      */
-    protected Object clone() {
+    @Override
+    protected Object clone(){
         Frame f = new Frame(locals.getClone(), stack.getClone());
         return f;
     }
@@ -72,35 +75,34 @@ public class Frame {
     /**
      *
      */
-    public Frame getClone() {
+    public Frame getClone(){
         return (Frame) clone();
     }
 
     /**
      *
      */
-    public LocalVariables getLocals() {
+    public LocalVariables getLocals(){
         return locals;
     }
 
     /**
      *
      */
-    public OperandStack getStack() {
+    public OperandStack getStack(){
         return stack;
     }
 
-    /**
-     * @return a hash code value for the object.
+    /** @return a hash code value for the object.
      */
-    public int hashCode() {
-        return stack.hashCode() ^ locals.hashCode();
-    }
+    @Override
+    public int hashCode() { return stack.hashCode() ^ locals.hashCode(); }
 
     /**
      *
      */
-    public boolean equals(Object o) {
+    @Override
+    public boolean equals(Object o){
         if (!(o instanceof Frame)) {
             return false; // implies "null" is non-equal.
         }
@@ -111,8 +113,9 @@ public class Frame {
     /**
      * Returns a String representation of the Frame instance.
      */
-    public String toString() {
-        String s = "Local Variables:\n";
+    @Override
+    public String toString(){
+        String s="Local Variables:\n";
         s += locals;
         s += "OperandStack:\n";
         s += stack;

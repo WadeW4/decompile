@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,29 +12,30 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.classfile;
 
-import org.apache.bcel.Constants;
-
-import java.io.DataInputStream;
+import java.io.DataInput;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 
-/**
+import org.apache.bcel.Constants;
+
+/** 
  * This class represents a inner class attribute, i.e., the class
  * indices of the inner and outer classes, the name and the attributes
  * of the inner class.
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: InnerClass.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @version $Id: InnerClass.java 1627906 2014-09-26 22:41:39Z ebourg $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @see InnerClasses
  */
 public final class InnerClass implements Cloneable, Node, Serializable {
 
+    private static final long serialVersionUID = -7200195918166127614L;
     private int inner_class_index;
     private int outer_class_index;
     private int inner_name_index;
@@ -51,24 +53,23 @@ public final class InnerClass implements Cloneable, Node, Serializable {
 
     /**
      * Construct object from file stream.
-     *
      * @param file Input stream
      * @throws IOException
      */
-    InnerClass(DataInputStream file) throws IOException {
+    InnerClass(DataInput file) throws IOException {
         this(file.readUnsignedShort(), file.readUnsignedShort(), file.readUnsignedShort(), file
                 .readUnsignedShort());
     }
 
 
     /**
-     * @param inner_class_index  Class index in constant pool of inner class
-     * @param outer_class_index  Class index in constant pool of outer class
-     * @param inner_name_index   Name index in constant pool of inner class
+     * @param inner_class_index Class index in constant pool of inner class
+     * @param outer_class_index Class index in constant pool of outer class
+     * @param inner_name_index  Name index in constant pool of inner class
      * @param inner_access_flags Access flags of inner class
      */
     public InnerClass(int inner_class_index, int outer_class_index, int inner_name_index,
-                      int inner_access_flags) {
+            int inner_access_flags) {
         this.inner_class_index = inner_class_index;
         this.outer_class_index = outer_class_index;
         this.inner_name_index = inner_name_index;
@@ -83,7 +84,7 @@ public final class InnerClass implements Cloneable, Node, Serializable {
      *
      * @param v Visitor object
      */
-    public void accept(Visitor v) {
+    public void accept( Visitor v ) {
         v.visitInnerClass(this);
     }
 
@@ -94,7 +95,7 @@ public final class InnerClass implements Cloneable, Node, Serializable {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump(DataOutputStream file) throws IOException {
+    public final void dump( DataOutputStream file ) throws IOException {
         file.writeShort(inner_class_index);
         file.writeShort(outer_class_index);
         file.writeShort(inner_name_index);
@@ -137,7 +138,7 @@ public final class InnerClass implements Cloneable, Node, Serializable {
     /**
      * @param inner_access_flags access flags for this inner class
      */
-    public final void setInnerAccessFlags(int inner_access_flags) {
+    public final void setInnerAccessFlags( int inner_access_flags ) {
         this.inner_access_flags = inner_access_flags;
     }
 
@@ -145,7 +146,7 @@ public final class InnerClass implements Cloneable, Node, Serializable {
     /**
      * @param inner_class_index index into the constant pool for this class
      */
-    public final void setInnerClassIndex(int inner_class_index) {
+    public final void setInnerClassIndex( int inner_class_index ) {
         this.inner_class_index = inner_class_index;
     }
 
@@ -153,7 +154,7 @@ public final class InnerClass implements Cloneable, Node, Serializable {
     /**
      * @param inner_name_index index into the constant pool for this class's name
      */
-    public final void setInnerNameIndex(int inner_name_index) {
+    public final void setInnerNameIndex( int inner_name_index ) {
         this.inner_name_index = inner_name_index;
     }
 
@@ -161,7 +162,7 @@ public final class InnerClass implements Cloneable, Node, Serializable {
     /**
      * @param outer_class_index index into the constant pool for the owning class
      */
-    public final void setOuterClassIndex(int outer_class_index) {
+    public final void setOuterClassIndex( int outer_class_index ) {
         this.outer_class_index = outer_class_index;
     }
 
@@ -169,6 +170,7 @@ public final class InnerClass implements Cloneable, Node, Serializable {
     /**
      * @return String representation.
      */
+    @Override
     public final String toString() {
         return "InnerClass(" + inner_class_index + ", " + outer_class_index + ", "
                 + inner_name_index + ", " + inner_access_flags + ")";
@@ -178,7 +180,7 @@ public final class InnerClass implements Cloneable, Node, Serializable {
     /**
      * @return Resolved string representation
      */
-    public final String toString(ConstantPool constant_pool) {
+    public final String toString( ConstantPool constant_pool ) {
         String inner_class_name, outer_class_name, inner_name, access;
         inner_class_name = constant_pool.getConstantString(inner_class_index,
                 Constants.CONSTANT_Class);

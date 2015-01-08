@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,30 +12,30 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.classfile;
 
+import java.io.DataInputStream;
+import java.io.IOException;
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.Type;
 import org.apache.bcel.util.BCELComparator;
 
-import java.io.DataInputStream;
-import java.io.IOException;
-
 /**
- * This class represents the field info structure, i.e., the representation
+ * This class represents the field info structure, i.e., the representation 
  * for a variable in the class. See JVM specification for details.
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: Field.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @version $Id: Field.java 1627906 2014-09-26 22:41:39Z ebourg $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public final class Field extends FieldOrMethod {
 
+    private static final long serialVersionUID = -4604082205545049134L;
     private static BCELComparator _cmp = new BCELComparator() {
 
-        public boolean equals(Object o1, Object o2) {
+        public boolean equals( Object o1, Object o2 ) {
             Field THIS = (Field) o1;
             Field THAT = (Field) o2;
             return THIS.getName().equals(THAT.getName())
@@ -42,7 +43,7 @@ public final class Field extends FieldOrMethod {
         }
 
 
-        public int hashCode(Object o) {
+        public int hashCode( Object o ) {
             Field THIS = (Field) o;
             return THIS.getSignature().hashCode() ^ THIS.getName().hashCode();
         }
@@ -60,7 +61,6 @@ public final class Field extends FieldOrMethod {
 
     /**
      * Construct object from file stream.
-     *
      * @param file Input stream
      */
     Field(DataInputStream file, ConstantPool constant_pool) throws IOException,
@@ -70,14 +70,14 @@ public final class Field extends FieldOrMethod {
 
 
     /**
-     * @param access_flags    Access rights of field
-     * @param name_index      Points to field name in constant pool
+     * @param access_flags Access rights of field
+     * @param name_index Points to field name in constant pool
      * @param signature_index Points to encoded signature
-     * @param attributes      Collection of attributes
-     * @param constant_pool   Array of constants
+     * @param attributes Collection of attributes
+     * @param constant_pool Array of constants
      */
     public Field(int access_flags, int name_index, int signature_index, Attribute[] attributes,
-                 ConstantPool constant_pool) {
+            ConstantPool constant_pool) {
         super(access_flags, name_index, signature_index, attributes, constant_pool);
     }
 
@@ -89,7 +89,7 @@ public final class Field extends FieldOrMethod {
      *
      * @param v Visitor object
      */
-    public void accept(Visitor v) {
+    public void accept( Visitor v ) {
         v.visitField(this);
     }
 
@@ -113,6 +113,7 @@ public final class Field extends FieldOrMethod {
      *
      * @return String representation of field, including the signature.
      */
+    @Override
     public final String toString() {
         String name, signature, access; // Short cuts to constant pool
         // Get names from constant pool
@@ -120,7 +121,7 @@ public final class Field extends FieldOrMethod {
         access = access.equals("") ? "" : (access + " ");
         signature = Utility.signatureToString(getSignature());
         name = getName();
-        StringBuffer buf = new StringBuffer(64);
+        StringBuilder buf = new StringBuilder(64);
         buf.append(access).append(signature).append(" ").append(name);
         ConstantValue cv = getConstantValue();
         if (cv != null) {
@@ -139,7 +140,7 @@ public final class Field extends FieldOrMethod {
     /**
      * @return deep copy of this field
      */
-    public final Field copy(ConstantPool _constant_pool) {
+    public final Field copy( ConstantPool _constant_pool ) {
         return (Field) copy_(_constant_pool);
     }
 
@@ -163,7 +164,7 @@ public final class Field extends FieldOrMethod {
     /**
      * @param comparator Comparison strategy object
      */
-    public static void setComparator(BCELComparator comparator) {
+    public static void setComparator( BCELComparator comparator ) {
         _cmp = comparator;
     }
 
@@ -172,10 +173,11 @@ public final class Field extends FieldOrMethod {
      * Return value as defined by given BCELComparator strategy.
      * By default two Field objects are said to be equal when
      * their names and signatures are equal.
-     *
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
-    public boolean equals(Object obj) {
+    @Override
+    public boolean equals( Object obj ) {
         return _cmp.equals(this, obj);
     }
 
@@ -183,9 +185,10 @@ public final class Field extends FieldOrMethod {
     /**
      * Return value as defined by given BCELComparator strategy.
      * By default return the hashcode of the field's name XOR signature.
-     *
+     * 
      * @see java.lang.Object#hashCode()
      */
+    @Override
     public int hashCode() {
         return _cmp.hashCode(this);
     }

@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,12 +12,12 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.classfile;
 
-import java.io.DataInputStream;
+import java.io.DataInput;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
@@ -26,18 +27,24 @@ import java.io.Serializable;
  * the source that corresponds to a relative address in the byte code. This
  * is used for debugging purposes.
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: LineNumber.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @see LineNumberTable
+ * @version $Id: LineNumber.java 1627906 2014-09-26 22:41:39Z ebourg $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
+ * @see     LineNumberTable
  */
 public final class LineNumber implements Cloneable, Node, Serializable {
 
-    private int start_pc; // Program Counter (PC) corresponds to line
-    private int line_number; // number in source file
-
+    private static final long serialVersionUID = 169537400672820016L;
+    
+    /** Program Counter (PC) corresponds to line */
+    private short start_pc;
+    
+    /** number in source file */
+    private short line_number;
 
     /**
      * Initialize from another object.
+     * 
+     * @param c the object to copy
      */
     public LineNumber(LineNumber c) {
         this(c.getStartPC(), c.getLineNumber());
@@ -46,22 +53,21 @@ public final class LineNumber implements Cloneable, Node, Serializable {
 
     /**
      * Construct object from file stream.
-     *
+     * 
      * @param file Input stream
-     * @throws IOException
      */
-    LineNumber(DataInputStream file) throws IOException {
+    LineNumber(DataInput file) throws IOException {
         this(file.readUnsignedShort(), file.readUnsignedShort());
     }
 
 
     /**
-     * @param start_pc    Program Counter (PC) corresponds to
+     * @param start_pc Program Counter (PC) corresponds to
      * @param line_number line number in source file
      */
     public LineNumber(int start_pc, int line_number) {
-        this.start_pc = start_pc;
-        this.line_number = line_number;
+        this.start_pc = (short) start_pc;
+        this.line_number = (short)line_number;
     }
 
 
@@ -72,7 +78,7 @@ public final class LineNumber implements Cloneable, Node, Serializable {
      *
      * @param v Visitor object
      */
-    public void accept(Visitor v) {
+    public void accept( Visitor v ) {
         v.visitLineNumber(this);
     }
 
@@ -81,9 +87,8 @@ public final class LineNumber implements Cloneable, Node, Serializable {
      * Dump line number/pc pair to file stream in binary format.
      *
      * @param file Output file stream
-     * @throws IOException
      */
-    public final void dump(DataOutputStream file) throws IOException {
+    public final void dump( DataOutputStream file ) throws IOException {
         file.writeShort(start_pc);
         file.writeShort(line_number);
     }
@@ -93,7 +98,7 @@ public final class LineNumber implements Cloneable, Node, Serializable {
      * @return Corresponding source line
      */
     public final int getLineNumber() {
-        return line_number;
+        return 0xffff & line_number;
     }
 
 
@@ -101,29 +106,30 @@ public final class LineNumber implements Cloneable, Node, Serializable {
      * @return PC in code
      */
     public final int getStartPC() {
-        return start_pc;
+        return  0xffff & start_pc;
     }
 
 
     /**
      * @param line_number the source line number
      */
-    public final void setLineNumber(int line_number) {
-        this.line_number = line_number;
+    public final void setLineNumber( int line_number ) {
+        this.line_number = (short) line_number;
     }
 
 
     /**
      * @param start_pc the pc for this line number
      */
-    public final void setStartPC(int start_pc) {
-        this.start_pc = start_pc;
+    public final void setStartPC( int start_pc ) {
+        this.start_pc = (short) start_pc;
     }
 
 
     /**
      * @return String representation
      */
+    @Override
     public final String toString() {
         return "LineNumber(" + start_pc + ", " + line_number + ")";
     }

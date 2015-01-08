@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,11 +12,14 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.util;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import org.apache.bcel.classfile.Attribute;
 import org.apache.bcel.classfile.Code;
 import org.apache.bcel.classfile.ConstantValue;
@@ -24,26 +28,23 @@ import org.apache.bcel.classfile.Field;
 import org.apache.bcel.classfile.Method;
 import org.apache.bcel.classfile.Utility;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-
 /**
  * Convert methods and fields into HTML file.
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: MethodHTML.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @version $Id: MethodHTML.java 1627977 2014-09-27 15:16:23Z ggregory $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
+ * 
  */
 final class MethodHTML implements org.apache.bcel.Constants {
 
-    private String class_name; // name of current class
-    private PrintWriter file; // file to write to
-    private ConstantHTML constant_html;
-    private AttributeHTML attribute_html;
+    private final String class_name; // name of current class
+    private final PrintWriter file; // file to write to
+    private final ConstantHTML constant_html;
+    private final AttributeHTML attribute_html;
 
 
     MethodHTML(String dir, String class_name, Method[] methods, Field[] fields,
-               ConstantHTML constant_html, AttributeHTML attribute_html) throws IOException {
+            ConstantHTML constant_html, AttributeHTML attribute_html) throws IOException {
         this.class_name = class_name;
         this.attribute_html = attribute_html;
         this.constant_html = constant_html;
@@ -51,8 +52,8 @@ final class MethodHTML implements org.apache.bcel.Constants {
         file.println("<HTML><BODY BGCOLOR=\"#C0C0C0\"><TABLE BORDER=0>");
         file.println("<TR><TH ALIGN=LEFT>Access&nbsp;flags</TH><TH ALIGN=LEFT>Type</TH>"
                 + "<TH ALIGN=LEFT>Field&nbsp;name</TH></TR>");
-        for (int i = 0; i < fields.length; i++) {
-            writeField(fields[i]);
+        for (Field field : fields) {
+            writeField(field);
         }
         file.println("</TABLE>");
         file.println("<TABLE BORDER=0><TR><TH ALIGN=LEFT>Access&nbsp;flags</TH>"
@@ -70,9 +71,9 @@ final class MethodHTML implements org.apache.bcel.Constants {
      * Print field of class.
      *
      * @param field field to print
-     * @throws java.io.IOException
+     * @exception java.io.IOException
      */
-    private void writeField(Field field) throws IOException {
+    private void writeField( Field field ) throws IOException {
         String type = Utility.signatureToString(field.getSignature());
         String name = field.getName();
         String access = Utility.accessToString(field.getAccessFlags());
@@ -99,7 +100,7 @@ final class MethodHTML implements org.apache.bcel.Constants {
     }
 
 
-    private final void writeMethod(Method method, int method_number) throws IOException {
+    private void writeMethod( Method method, int method_number ) {
         // Get raw signature
         String signature = method.getSignature();
         // Get array of strings containing the argument types 

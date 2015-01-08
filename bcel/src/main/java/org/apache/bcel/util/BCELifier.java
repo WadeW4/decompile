@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,11 +12,14 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.util;
 
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.Locale;
 import org.apache.bcel.Constants;
 import org.apache.bcel.Repository;
 import org.apache.bcel.classfile.ClassParser;
@@ -29,33 +33,28 @@ import org.apache.bcel.generic.ConstantPoolGen;
 import org.apache.bcel.generic.MethodGen;
 import org.apache.bcel.generic.Type;
 
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.util.Locale;
-
-/**
+/** 
  * This class takes a given JavaClass object and converts it to a
  * Java program that creates that very class using BCEL. This
  * gives new users of BCEL a useful example showing how things
  * are done with BCEL. It does not cover all features of BCEL,
  * but tries to mimic hand-written code as close as possible.
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: BCELifier.java 394939 2006-04-18 13:23:49Z tcurdt $
+ * @version $Id: BCELifier.java 1627977 2014-09-27 15:16:23Z ggregory $
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A> 
  */
 public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
 
     private static final int FLAG_FOR_UNKNOWN = -1;
     private static final int FLAG_FOR_CLASS = 0;
     private static final int FLAG_FOR_METHOD = 1;
-    private JavaClass _clazz;
-    private PrintWriter _out;
-    private ConstantPoolGen _cp;
+    private final JavaClass _clazz;
+    private final PrintWriter _out;
+    private final ConstantPoolGen _cp;
 
 
-    /**
-     * @param clazz Java class to "decompile"
-     * @param out   where to output Java program
+    /** @param clazz Java class to "decompile"
+     * @param out where to output Java program
      */
     public BCELifier(JavaClass clazz, OutputStream out) {
         _clazz = clazz;
@@ -64,8 +63,7 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
     }
 
 
-    /**
-     * Start Java code generation
+    /** Start Java code generation
      */
     public void start() {
         visitJavaClass(_clazz);
@@ -73,7 +71,8 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
     }
 
 
-    public void visitJavaClass(JavaClass clazz) {
+    @Override
+    public void visitJavaClass( JavaClass clazz ) {
         String class_name = clazz.getClassName();
         String super_name = clazz.getSuperclassName();
         String package_name = clazz.getPackageName();
@@ -109,8 +108,8 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
         if (fields.length > 0) {
             _out.println("  private void createFields() {");
             _out.println("    FieldGen field;");
-            for (int i = 0; i < fields.length; i++) {
-                fields[i].accept(this);
+            for (Field field : fields) {
+                field.accept(this);
             }
             _out.println("  }");
             _out.println();
@@ -152,7 +151,8 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
     }
 
 
-    public void visitField(Field field) {
+    @Override
+    public void visitField( Field field ) {
         _out.println();
         _out.println("    field = new FieldGen(" + printFlags(field.getAccessFlags()) + ", "
                 + printType(field.getSignature()) + ", \"" + field.getName() + "\", _cp);");
@@ -165,7 +165,8 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
     }
 
 
-    public void visitMethod(Method method) {
+    @Override
+    public void visitMethod( Method method ) {
         MethodGen mg = new MethodGen(method, _clazz.getClassName(), _cp);
         Type result_type = mg.getReturnType();
         Type[] arg_types = mg.getArgumentTypes();
@@ -185,16 +186,16 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
     }
 
 
-    static String printFlags(int flags) {
+    static String printFlags( int flags ) {
         return printFlags(flags, FLAG_FOR_UNKNOWN);
     }
 
 
-    static String printFlags(int flags, int reason) {
+    static String printFlags( int flags, int reason ) {
         if (flags == 0) {
             return "0";
         }
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         for (int i = 0, pow = 1; pow <= Constants.MAX_ACC_FLAG; i++) {
             if ((flags & pow) != 0) {
                 if ((pow == Constants.ACC_SYNCHRONIZED) && (reason == FLAG_FOR_CLASS)) {
@@ -206,7 +207,7 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
                 } else {
                     buf.append("ACC_")
                             .append(Constants.ACCESS_NAMES[i].toUpperCase(Locale.ENGLISH)).append(
-                            " | ");
+                                    " | ");
                 }
             }
             pow <<= 1;
@@ -216,11 +217,11 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
     }
 
 
-    static String printArgumentTypes(Type[] arg_types) {
+    static String printArgumentTypes( Type[] arg_types ) {
         if (arg_types.length == 0) {
             return "Type.NO_ARGS";
         }
-        StringBuffer args = new StringBuffer();
+        StringBuilder args = new StringBuilder();
         for (int i = 0; i < arg_types.length; i++) {
             args.append(printType(arg_types[i]));
             if (i < arg_types.length - 1) {
@@ -231,12 +232,12 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
     }
 
 
-    static String printType(Type type) {
+    static String printType( Type type ) {
         return printType(type.getSignature());
     }
 
 
-    static String printType(String signature) {
+    static String printType( String signature ) {
         Type type = Type.getType(signature);
         byte t = type.getType();
         if (t <= Constants.T_VOID) {
@@ -257,10 +258,9 @@ public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
     }
 
 
-    /**
-     * Default main method
+    /** Default main method
      */
-    public static void main(String[] argv) throws Exception {
+    public static void main( String[] argv ) throws Exception {
         JavaClass java_class;
         String name = argv[0];
         if ((java_class = Repository.lookupClass(name)) == null) {

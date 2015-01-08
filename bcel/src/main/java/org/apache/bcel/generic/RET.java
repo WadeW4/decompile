@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,26 +12,26 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.generic;
 
-import org.apache.bcel.util.ByteSequence;
-
 import java.io.DataOutputStream;
 import java.io.IOException;
+import org.apache.bcel.util.ByteSequence;
 
-/**
+/** 
  * RET - Return from subroutine
- * <p/>
+ *
  * <PRE>Stack: ... -&gt; ...</PRE>
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: RET.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @version $Id: RET.java 1627906 2014-09-26 22:41:39Z ebourg $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class RET extends Instruction implements IndexedInstruction, TypedInstruction {
 
+    private static final long serialVersionUID = -3751746568458761719L;
     private boolean wide;
     private int index; // index to local variable containg the return address
 
@@ -51,10 +52,10 @@ public class RET extends Instruction implements IndexedInstruction, TypedInstruc
 
     /**
      * Dump instruction as byte code to stream out.
-     *
      * @param out Output stream
      */
-    public void dump(DataOutputStream out) throws IOException {
+    @Override
+    public void dump( DataOutputStream out ) throws IOException {
         if (wide) {
             out.writeByte(org.apache.bcel.Constants.WIDE);
         }
@@ -67,7 +68,7 @@ public class RET extends Instruction implements IndexedInstruction, TypedInstruc
     }
 
 
-    private final void setWide() {
+    private void setWide() {
         wide = index > org.apache.bcel.Constants.MAX_BYTE;
         if (wide) {
             length = 4; // Including the wide byte  
@@ -80,7 +81,8 @@ public class RET extends Instruction implements IndexedInstruction, TypedInstruc
     /**
      * Read needed data (e.g. index) from file.
      */
-    protected void initFromFile(ByteSequence bytes, boolean wide) throws IOException {
+    @Override
+    protected void initFromFile( ByteSequence bytes, boolean wide ) throws IOException {
         this.wide = wide;
         if (wide) {
             index = bytes.readUnsignedShort();
@@ -103,7 +105,7 @@ public class RET extends Instruction implements IndexedInstruction, TypedInstruc
     /**
      * Set index of local variable containg the return address
      */
-    public final void setIndex(int n) {
+    public final void setIndex( int n ) {
         if (n < 0) {
             throw new ClassGenException("Negative index value: " + n);
         }
@@ -115,15 +117,15 @@ public class RET extends Instruction implements IndexedInstruction, TypedInstruc
     /**
      * @return mnemonic for instruction
      */
-    public String toString(boolean verbose) {
+    @Override
+    public String toString( boolean verbose ) {
         return super.toString(verbose) + " " + index;
     }
 
 
-    /**
-     * @return return address type
+    /** @return return address type
      */
-    public Type getType(ConstantPoolGen cp) {
+    public Type getType( ConstantPoolGen cp ) {
         return ReturnaddressType.NO_TARGET;
     }
 
@@ -136,7 +138,8 @@ public class RET extends Instruction implements IndexedInstruction, TypedInstruc
      *
      * @param v Visitor object
      */
-    public void accept(Visitor v) {
+    @Override
+    public void accept( Visitor v ) {
         v.visitRET(this);
     }
 }

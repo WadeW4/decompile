@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,7 +12,7 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.generic;
@@ -23,18 +24,20 @@ import org.apache.bcel.classfile.JavaClass;
 /**
  * Super class for object and array types.
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: ReferenceType.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @version $Id: ReferenceType.java 1627906 2014-09-26 22:41:39Z ebourg $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class ReferenceType extends Type {
+
+    private static final long serialVersionUID = -1434716548829506031L;
+
 
     protected ReferenceType(byte t, String s) {
         super(t, s);
     }
 
 
-    /**
-     * Class is non-abstract but not instantiable from the outside
+    /** Class is non-abstract but not instantiable from the outside
      */
     ReferenceType() {
         super(Constants.T_OBJECT, "<null object>");
@@ -50,9 +53,9 @@ public abstract class ReferenceType extends Type {
      * true is returned in this case.
      *
      * @throws ClassNotFoundException if any classes or interfaces required
-     *                                to determine assignment compatibility can't be found
+     *  to determine assignment compatibility can't be found
      */
-    public boolean isCastableTo(Type t) throws ClassNotFoundException {
+    public boolean isCastableTo( Type t ) throws ClassNotFoundException {
         if (this.equals(Type.NULL)) {
             return true; // If this is ever changed in isAssignmentCompatible()
         }
@@ -67,11 +70,10 @@ public abstract class ReferenceType extends Type {
      * Return true iff this is assignment compatible with another type t
      * as defined in the JVM specification; see the AASTORE definition
      * there.
-     *
      * @throws ClassNotFoundException if any classes or interfaces required
-     *                                to determine assignment compatibility can't be found
+     *  to determine assignment compatibility can't be found
      */
-    public boolean isAssignmentCompatibleWith(Type t) throws ClassNotFoundException {
+    public boolean isAssignmentCompatibleWith( Type t ) throws ClassNotFoundException {
         if (!(t instanceof ReferenceType)) {
             return false;
         }
@@ -163,8 +165,8 @@ public abstract class ReferenceType extends Type {
             // on one of them "interfaces implemented by arrays" is exchanged with "'Cloneable' or
             // 'java.io.Serializable'"
             if ((T instanceof ObjectType) && (((ObjectType) T).referencesInterfaceExact())) {
-                for (int ii = 0; ii < Constants.INTERFACES_IMPLEMENTED_BY_ARRAYS.length; ii++) {
-                    if (T.equals(new ObjectType(Constants.INTERFACES_IMPLEMENTED_BY_ARRAYS[ii]))) {
+                for (String element : Constants.INTERFACES_IMPLEMENTED_BY_ARRAYS) {
+                    if (T.equals(ObjectType.getInstance(element))) {
                         return true;
                     }
                 }
@@ -190,9 +192,9 @@ public abstract class ReferenceType extends Type {
      * See the JVM specification edition 2, "�4.9.2 The Bytecode Verifier".
      *
      * @throws ClassNotFoundException on failure to find superclasses of this
-     *                                type, or the type passed as a parameter
+     *  type, or the type passed as a parameter
      */
-    public ReferenceType getFirstCommonSuperclass(ReferenceType t) throws ClassNotFoundException {
+    public ReferenceType getFirstCommonSuperclass( ReferenceType t ) throws ClassNotFoundException {
         if (this.equals(Type.NULL)) {
             return t;
         }
@@ -247,10 +249,10 @@ public abstract class ReferenceType extends Type {
         System.arraycopy(other_sups, 0, t_sups, 1, other_sups.length);
         this_sups[0] = Repository.lookupClass(thiz.getClassName());
         t_sups[0] = Repository.lookupClass(other.getClassName());
-        for (int i = 0; i < t_sups.length; i++) {
-            for (int j = 0; j < this_sups.length; j++) {
-                if (this_sups[j].equals(t_sups[i])) {
-                    return new ObjectType(this_sups[j].getClassName());
+        for (JavaClass t_sup : t_sups) {
+            for (JavaClass this_sup : this_sups) {
+                if (this_sup.equals(t_sup)) {
+                    return ObjectType.getInstance(this_sup.getClassName());
                 }
             }
         }
@@ -271,12 +273,13 @@ public abstract class ReferenceType extends Type {
      * If not all of the two classes' superclasses cannot be found, "null" is returned.
      * See the JVM specification edition 2, "�4.9.2 The Bytecode Verifier".
      *
-     * @throws ClassNotFoundException on failure to find superclasses of this
-     *                                type, or the type passed as a parameter
      * @deprecated use getFirstCommonSuperclass(ReferenceType t) which has
-     * slightly changed semantics.
+     *             slightly changed semantics.
+     * @throws ClassNotFoundException on failure to find superclasses of this
+     *  type, or the type passed as a parameter
      */
-    public ReferenceType firstCommonSuperclass(ReferenceType t) throws ClassNotFoundException {
+    @Deprecated
+    public ReferenceType firstCommonSuperclass( ReferenceType t ) throws ClassNotFoundException {
         if (this.equals(Type.NULL)) {
             return t;
         }
@@ -319,10 +322,10 @@ public abstract class ReferenceType extends Type {
         System.arraycopy(other_sups, 0, t_sups, 1, other_sups.length);
         this_sups[0] = Repository.lookupClass(thiz.getClassName());
         t_sups[0] = Repository.lookupClass(other.getClassName());
-        for (int i = 0; i < t_sups.length; i++) {
-            for (int j = 0; j < this_sups.length; j++) {
-                if (this_sups[j].equals(t_sups[i])) {
-                    return new ObjectType(this_sups[j].getClassName());
+        for (JavaClass t_sup : t_sups) {
+            for (JavaClass this_sup : this_sups) {
+                if (this_sup.equals(t_sup)) {
+                    return ObjectType.getInstance(this_sup.getClassName());
                 }
             }
         }

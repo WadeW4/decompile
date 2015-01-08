@@ -12,6 +12,7 @@ public class Decompiler {
     public Decompiler(String[] args) throws IOException {
 	ClassParser parser = new ClassParser(args[0]);
 	javaClass = parser.parse();
+	System.out.println(javaClass.toString());
     }
 
     private void disassemble() throws ClassNotFoundException {

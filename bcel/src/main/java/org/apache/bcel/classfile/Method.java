@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -28,11 +29,12 @@ import org.apache.bcel.util.BCELComparator;
  * a method in the class. See JVM specification for details. A method has access
  * flags, a name, a signature and a number of attributes.
  *
+ * @version $Id: Method.java 1627906 2014-09-26 22:41:39Z ebourg $
  * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: Method.java 386056 2006-03-15 11:31:56Z tcurdt $
  */
 public final class Method extends FieldOrMethod {
 
+    private static final long serialVersionUID = -2013983967283787941L;
     private static BCELComparator _cmp = new BCELComparator() {
 
 	@Override
@@ -48,6 +50,9 @@ public final class Method extends FieldOrMethod {
 	    return THIS.getSignature().hashCode() ^ THIS.getName().hashCode();
 	}
     };
+
+    // annotations defined on the parameters of a method
+    private ParameterAnnotationEntry[] parameterAnnotationEntries;
 
     /**
      * Empty constructor, all attributes have to be defined via `setXXX'
@@ -66,7 +71,7 @@ public final class Method extends FieldOrMethod {
 
     /**
      * Construct object from file stream.
-     *
+     * 
      * @param file
      *            Input stream
      * @throws IOException
@@ -161,10 +166,10 @@ public final class Method extends FieldOrMethod {
      * @return String representation of the method.
      */
     @Override
-    public final String toString(String indent) {
+    public final String toString() {
 	ConstantUtf8 c;
 	String name, signature, access; // Short cuts to constant pool
-	StringBuffer buf;
+	StringBuilder buf;
 	access = Utility.accessToString(access_flags);
 	// Get name and signature from constant pool
 	c = (ConstantUtf8) constant_pool.getConstant(signature_index, Constants.CONSTANT_Utf8);
@@ -172,11 +177,11 @@ public final class Method extends FieldOrMethod {
 	c = (ConstantUtf8) constant_pool.getConstant(name_index, Constants.CONSTANT_Utf8);
 	name = c.getBytes();
 	signature = Utility.methodSignatureToString(signature, name, access, true, getLocalVariableTable());
-	buf = new StringBuffer(signature);
+	buf = new StringBuilder(signature);
 	for (int i = 0; i < attributes_count; i++) {
 	    Attribute a = attributes[i];
 	    if (!((a instanceof Code) || (a instanceof ExceptionTable))) {
-		buf.append(" [").append(a.toString(indent)).append("]");
+		buf.append(" [").append(a.toString()).append("]");
 	    }
 	}
 	ExceptionTable e = getExceptionTable();
@@ -246,5 +251,43 @@ public final class Method extends FieldOrMethod {
     @Override
     public int hashCode() {
 	return _cmp.hashCode(this);
+    }
+
+    /**
+     * @return Annotations on the parameters of a method
+     */
+    public ParameterAnnotationEntry[] getParameterAnnotationEntries() {
+	if (parameterAnnotationEntries == null) {
+	    parameterAnnotationEntries = ParameterAnnotationEntry.createParameterAnnotationEntries(getAttributes());
+	}
+	return parameterAnnotationEntries;
+    }
+
+    public final String toString(String indent) {
+	ConstantUtf8 c;
+	String name, signature, access; // Short cuts to constant pool
+	StringBuffer buf;
+	access = Utility.accessToString(access_flags);
+	// Get name and signature from constant pool
+	c = (ConstantUtf8) constant_pool.getConstant(signature_index, Constants.CONSTANT_Utf8);
+	signature = c.getBytes();
+	c = (ConstantUtf8) constant_pool.getConstant(name_index, Constants.CONSTANT_Utf8);
+	name = c.getBytes();
+	signature = Utility.methodSignatureToString(signature, name, access, true, getLocalVariableTable());
+	buf = new StringBuffer(signature);
+	for (int i = 0; i < attributes_count; i++) {
+	    Attribute a = attributes[i];
+	    if (!((a instanceof Code) || (a instanceof ExceptionTable))) {
+		buf.append(" [").append(a.toString(indent)).append("]");
+	    }
+	}
+	ExceptionTable e = getExceptionTable();
+	if (e != null) {
+	    String str = e.toString();
+	    if (!str.equals("")) {
+		buf.append("\n\t\tthrows ").append(str);
+	    }
+	}
+	return buf.toString();
     }
 }

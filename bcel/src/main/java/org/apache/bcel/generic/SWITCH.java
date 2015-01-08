@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,18 +12,18 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.generic;
 
-/**
+/** 
  * SWITCH - Branch depending on int value, generates either LOOKUPSWITCH or
  * TABLESWITCH instruction, depending on whether the match values (int[]) can be
  * sorted with no gaps between the numbers.
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: SWITCH.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @version $Id: SWITCH.java 1627906 2014-09-26 22:41:39Z ebourg $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public final class SWITCH implements CompoundInstruction {
 
@@ -38,18 +39,18 @@ public final class SWITCH implements CompoundInstruction {
      * between the numbers, a TABLESWITCH instruction is generated, and
      * a LOOKUPSWITCH otherwise. The former may be more efficient, but
      * needs more space.
-     * <p/>
+     * 
      * Note, that the key array always will be sorted, though we leave
      * the original arrays unaltered.
      *
-     * @param match   array of match values (case 2: ... case 7: ..., etc.)
+     * @param match array of match values (case 2: ... case 7: ..., etc.)
      * @param targets the instructions to be branched to for each case
-     * @param target  the default target
+     * @param target the default target
      * @param max_gap maximum gap that may between case branches
      */
     public SWITCH(int[] match, InstructionHandle[] targets, InstructionHandle target, int max_gap) {
-        this.match = (int[]) match.clone();
-        this.targets = (InstructionHandle[]) targets.clone();
+        this.match = match.clone();
+        this.targets = targets.clone();
         if ((match_length = match.length) < 2) {
             instruction = new TABLESWITCH(match, targets, target);
         } else {
@@ -69,7 +70,7 @@ public final class SWITCH implements CompoundInstruction {
     }
 
 
-    private final void fillup(int max_gap, InstructionHandle target) {
+    private void fillup( int max_gap, InstructionHandle target ) {
         int max_size = match_length + match_length * max_gap;
         int[] m_vec = new int[max_size];
         InstructionHandle[] t_vec = new InstructionHandle[max_size];
@@ -98,7 +99,7 @@ public final class SWITCH implements CompoundInstruction {
     /**
      * Sort match and targets array with QuickSort.
      */
-    private final void sort(int l, int r) {
+    private void sort( int l, int r ) {
         int i = l, j = r;
         int h, m = match[(l + r) / 2];
         InstructionHandle h2;
@@ -132,7 +133,7 @@ public final class SWITCH implements CompoundInstruction {
     /**
      * @return match is sorted in ascending order with no gap bigger than max_gap?
      */
-    private final boolean matchIsOrdered(int max_gap) {
+    private boolean matchIsOrdered( int max_gap ) {
         for (int i = 1; i < match_length; i++) {
             if (match[i] - match[i - 1] > max_gap) {
                 return false;

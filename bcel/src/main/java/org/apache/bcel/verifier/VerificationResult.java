@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,7 +12,7 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.verifier;
@@ -20,8 +21,8 @@ package org.apache.bcel.verifier;
  * A VerificationResult is what a PassVerifier returns
  * after verifying.
  *
+ * @version $Id: VerificationResult.java 1627977 2014-09-27 15:16:23Z ggregory $
  * @author Enver Haase
- * @version $Id: VerificationResult.java 386056 2006-03-15 11:31:56Z tcurdt $
  */
 public class VerificationResult {
 
@@ -30,47 +31,39 @@ public class VerificationResult {
      * This happens if some earlier verification pass did not return VERIFIED_OK.
      */
     public static final int VERIFIED_NOTYET = 0;
-    /**
-     * Constant to indicate verification was passed.
-     */
+
+    /** Constant to indicate verification was passed. */
     public static final int VERIFIED_OK = 1;
-    /**
-     * Constant to indicate verfication failed.
-     */
+
+    /** Constant to indicate verfication failed. */
     public static final int VERIFIED_REJECTED = 2;
+
     /**
      * This string is the canonical message for verifications that have not been tried yet.
-     * This happens if some earlier verification pass did not return VERIFIED_OK.
+     * This happens if some earlier verification pass did not return {@link #VERIFIED_OK}.
      */
     private static final String VERIFIED_NOTYET_MSG = "Not yet verified.";
-    /**
-     * This string is the canonical message for passed verification passes.
-     */
+
+    /** This string is the canonical message for passed verification passes. */
     private static final String VERIFIED_OK_MSG = "Passed verification.";
+
     /**
      * Canonical VerificationResult for not-yet-tried verifications.
-     * This happens if some earlier verification pass did not return VERIFIED_OK.
+     * This happens if some earlier verification pass did not return {@link #VERIFIED_OK}.
      */
-    public static final VerificationResult VR_NOTYET = new VerificationResult(VERIFIED_NOTYET,
-            VERIFIED_NOTYET_MSG);
-    /**
-     * Canonical VerificationResult for passed verifications.
-     */
-    public static final VerificationResult VR_OK = new VerificationResult(VERIFIED_OK,
-            VERIFIED_OK_MSG);
-    /**
-     * The numeric status.
-     */
-    private int numeric;
-    /**
-     * The detailed message.
-     */
-    private String detailMessage;
+    public static final VerificationResult VR_NOTYET = new VerificationResult(VERIFIED_NOTYET, VERIFIED_NOTYET_MSG);
+
+    /** Canonical VerificationResult for passed verifications. */
+    public static final VerificationResult VR_OK = new VerificationResult(VERIFIED_OK, VERIFIED_OK_MSG);
+
+    /** The numeric status. */
+    private final int numeric;
+
+    /** The detailed message. */
+    private final String detailMessage;
 
 
-    /**
-     * The usual constructor.
-     */
+    /** The usual constructor. */
     public VerificationResult(int status, String message) {
         numeric = status;
         detailMessage = message;
@@ -78,16 +71,15 @@ public class VerificationResult {
 
 
     /**
-     * Returns one one the VERIFIED_OK, VERIFIED_NOTYET, VERIFIED_REJECTED constants.
+     * Returns one one the {@link #VERIFIED_OK}, {@link #VERIFIED_NOTYET},
+     * {@link #VERIFIED_REJECTED} constants.
      */
     public int getStatus() {
         return numeric;
     }
 
 
-    /**
-     * Returns a detailed message.
-     */
+    /** Returns a detailed message. */
     public String getMessage() {
         return detailMessage;
     }
@@ -96,6 +88,7 @@ public class VerificationResult {
     /**
      * @return a hash code value for the object.
      */
+    @Override
     public int hashCode() {
         return numeric ^ detailMessage.hashCode();
     }
@@ -104,7 +97,8 @@ public class VerificationResult {
     /**
      * Returns if two VerificationResult instances are equal.
      */
-    public boolean equals(Object o) {
+    @Override
+    public boolean equals( Object o ) {
         if (!(o instanceof VerificationResult)) {
             return false;
         }
@@ -116,6 +110,7 @@ public class VerificationResult {
     /**
      * Returns a String representation of the VerificationResult.
      */
+    @Override
     public String toString() {
         String ret = "";
         if (numeric == VERIFIED_NOTYET) {

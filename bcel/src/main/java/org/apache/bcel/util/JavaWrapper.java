@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,7 +12,7 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.util;
@@ -23,21 +24,21 @@ import java.lang.reflect.Modifier;
  * Java interpreter replacement, i.e., wrapper that uses its own ClassLoader
  * to modify/generate classes as they're requested. You can take this as a template
  * for your own applications.<br>
- * Call this wrapper with
+ * Call this wrapper with:
+ * 
  * <pre>java org.apache.bcel.util.JavaWrapper &lt;real.class.name&gt; [arguments]</pre>
- * <p>
- * To use your own class loader you can set the "bcel.classloader" system property
- * which defaults to "org.apache.bcel.util.ClassLoader", e.g., with
+ * 
+ * <p>To use your own class loader you can set the "bcel.classloader" system property
+ * which defaults to "org.apache.bcel.util.ClassLoader", e.g., with:</p>
  * <pre>java org.apache.bcel.util.JavaWrapper -Dbcel.classloader=foo.MyLoader &lt;real.class.name&gt; [arguments]</pre>
- * </p>
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: JavaWrapper.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @version $Id: JavaWrapper.java 1627977 2014-09-27 15:16:23Z ggregory $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  * @see ClassLoader
  */
 public class JavaWrapper {
 
-    private java.lang.ClassLoader loader;
+    private final java.lang.ClassLoader loader;
 
 
     private static java.lang.ClassLoader getClassLoader() {
@@ -48,7 +49,7 @@ public class JavaWrapper {
         try {
             return (java.lang.ClassLoader) Class.forName(s).newInstance();
         } catch (Exception e) {
-            throw new RuntimeException(e.toString());
+            throw new RuntimeException(e.toString(), e);
         }
     }
 
@@ -63,23 +64,22 @@ public class JavaWrapper {
     }
 
 
-    /**
-     * Runs the main method of the given class with the arguments passed in argv
+    /** Runs the main method of the given class with the arguments passed in argv
      *
      * @param class_name the fully qualified class name
-     * @param argv       the arguments just as you would pass them directly
+     * @param argv the arguments just as you would pass them directly
      */
-    public void runMain(String class_name, String[] argv) throws ClassNotFoundException {
-        Class cl = loader.loadClass(class_name);
+    public void runMain( String class_name, String[] argv ) throws ClassNotFoundException {
+        Class<?> cl = loader.loadClass(class_name);
         Method method = null;
         try {
-            method = cl.getMethod("main", new Class[]{
-                    argv.getClass()
+            method = cl.getMethod("main", new Class[] {
+                argv.getClass()
             });
             /* Method main is sane ?
              */
             int m = method.getModifiers();
-            Class r = method.getReturnType();
+            Class<?> r = method.getReturnType();
             if (!(Modifier.isPublic(m) && Modifier.isStatic(m)) || Modifier.isAbstract(m)
                     || (r != Void.TYPE)) {
                 throw new NoSuchMethodException();
@@ -90,8 +90,8 @@ public class JavaWrapper {
             return;
         }
         try {
-            method.invoke(null, new Object[]{
-                    argv
+            method.invoke(null, new Object[] {
+                argv
             });
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -99,11 +99,10 @@ public class JavaWrapper {
     }
 
 
-    /**
-     * Default main method used as wrapper, expects the fully qualified class name
+    /** Default main method used as wrapper, expects the fully qualified class name
      * of the real class as the first argument.
      */
-    public static void main(String[] argv) throws Exception {
+    public static void main( String[] argv ) throws Exception {
         /* Expects class name as first argument, other arguments are by-passed.
          */
         if (argv.length == 0) {

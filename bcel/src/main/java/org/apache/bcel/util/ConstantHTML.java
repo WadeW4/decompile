@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,11 +12,14 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.util;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import org.apache.bcel.classfile.Constant;
 import org.apache.bcel.classfile.ConstantClass;
 import org.apache.bcel.classfile.ConstantFieldref;
@@ -27,29 +31,26 @@ import org.apache.bcel.classfile.ConstantString;
 import org.apache.bcel.classfile.Method;
 import org.apache.bcel.classfile.Utility;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-
 /**
  * Convert constant pool into HTML file.
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: ConstantHTML.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @version $Id: ConstantHTML.java 1627977 2014-09-27 15:16:23Z ggregory $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
+ * 
  */
 final class ConstantHTML implements org.apache.bcel.Constants {
 
-    private String class_name; // name of current class
-    private String class_package; // name of package
-    private ConstantPool constant_pool; // reference to constant pool
-    private PrintWriter file; // file to write to
-    private String[] constant_ref; // String to return for cp[i]
-    private Constant[] constants; // The constants in the cp
-    private Method[] methods;
+    private final String class_name; // name of current class
+    private final String class_package; // name of package
+    private final ConstantPool constant_pool; // reference to constant pool
+    private final PrintWriter file; // file to write to
+    private final String[] constant_ref; // String to return for cp[i]
+    private final Constant[] constants; // The constants in the cp
+    private final Method[] methods;
 
 
     ConstantHTML(String dir, String class_name, String class_package, Method[] methods,
-                 ConstantPool constant_pool) throws IOException {
+            ConstantPool constant_pool) throws IOException {
         this.class_name = class_name;
         this.class_package = class_package;
         this.constant_pool = constant_pool;
@@ -76,12 +77,12 @@ final class ConstantHTML implements org.apache.bcel.Constants {
     }
 
 
-    String referenceConstant(int index) {
+    String referenceConstant( int index ) {
         return constant_ref[index];
     }
 
 
-    private void writeConstant(int index) {
+    private void writeConstant( int index ) {
         byte tag = constants[index].getTag();
         int class_index, name_index;
         String ref;
@@ -112,7 +113,6 @@ final class ConstantHTML implements org.apache.bcel.Constants {
                 // Partially compacted class name, i.e., / -> .
                 String method_class = constant_pool.constantToString(class_index, CONSTANT_Class);
                 String short_method_class = Utility.compactClassName(method_class); // I.e., remove java.lang.
-                short_method_class = Utility.compactClassName(method_class); // I.e., remove java.lang.
                 short_method_class = Utility.compactClassName(short_method_class, class_package
                         + ".", true); // Remove class package prefix
                 // Get method signature
@@ -125,7 +125,7 @@ final class ConstantHTML implements org.apache.bcel.Constants {
                 // Get return type string
                 String type = Utility.methodSignatureReturnType(signature, false);
                 String ret_type = Class2HTML.referenceType(type);
-                StringBuffer buf = new StringBuffer("(");
+                StringBuilder buf = new StringBuilder("(");
                 for (int i = 0; i < args.length; i++) {
                     buf.append(Class2HTML.referenceType(args[i]));
                     if (i < args.length - 1) {
@@ -222,7 +222,7 @@ final class ConstantHTML implements org.apache.bcel.Constants {
     }
 
 
-    private final int getMethodNumber(String str) {
+    private int getMethodNumber( String str ) {
         for (int i = 0; i < methods.length; i++) {
             String cmp = methods[i].getName() + methods[i].getSignature();
             if (cmp.equals(str)) {

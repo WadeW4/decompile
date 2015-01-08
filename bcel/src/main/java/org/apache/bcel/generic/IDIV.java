@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,7 +12,7 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.generic;
@@ -20,25 +21,26 @@ package org.apache.bcel.generic;
  * IDIV - Divide ints
  * <PRE>Stack: ..., value1, value2 -&gt; result</PRE>
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: IDIV.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @version $Id: IDIV.java 1627906 2014-09-26 22:41:39Z ebourg $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class IDIV extends ArithmeticInstruction implements ExceptionThrower {
 
-    /**
-     * Divide ints
+    private static final long serialVersionUID = -7104037931993634172L;
+
+
+    /** Divide ints
      */
     public IDIV() {
         super(org.apache.bcel.Constants.IDIV);
     }
 
 
-    /**
-     * @return exceptions this instruction may cause
+    /** @return exceptions this instruction may cause
      */
-    public Class[] getExceptions() {
-        return new Class[]{
-                org.apache.bcel.ExceptionConstants.ARITHMETIC_EXCEPTION
+    public Class<?>[] getExceptions() {
+        return new Class[] {
+            org.apache.bcel.ExceptionConstants.ARITHMETIC_EXCEPTION
         };
     }
 
@@ -51,7 +53,8 @@ public class IDIV extends ArithmeticInstruction implements ExceptionThrower {
      *
      * @param v Visitor object
      */
-    public void accept(Visitor v) {
+    @Override
+    public void accept( Visitor v ) {
         v.visitExceptionThrower(this);
         v.visitTypedInstruction(this);
         v.visitStackProducer(this);

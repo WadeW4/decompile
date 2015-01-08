@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -16,27 +17,28 @@
  */
 package org.apache.bcel.classfile;
 
-import org.apache.bcel.Constants;
-
-import java.io.DataInputStream;
+import java.io.DataInput;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-/**
- * This class is derived from the abstract
- * <A HREF="org.apache.bcel.classfile.Constant.html">Constant</A> class
+import org.apache.bcel.Constants;
+
+/** 
+ * This class is derived from the abstract 
+ * <A HREF="org.apache.bcel.classfile.Constant.html">Constant</A> class 
  * and represents a reference to a Double object.
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: ConstantDouble.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @see Constant
+ * @version $Id: ConstantDouble.java 1152072 2011-07-29 01:54:05Z dbrosius $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
+ * @see     Constant
  */
 public final class ConstantDouble extends Constant implements ConstantObject {
 
+    private static final long serialVersionUID = -7394764537394782136L;
     private double bytes;
 
 
-    /**
+    /** 
      * @param bytes Data
      */
     public ConstantDouble(double bytes) {
@@ -53,13 +55,13 @@ public final class ConstantDouble extends Constant implements ConstantObject {
     }
 
 
-    /**
+    /** 
      * Initialize instance from file data.
      *
      * @param file Input stream
      * @throws IOException
      */
-    ConstantDouble(DataInputStream file) throws IOException {
+    ConstantDouble(DataInput file) throws IOException {
         this(file.readDouble());
     }
 
@@ -71,7 +73,8 @@ public final class ConstantDouble extends Constant implements ConstantObject {
      *
      * @param v Visitor object
      */
-    public void accept(Visitor v) {
+    @Override
+    public void accept( Visitor v ) {
         v.visitConstantDouble(this);
     }
 
@@ -82,7 +85,8 @@ public final class ConstantDouble extends Constant implements ConstantObject {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump(DataOutputStream file) throws IOException {
+    @Override
+    public final void dump( DataOutputStream file ) throws IOException {
         file.writeByte(tag);
         file.writeDouble(bytes);
     }
@@ -99,7 +103,7 @@ public final class ConstantDouble extends Constant implements ConstantObject {
     /**
      * @param bytes the raw bytes that represent the double value
      */
-    public final void setBytes(double bytes) {
+    public final void setBytes( double bytes ) {
         this.bytes = bytes;
     }
 
@@ -107,15 +111,15 @@ public final class ConstantDouble extends Constant implements ConstantObject {
     /**
      * @return String representation.
      */
+    @Override
     public final String toString() {
         return super.toString() + "(bytes = " + bytes + ")";
     }
 
 
-    /**
-     * @return Double object
+    /** @return Double object
      */
-    public Object getConstantValue(ConstantPool cp) {
+    public Object getConstantValue( ConstantPool cp ) {
         return new Double(bytes);
     }
 }

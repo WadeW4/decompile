@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,24 +12,25 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.generic;
 
 import org.apache.bcel.classfile.LineNumber;
 
-/**
+/** 
  * This class represents a line number within a method, i.e., give an instruction
  * a line number corresponding to the source code line.
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: LineNumberGen.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @see LineNumber
- * @see MethodGen
+ * @version $Id: LineNumberGen.java 1627906 2014-09-26 22:41:39Z ebourg $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
+ * @see     LineNumber
+ * @see     MethodGen
  */
 public class LineNumberGen implements InstructionTargeter, Cloneable, java.io.Serializable {
 
+    private static final long serialVersionUID = 4939965573936108738L;
     private InstructionHandle ih;
     private int src_line;
 
@@ -47,7 +49,7 @@ public class LineNumberGen implements InstructionTargeter, Cloneable, java.io.Se
     /**
      * @return true, if ih is target of this line number
      */
-    public boolean containsTarget(InstructionHandle ih) {
+    public boolean containsTarget( InstructionHandle ih ) {
         return this.ih == ih;
     }
 
@@ -56,7 +58,7 @@ public class LineNumberGen implements InstructionTargeter, Cloneable, java.io.Se
      * @param old_ih old target
      * @param new_ih new target
      */
-    public void updateTarget(InstructionHandle old_ih, InstructionHandle new_ih) {
+    public void updateTarget( InstructionHandle old_ih, InstructionHandle new_ih ) {
         if (old_ih != ih) {
             throw new ClassGenException("Not targeting " + old_ih + ", but " + ih + "}");
         } else {
@@ -67,7 +69,7 @@ public class LineNumberGen implements InstructionTargeter, Cloneable, java.io.Se
 
     /**
      * Get LineNumber attribute .
-     * <p/>
+     *
      * This relies on that the instruction list has already been dumped to byte code or
      * or that the `setPositions' methods has been called for the instruction list.
      */
@@ -76,18 +78,18 @@ public class LineNumberGen implements InstructionTargeter, Cloneable, java.io.Se
     }
 
 
-    public void setInstruction(InstructionHandle ih) {
+    public void setInstruction( InstructionHandle ih ) {
         BranchInstruction.notifyTarget(this.ih, ih, this);
         this.ih = ih;
     }
 
 
+    @Override
     public Object clone() {
         try {
             return super.clone();
         } catch (CloneNotSupportedException e) {
-            System.err.println(e);
-            return null;
+            throw new Error("Clone Not Supported"); // never happens
         }
     }
 
@@ -97,7 +99,7 @@ public class LineNumberGen implements InstructionTargeter, Cloneable, java.io.Se
     }
 
 
-    public void setSourceLine(int src_line) {
+    public void setSourceLine( int src_line ) {
         this.src_line = src_line;
     }
 

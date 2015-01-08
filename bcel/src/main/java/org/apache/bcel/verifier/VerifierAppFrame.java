@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,30 +12,46 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.verifier;
 
+import java.awt.AWTEvent;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
+import java.awt.event.WindowEvent;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTextPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
 import org.apache.bcel.Repository;
 import org.apache.bcel.classfile.JavaClass;
-
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowEvent;
 
 /**
  * This class implements a machine-generated frame for use with
  * the GraphicalVerfifier.
  *
+ * @version $Id: VerifierAppFrame.java 1627977 2014-09-27 15:16:23Z ggregory $
  * @author Enver Haase
- * @version $Id: VerifierAppFrame.java 386056 2006-03-15 11:31:56Z tcurdt $
  * @see GraphicalVerifier
  */
 public class VerifierAppFrame extends JFrame {
 
+    private static final long serialVersionUID = -542458133073307640L;
     JPanel contentPane;
     JSplitPane jSplitPane1 = new JSplitPane();
     JPanel jPanel1 = new JPanel();
@@ -53,7 +70,7 @@ public class VerifierAppFrame extends JFrame {
     GridLayout gridLayout4 = new GridLayout();
     JScrollPane jScrollPane4 = new JScrollPane();
     CardLayout cardLayout1 = new CardLayout();
-    private String JUSTICE_VERSION = "JustIce by Enver Haase";
+    private final String JUSTICE_VERSION = "JustIce by Enver Haase";
     private String current_class;
     GridLayout gridLayout3 = new GridLayout();
     JTextPane pass1TextPane = new JTextPane();
@@ -75,9 +92,7 @@ public class VerifierAppFrame extends JFrame {
     JMenuItem aboutMenuItem = new JMenuItem();
 
 
-    /**
-     * Constructor.
-     */
+    /** Constructor. */
     public VerifierAppFrame() {
         enableEvents(AWTEvent.WINDOW_EVENT_MASK);
         try {
@@ -88,9 +103,7 @@ public class VerifierAppFrame extends JFrame {
     }
 
 
-    /**
-     * Initizalization of the components.
-     */
+    /** Initizalization of the components. */
     private void jbInit() throws Exception {
         //setIconImage(Toolkit.getDefaultToolkit().createImage(Frame1.class.getResource("[Ihr Symbol]")));
         contentPane = (JPanel) this.getContentPane();
@@ -115,7 +128,7 @@ public class VerifierAppFrame extends JFrame {
         messagesScrollPane.setPreferredSize(new Dimension(10, 10));
         classNamesJList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
 
-            public void valueChanged(ListSelectionEvent e) {
+            public void valueChanged( ListSelectionEvent e ) {
                 classNamesJList_valueChanged(e);
             }
         });
@@ -136,10 +149,10 @@ public class VerifierAppFrame extends JFrame {
         messagesTextPane.setEditable(false);
         newFileMenuItem.setText("New...");
         newFileMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(78,
-                java.awt.event.KeyEvent.CTRL_MASK, true));
+                InputEvent.CTRL_MASK, true));
         newFileMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed( ActionEvent e ) {
                 newFileMenuItem_actionPerformed(e);
             }
         });
@@ -147,13 +160,13 @@ public class VerifierAppFrame extends JFrame {
         pass3bTextPane.setEditable(false);
         pass3aJList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
 
-            public void valueChanged(ListSelectionEvent e) {
+            public void valueChanged( ListSelectionEvent e ) {
                 pass3aJList_valueChanged(e);
             }
         });
         pass3bJList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
 
-            public void valueChanged(ListSelectionEvent e) {
+            public void valueChanged( ListSelectionEvent e ) {
                 pass3bJList_valueChanged(e);
             }
         });
@@ -161,14 +174,14 @@ public class VerifierAppFrame extends JFrame {
         whatisMenuItem.setText("What is...");
         whatisMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed( ActionEvent e ) {
                 whatisMenuItem_actionPerformed(e);
             }
         });
         aboutMenuItem.setText("About");
         aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
 
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed( ActionEvent e ) {
                 aboutMenuItem_actionPerformed(e);
             }
         });
@@ -207,10 +220,9 @@ public class VerifierAppFrame extends JFrame {
     }
 
 
-    /**
-     * Overridden to stop the application on a closing window.
-     */
-    protected void processWindowEvent(WindowEvent e) {
+    /** Overridden to stop the application on a closing window. */
+    @Override
+    protected void processWindowEvent( WindowEvent e ) {
         super.processWindowEvent(e);
         if (e.getID() == WindowEvent.WINDOW_CLOSING) {
             System.exit(0);
@@ -218,7 +230,7 @@ public class VerifierAppFrame extends JFrame {
     }
 
 
-    synchronized void classNamesJList_valueChanged(ListSelectionEvent e) {
+    synchronized void classNamesJList_valueChanged( ListSelectionEvent e ) {
         if (e.getValueIsAdjusting()) {
             return;
         }
@@ -245,10 +257,10 @@ public class VerifierAppFrame extends JFrame {
             pass2TextPane.setText("");
             pass2TextPane.setBackground(Color.yellow);
             pass3aTextPane.setText("");
-            pass3aJList.setListData(new Object[0]);
+            pass3aJList.setListData(new String[0]);
             pass3aTextPane.setBackground(Color.yellow);
             pass3bTextPane.setText("");
-            pass3bJList.setListData(new Object[0]);
+            pass3bJList.setListData(new String[0]);
             pass3bTextPane.setBackground(Color.yellow);
         } else { // Must be VERIFIED_OK, Pass 1 does not know VERIFIED_NOTYET
             pass1TextPane.setBackground(Color.green);
@@ -259,10 +271,10 @@ public class VerifierAppFrame extends JFrame {
                 pass2TextPane.setBackground(Color.red);
                 pass3aTextPane.setText("");
                 pass3aTextPane.setBackground(Color.yellow);
-                pass3aJList.setListData(new Object[0]);
+                pass3aJList.setListData(new String[0]);
                 pass3bTextPane.setText("");
                 pass3bTextPane.setBackground(Color.yellow);
-                pass3bJList.setListData(new Object[0]);
+                pass3bJList.setListData(new String[0]);
             } else { // must be Verified_OK, because Pass1 was OK (cannot be Verified_NOTYET).
                 pass2TextPane.setText(vr.getMessage());
                 pass2TextPane.setBackground(Color.green);
@@ -296,7 +308,7 @@ public class VerifierAppFrame extends JFrame {
     }
 
 
-    void newFileMenuItem_actionPerformed(ActionEvent e) {
+    void newFileMenuItem_actionPerformed( ActionEvent e ) {
         String classname = JOptionPane
                 .showInputDialog("Please enter the fully qualified name of a class or interface to verify:");
         if ((classname == null) || (classname.equals(""))) {
@@ -307,7 +319,7 @@ public class VerifierAppFrame extends JFrame {
     }
 
 
-    synchronized void pass3aJList_valueChanged(ListSelectionEvent e) {
+    synchronized void pass3aJList_valueChanged( ListSelectionEvent e ) {
         if (e.getValueIsAdjusting()) {
             return;
         }
@@ -338,7 +350,7 @@ public class VerifierAppFrame extends JFrame {
     }
 
 
-    synchronized void pass3bJList_valueChanged(ListSelectionEvent e) {
+    synchronized void pass3bJList_valueChanged( ListSelectionEvent e ) {
         if (e.getValueIsAdjusting()) {
             return;
         }
@@ -369,16 +381,16 @@ public class VerifierAppFrame extends JFrame {
     }
 
 
-    void aboutMenuItem_actionPerformed(ActionEvent e) {
+    void aboutMenuItem_actionPerformed( ActionEvent e ) {
         JOptionPane
                 .showMessageDialog(
                         this,
-                        "JustIce is a Java class file verifier.\nIt was implemented by Enver Haase in 2001, 2002.\n<http://jakarta.apache.org/bcel/index.html>",
+                        "JustIce is a Java class file verifier.\nIt was implemented by Enver Haase in 2001, 2002.\n<http://commons.apache.org/bcel/>",
                         JUSTICE_VERSION, JOptionPane.INFORMATION_MESSAGE);
     }
 
 
-    void whatisMenuItem_actionPerformed(ActionEvent e) {
+    void whatisMenuItem_actionPerformed( ActionEvent e ) {
         JOptionPane
                 .showMessageDialog(
                         this,

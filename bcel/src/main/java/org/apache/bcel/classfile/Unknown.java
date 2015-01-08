@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,51 +12,45 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.classfile;
 
-import org.apache.bcel.Constants;
-
-import java.io.DataInputStream;
+import java.io.DataInput;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
+import org.apache.bcel.Constants;
 
 /**
  * This class represents a reference to an unknown (i.e.,
  * application-specific) attribute of a class.  It is instantiated from the
- * <em>Attribute.readAttribute()</em> method.  Applications that need to
- * read in application-specific attributes should create an <a
- * href="./AttributeReader.html">AttributeReader</a> implementation and
- * attach it via <a
- * href="./Attribute.html#addAttributeReader(java.lang.String,
- * org.apache.bcel.classfile.AttributeReader)">Attribute.addAttributeReader</a>.
+ * {@link Attribute#readAttribute(java.io.DataInputStream, ConstantPool)} method.
+ * Applications that need to read in application-specific attributes should create an
+ * {@link AttributeReader} implementation and attach it via
+ * {@link Attribute#addAttributeReader(String, AttributeReader)}.
+
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: Unknown.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @version $Id: Unknown.java 1646694 2014-12-19 12:57:12Z ebourg $
  * @see org.apache.bcel.classfile.Attribute
  * @see org.apache.bcel.classfile.AttributeReader
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public final class Unknown extends Attribute {
 
+    private static final long serialVersionUID = -4099655108069755015L;
     private byte[] bytes;
-    private String name;
-    private static Map unknown_attributes = new HashMap();
+    private final String name;
+    private static final Map<String, Unknown> unknown_attributes = new HashMap<String, Unknown>();
 
 
-    /**
-     * @return array of unknown attributes, but just one for each kind.
+    /** @return array of unknown attributes, but just one for each kind.
      */
     static Unknown[] getUnknownAttributes() {
         Unknown[] unknowns = new Unknown[unknown_attributes.size()];
-        Iterator entries = unknown_attributes.values().iterator();
-        for (int i = 0; entries.hasNext(); i++) {
-            unknowns[i] = (Unknown) entries.next();
-        }
+        unknown_attributes.values().toArray(unknowns);
         unknown_attributes.clear();
         return unknowns;
     }
@@ -73,9 +68,9 @@ public final class Unknown extends Attribute {
     /**
      * Create a non-standard attribute.
      *
-     * @param name_index    Index in constant pool
-     * @param length        Content length in bytes
-     * @param bytes         Attribute contents
+     * @param name_index Index in constant pool
+     * @param length Content length in bytes
+     * @param bytes Attribute contents
      * @param constant_pool Array of constants
      */
     public Unknown(int name_index, int length, byte[] bytes, ConstantPool constant_pool) {
@@ -88,20 +83,20 @@ public final class Unknown extends Attribute {
 
 
     /**
-     * Construct object from file stream.
-     *
-     * @param name_index    Index in constant pool
-     * @param length        Content length in bytes
-     * @param file          Input stream
+     * Construct object from input stream.
+     * 
+     * @param name_index Index in constant pool
+     * @param length Content length in bytes
+     * @param input Input stream
      * @param constant_pool Array of constants
      * @throws IOException
      */
-    Unknown(int name_index, int length, DataInputStream file, ConstantPool constant_pool)
+    Unknown(int name_index, int length, DataInput input, ConstantPool constant_pool)
             throws IOException {
         this(name_index, length, (byte[]) null, constant_pool);
         if (length > 0) {
             bytes = new byte[length];
-            file.readFully(bytes);
+            input.readFully(bytes);
         }
     }
 
@@ -113,7 +108,8 @@ public final class Unknown extends Attribute {
      *
      * @param v Visitor object
      */
-    public void accept(Visitor v) {
+    @Override
+    public void accept( Visitor v ) {
         v.visitUnknown(this);
     }
 
@@ -124,7 +120,8 @@ public final class Unknown extends Attribute {
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump(DataOutputStream file) throws IOException {
+    @Override
+    public final void dump( DataOutputStream file ) throws IOException {
         super.dump(file);
         if (length > 0) {
             file.write(bytes, 0, length);
@@ -143,6 +140,7 @@ public final class Unknown extends Attribute {
     /**
      * @return name of attribute.
      */
+    @Override
     public final String getName() {
         return name;
     }
@@ -151,7 +149,7 @@ public final class Unknown extends Attribute {
     /**
      * @param bytes the bytes to set
      */
-    public final void setBytes(byte[] bytes) {
+    public final void setBytes( byte[] bytes ) {
         this.bytes = bytes;
     }
 
@@ -159,6 +157,7 @@ public final class Unknown extends Attribute {
     /**
      * @return String representation.
      */
+    @Override
     public final String toString() {
         if (length == 0 || bytes == null) {
             return "(Unknown attribute " + name + ")";
@@ -178,7 +177,8 @@ public final class Unknown extends Attribute {
     /**
      * @return deep copy of this attribute
      */
-    public Attribute copy(ConstantPool _constant_pool) {
+    @Override
+    public Attribute copy( ConstantPool _constant_pool ) {
         Unknown c = (Unknown) clone();
         if (bytes != null) {
             c.bytes = new byte[bytes.length];

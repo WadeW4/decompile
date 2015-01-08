@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,38 +12,40 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.generic;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.bcel.Constants;
 import org.apache.bcel.classfile.AccessFlags;
 import org.apache.bcel.classfile.Attribute;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Super class for FieldGen and MethodGen objects, since they have
  * some methods in common!
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: FieldGenOrMethodGen.java 410087 2006-05-29 12:12:19Z tcurdt $
+ * @version $Id: FieldGenOrMethodGen.java 1627977 2014-09-27 15:16:23Z ggregory $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class FieldGenOrMethodGen extends AccessFlags implements NamedAndTyped, Cloneable {
 
+    private static final long serialVersionUID = -2549303846821589647L;
     protected String name;
     protected Type type;
     protected ConstantPoolGen cp;
-    private List attribute_vec = new ArrayList();
+    private final List<Attribute> attribute_vec = new ArrayList<Attribute>();
+    protected List<AnnotationEntryGen>       annotation_vec= new ArrayList<AnnotationEntryGen>();
 
 
     protected FieldGenOrMethodGen() {
     }
 
 
-    public void setType(Type type) {
+    public void setType( Type type ) {
         if (type.getType() == Constants.T_ADDRESS) {
             throw new IllegalArgumentException("Type can not be " + type);
         }
@@ -55,15 +58,14 @@ public abstract class FieldGenOrMethodGen extends AccessFlags implements NamedAn
     }
 
 
-    /**
-     * @return name of method/field.
+    /** @return name of method/field.
      */
     public String getName() {
         return name;
     }
 
 
-    public void setName(String name) {
+    public void setName( String name ) {
         this.name = name;
     }
 
@@ -73,7 +75,7 @@ public abstract class FieldGenOrMethodGen extends AccessFlags implements NamedAn
     }
 
 
-    public void setConstantPool(ConstantPoolGen cp) {
+    public void setConstantPool( ConstantPoolGen cp ) {
         this.cp = cp;
     }
 
@@ -86,16 +88,26 @@ public abstract class FieldGenOrMethodGen extends AccessFlags implements NamedAn
      *
      * @param a attribute to be added
      */
-    public void addAttribute(Attribute a) {
+    public void addAttribute( Attribute a ) {
         attribute_vec.add(a);
+    }
+
+    public void addAnnotationEntry(AnnotationEntryGen ag)
+    {
+        annotation_vec.add(ag);
     }
 
 
     /**
      * Remove an attribute.
      */
-    public void removeAttribute(Attribute a) {
+    public void removeAttribute( Attribute a ) {
         attribute_vec.remove(a);
+    }
+
+    public void removeAnnotationEntry(AnnotationEntryGen ag)
+    {
+        annotation_vec.remove(ag);
     }
 
 
@@ -104,6 +116,11 @@ public abstract class FieldGenOrMethodGen extends AccessFlags implements NamedAn
      */
     public void removeAttributes() {
         attribute_vec.clear();
+    }
+
+    public void removeAnnotationEntries()
+    {
+        annotation_vec.clear();
     }
 
 
@@ -116,19 +133,24 @@ public abstract class FieldGenOrMethodGen extends AccessFlags implements NamedAn
         return attributes;
     }
 
+    public AnnotationEntryGen[] getAnnotationEntries() {
+        AnnotationEntryGen[] annotations = new AnnotationEntryGen[annotation_vec.size()];
+          annotation_vec.toArray(annotations);
+          return annotations;
+      }
 
-    /**
-     * @return signature of method/field.
+
+    /** @return signature of method/field.
      */
     public abstract String getSignature();
 
 
+    @Override
     public Object clone() {
         try {
             return super.clone();
         } catch (CloneNotSupportedException e) {
-            System.err.println(e);
-            return null;
+            throw new Error("Clone Not Supported"); // never happens
         }
     }
 }

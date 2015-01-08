@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,7 +12,7 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.generic;
@@ -21,11 +22,14 @@ import org.apache.bcel.Constants;
 /**
  * Super class for the family of arithmetic instructions.
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: ArithmeticInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @version $Id: ArithmeticInstruction.java 1627906 2014-09-26 22:41:39Z ebourg $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class ArithmeticInstruction extends Instruction implements TypedInstruction,
         StackProducer, StackConsumer {
+
+    private static final long serialVersionUID = 5027221136148765144L;
+
 
     /**
      * Empty constructor needed for the Class.newInstance() statement in
@@ -43,10 +47,9 @@ public abstract class ArithmeticInstruction extends Instruction implements Typed
     }
 
 
-    /**
-     * @return type associated with the instruction
+    /** @return type associated with the instruction
      */
-    public Type getType(ConstantPoolGen cp) {
+    public Type getType( ConstantPoolGen cp ) {
         switch (opcode) {
             case Constants.DADD:
             case Constants.DDIV:

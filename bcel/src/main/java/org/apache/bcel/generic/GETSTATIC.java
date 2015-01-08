@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,7 +12,7 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.generic;
@@ -19,16 +20,19 @@ package org.apache.bcel.generic;
 import org.apache.bcel.Constants;
 import org.apache.bcel.ExceptionConstants;
 
-/**
+/** 
  * GETSTATIC - Fetch static field from class
  * <PRE>Stack: ..., -&gt; ..., value</PRE>
  * OR
  * <PRE>Stack: ..., -&gt; ..., value.word1, value.word2</PRE>
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: GETSTATIC.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @version $Id: GETSTATIC.java 1627906 2014-09-26 22:41:39Z ebourg $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public class GETSTATIC extends FieldInstruction implements PushInstruction, ExceptionThrower {
+
+    private static final long serialVersionUID = -477185594622953478L;
+
 
     /**
      * Empty constructor needed for the Class.newInstance() statement in
@@ -43,13 +47,14 @@ public class GETSTATIC extends FieldInstruction implements PushInstruction, Exce
     }
 
 
-    public int produceStack(ConstantPoolGen cpg) {
+    @Override
+    public int produceStack( ConstantPoolGen cpg ) {
         return getFieldSize(cpg);
     }
 
 
-    public Class[] getExceptions() {
-        Class[] cs = new Class[1 + ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION.length];
+    public Class<?>[] getExceptions() {
+        Class<?>[] cs = new Class[1 + ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION.length];
         System.arraycopy(ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION, 0, cs, 0,
                 ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION.length);
         cs[ExceptionConstants.EXCS_FIELD_AND_METHOD_RESOLUTION.length] = ExceptionConstants.INCOMPATIBLE_CLASS_CHANGE_ERROR;
@@ -65,13 +70,15 @@ public class GETSTATIC extends FieldInstruction implements PushInstruction, Exce
      *
      * @param v Visitor object
      */
-    public void accept(Visitor v) {
+    @Override
+    public void accept( Visitor v ) {
         v.visitStackProducer(this);
         v.visitPushInstruction(this);
         v.visitExceptionThrower(this);
         v.visitTypedInstruction(this);
         v.visitLoadClass(this);
         v.visitCPInstruction(this);
+        v.visitNameSignatureInstruction(this);
         v.visitFieldOrMethod(this);
         v.visitFieldInstruction(this);
         v.visitGETSTATIC(this);

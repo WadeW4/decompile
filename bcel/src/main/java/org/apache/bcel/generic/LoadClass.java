@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,28 +12,27 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.generic;
 
 /**
- * Denotes that an instruction may start the process of loading and resolving
+ * Denotes that an instruction may start the process of loading and resolving 
  * the referenced class in the Virtual Machine.
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: LoadClass.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @version $Id: LoadClass.java 1627906 2014-09-26 22:41:39Z ebourg $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public interface LoadClass {
 
     /**
      * Returns the ObjectType of the referenced class or interface
      * that may be loaded and resolved.
-     *
      * @return object type that may be loaded or null if a primitive is
      * referenced
      */
-    public ObjectType getLoadClassType(ConstantPoolGen cpg);
+    public ObjectType getLoadClassType( ConstantPoolGen cpg );
 
 
     /**
@@ -45,8 +45,7 @@ public interface LoadClass {
      * If no class is forced to be loaded, <B>null</B> is returned.
      * An example for this is an ANEWARRAY instruction that creates
      * an int[][].
-     *
      * @see #getLoadClassType(ConstantPoolGen)
      */
-    public Type getType(ConstantPoolGen cpg);
+    public Type getType( ConstantPoolGen cpg );
 }

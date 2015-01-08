@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,25 +12,31 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.verifier;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 
 /**
  * This class implements an adapter; it implements both a Swing ListModel and
  * a VerifierFactoryObserver.
  *
+ * @version $Id: VerifierFactoryListModel.java 1627977 2014-09-27 15:16:23Z ggregory $
  * @author Enver Haase
- * @version $Id: VerifierFactoryListModel.java 386056 2006-03-15 11:31:56Z tcurdt $
  */
 public class VerifierFactoryListModel implements org.apache.bcel.verifier.VerifierFactoryObserver,
         javax.swing.ListModel {
 
-    private java.util.ArrayList listeners = new java.util.ArrayList();
-    private java.util.TreeSet cache = new java.util.TreeSet();
+    private final List<ListDataListener> listeners = new ArrayList<ListDataListener>();
+    private final Set<String> cache = new TreeSet<String>();
 
 
     public VerifierFactoryListModel() {
@@ -38,28 +45,26 @@ public class VerifierFactoryListModel implements org.apache.bcel.verifier.Verifi
     }
 
 
-    public synchronized void update(String s) {
-        int size = listeners.size();
+    public synchronized void update( String s ) {
         Verifier[] verifiers = VerifierFactory.getVerifiers();
         int num_of_verifiers = verifiers.length;
         cache.clear();
-        for (int i = 0; i < num_of_verifiers; i++) {
-            cache.add(verifiers[i].getClassName());
+        for (Verifier verifier : verifiers) {
+            cache.add(verifier.getClassName());
         }
-        for (int i = 0; i < size; i++) {
-            ListDataEvent e = new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, 0,
-                    num_of_verifiers - 1);
-            ((javax.swing.event.ListDataListener) (listeners.get(i))).contentsChanged(e);
+        for (ListDataListener listener : listeners) {
+            ListDataEvent e = new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, 0, num_of_verifiers - 1);
+            listener.contentsChanged(e);
         }
     }
 
 
-    public synchronized void addListDataListener(javax.swing.event.ListDataListener l) {
+    public synchronized void addListDataListener( ListDataListener l ) {
         listeners.add(l);
     }
 
 
-    public synchronized void removeListDataListener(javax.swing.event.ListDataListener l) {
+    public synchronized void removeListDataListener( javax.swing.event.ListDataListener l ) {
         listeners.remove(l);
     }
 
@@ -69,7 +74,7 @@ public class VerifierFactoryListModel implements org.apache.bcel.verifier.Verifi
     }
 
 
-    public synchronized Object getElementAt(int index) {
-        return (cache.toArray())[index];
+    public synchronized Object getElementAt( int index ) {
+        return (cache.toArray(new String[cache.size()]))[index];
     }
 }

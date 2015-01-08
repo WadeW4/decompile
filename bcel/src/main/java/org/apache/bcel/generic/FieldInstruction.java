@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,7 +12,7 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.generic;
@@ -21,10 +22,13 @@ import org.apache.bcel.classfile.ConstantPool;
 /**
  * Super class for the GET/PUTxxx family of instructions.
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: FieldInstruction.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @version $Id: FieldInstruction.java 1627906 2014-09-26 22:41:39Z ebourg $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
-public abstract class FieldInstruction extends FieldOrMethod implements TypedInstruction {
+public abstract class FieldInstruction extends FieldOrMethod {
+
+    private static final long serialVersionUID = -7870956226459765817L;
+
 
     /**
      * Empty constructor needed for the Class.newInstance() statement in
@@ -45,40 +49,38 @@ public abstract class FieldInstruction extends FieldOrMethod implements TypedIns
     /**
      * @return mnemonic for instruction with symbolic references resolved
      */
-    public String toString(ConstantPool cp) {
+    @Override
+    public String toString( ConstantPool cp ) {
         return org.apache.bcel.Constants.OPCODE_NAMES[opcode] + " "
                 + cp.constantToString(index, org.apache.bcel.Constants.CONSTANT_Fieldref);
     }
 
 
-    /**
-     * @return size of field (1 or 2)
+    /** @return size of field (1 or 2)
      */
-    protected int getFieldSize(ConstantPoolGen cpg) {
-        return getType(cpg).getSize();
+    protected int getFieldSize( ConstantPoolGen cpg ) {
+        return Type.size(Type.getTypeSize(getSignature(cpg)));
     }
 
 
-    /**
-     * @return return type of referenced field
+    /** @return return type of referenced field
      */
-    public Type getType(ConstantPoolGen cpg) {
+    @Override
+    public Type getType( ConstantPoolGen cpg ) {
         return getFieldType(cpg);
     }
 
 
-    /**
-     * @return type of field
+    /** @return type of field
      */
-    public Type getFieldType(ConstantPoolGen cpg) {
+    public Type getFieldType( ConstantPoolGen cpg ) {
         return Type.getType(getSignature(cpg));
     }
 
 
-    /**
-     * @return name of referenced field.
+    /** @return name of referenced field.
      */
-    public String getFieldName(ConstantPoolGen cpg) {
+    public String getFieldName( ConstantPoolGen cpg ) {
         return getName(cpg);
     }
 }

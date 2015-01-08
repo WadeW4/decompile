@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); 
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -11,11 +12,14 @@
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
- *  limitations under the License. 
+ *  limitations under the License.
  *
  */
 package org.apache.bcel.util;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import org.apache.bcel.classfile.Attribute;
 import org.apache.bcel.classfile.Code;
 import org.apache.bcel.classfile.CodeException;
@@ -32,27 +36,24 @@ import org.apache.bcel.classfile.LocalVariableTable;
 import org.apache.bcel.classfile.SourceFile;
 import org.apache.bcel.classfile.Utility;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-
 /**
  * Convert found attributes into HTML file.
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: AttributeHTML.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @version $Id: AttributeHTML.java 1627977 2014-09-27 15:16:23Z ggregory $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
+ * 
  */
 final class AttributeHTML implements org.apache.bcel.Constants {
 
-    private String class_name; // name of current class
-    private PrintWriter file; // file to write to
+    private final String class_name; // name of current class
+    private final PrintWriter file; // file to write to
     private int attr_count = 0;
-    private ConstantHTML constant_html;
-    private ConstantPool constant_pool;
+    private final ConstantHTML constant_html;
+    private final ConstantPool constant_pool;
 
 
     AttributeHTML(String dir, String class_name, ConstantPool constant_pool,
-                  ConstantHTML constant_html) throws IOException {
+            ConstantHTML constant_html) throws IOException {
         this.class_name = class_name;
         this.constant_pool = constant_pool;
         this.constant_html = constant_html;
@@ -61,7 +62,7 @@ final class AttributeHTML implements org.apache.bcel.Constants {
     }
 
 
-    private final String codeLink(int link, int method_number) {
+    private String codeLink( int link, int method_number ) {
         return "<A HREF=\"" + class_name + "_code.html#code" + method_number + "@" + link
                 + "\" TARGET=Code>" + link + "</A>";
     }
@@ -73,13 +74,12 @@ final class AttributeHTML implements org.apache.bcel.Constants {
     }
 
 
-    final void writeAttribute(Attribute attribute, String anchor) throws IOException {
+    final void writeAttribute( Attribute attribute, String anchor ) {
         writeAttribute(attribute, anchor, 0);
     }
 
 
-    final void writeAttribute(Attribute attribute, String anchor, int method_number)
-            throws IOException {
+    final void writeAttribute( Attribute attribute, String anchor, int method_number ) {
         byte tag = attribute.getTag();
         int index;
         if (tag == ATTR_UNKNOWN) {
@@ -108,8 +108,8 @@ final class AttributeHTML implements org.apache.bcel.Constants {
                 int len = ce.length;
                 if (len > 0) {
                     file.print("<P><B>Exceptions handled</B><UL>");
-                    for (int i = 0; i < len; i++) {
-                        int catch_type = ce[i].getCatchType(); // Index in constant pool
+                    for (CodeException cex : ce) {
+                        int catch_type = cex.getCatchType(); // Index in constant pool
                         file.print("<LI>");
                         if (catch_type != 0) {
                             file.print(constant_html.referenceConstant(catch_type)); // Create Link to _cp.html
@@ -117,9 +117,9 @@ final class AttributeHTML implements org.apache.bcel.Constants {
                             file.print("Any Exception");
                         }
                         file.print("<BR>(Ranging from lines "
-                                + codeLink(ce[i].getStartPC(), method_number) + " to "
-                                + codeLink(ce[i].getEndPC(), method_number) + ", handled at line "
-                                + codeLink(ce[i].getHandlerPC(), method_number) + ")</LI>");
+                                + codeLink(cex.getStartPC(), method_number) + " to "
+                                + codeLink(cex.getEndPC(), method_number) + ", handled at line "
+                                + codeLink(cex.getHandlerPC(), method_number) + ")</LI>");
                     }
                     file.print("</UL>");
                 }
@@ -141,11 +141,11 @@ final class AttributeHTML implements org.apache.bcel.Constants {
                 // List thrown exceptions
                 int[] indices = ((ExceptionTable) attribute).getExceptionIndexTable();
                 file.print("<UL>");
-                for (int i = 0; i < indices.length; i++) {
-                    file.print("<LI><A HREF=\"" + class_name + "_cp.html#cp" + indices[i]
-                            + "\" TARGET=\"ConstantPool\">Exception class index(" + indices[i]
-                            + ")</A>\n");
-                }
+            for (int indice : indices) {
+                file.print("<LI><A HREF=\"" + class_name + "_cp.html#cp" + indice
+                        + "\" TARGET=\"ConstantPool\">Exception class index(" + indice
+                        + ")</A>\n");
+            }
                 file.print("</UL>\n");
                 break;
             case ATTR_LINE_NUMBER_TABLE:
@@ -164,46 +164,46 @@ final class AttributeHTML implements org.apache.bcel.Constants {
                 LocalVariable[] vars = ((LocalVariableTable) attribute).getLocalVariableTable();
                 // List name, range and type
                 file.print("<UL>");
-                for (int i = 0; i < vars.length; i++) {
-                    index = vars[i].getSignatureIndex();
-                    String signature = ((ConstantUtf8) constant_pool.getConstant(index,
-                            CONSTANT_Utf8)).getBytes();
-                    signature = Utility.signatureToString(signature, false);
-                    int start = vars[i].getStartPC();
-                    int end = (start + vars[i].getLength());
-                    file.println("<LI>" + Class2HTML.referenceType(signature) + "&nbsp;<B>"
-                            + vars[i].getName() + "</B> in slot %" + vars[i].getIndex()
-                            + "<BR>Valid from lines " + "<A HREF=\"" + class_name
-                            + "_code.html#code" + method_number + "@" + start + "\" TARGET=Code>"
-                            + start + "</A> to " + "<A HREF=\"" + class_name + "_code.html#code"
-                            + method_number + "@" + end + "\" TARGET=Code>" + end + "</A></LI>");
-                }
+            for (LocalVariable var : vars) {
+                index = var.getSignatureIndex();
+                String signature = ((ConstantUtf8) constant_pool.getConstant(index,
+                        CONSTANT_Utf8)).getBytes();
+                signature = Utility.signatureToString(signature, false);
+                int start = var.getStartPC();
+                int end = (start + var.getLength());
+                file.println("<LI>" + Class2HTML.referenceType(signature) + "&nbsp;<B>"
+                        + var.getName() + "</B> in slot %" + var.getIndex()
+                        + "<BR>Valid from lines " + "<A HREF=\"" + class_name
+                        + "_code.html#code" + method_number + "@" + start + "\" TARGET=Code>"
+                        + start + "</A> to " + "<A HREF=\"" + class_name + "_code.html#code"
+                        + method_number + "@" + end + "\" TARGET=Code>" + end + "</A></LI>");
+            }
                 file.print("</UL>\n");
                 break;
             case ATTR_INNER_CLASSES:
                 InnerClass[] classes = ((InnerClasses) attribute).getInnerClasses();
                 // List inner classes
                 file.print("<UL>");
-                for (int i = 0; i < classes.length; i++) {
-                    String name, access;
-                    index = classes[i].getInnerNameIndex();
-                    if (index > 0) {
-                        name = ((ConstantUtf8) constant_pool.getConstant(index, CONSTANT_Utf8))
-                                .getBytes();
-                    } else {
-                        name = "&lt;anonymous&gt;";
-                    }
-                    access = Utility.accessToString(classes[i].getInnerAccessFlags());
-                    file.print("<LI><FONT COLOR=\"#FF0000\">" + access + "</FONT> "
-                            + constant_html.referenceConstant(classes[i].getInnerClassIndex())
-                            + " in&nbsp;class "
-                            + constant_html.referenceConstant(classes[i].getOuterClassIndex())
-                            + " named " + name + "</LI>\n");
+            for (InnerClass classe : classes) {
+                String name, access;
+                index = classe.getInnerNameIndex();
+                if (index > 0) {
+                    name = ((ConstantUtf8) constant_pool.getConstant(index, CONSTANT_Utf8))
+                            .getBytes();
+                } else {
+                    name = "&lt;anonymous&gt;";
                 }
+                access = Utility.accessToString(classe.getInnerAccessFlags());
+                file.print("<LI><FONT COLOR=\"#FF0000\">" + access + "</FONT> "
+                        + constant_html.referenceConstant(classe.getInnerClassIndex())
+                        + " in&nbsp;class "
+                        + constant_html.referenceConstant(classe.getOuterClassIndex())
+                        + " named " + name + "</LI>\n");
+            }
                 file.print("</UL>\n");
                 break;
             default: // Such as Unknown attribute or Deprecated
-                file.print("<P>" + attribute.toString());
+                file.print("<P>" + attribute);
         }
         file.println("</TD></TR>");
         file.flush();

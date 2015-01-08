@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -16,27 +17,28 @@
  */
 package org.apache.bcel.classfile;
 
-import org.apache.bcel.Constants;
-
-import java.io.DataInputStream;
+import java.io.DataInput;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-/**
+import org.apache.bcel.Constants;
+
+/** 
  * Abstract super class for Fieldref and Methodref constants.
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: ConstantCP.java 386056 2006-03-15 11:31:56Z tcurdt $
- * @see ConstantFieldref
- * @see ConstantMethodref
- * @see ConstantInterfaceMethodref
+ * @version $Id: ConstantCP.java 1626266 2014-09-19 16:26:51Z sebb $
+ * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
+ * @see     ConstantFieldref
+ * @see     ConstantMethodref
+ * @see     ConstantInterfaceMethodref
  */
 public abstract class ConstantCP extends Constant {
 
-    /**
-     * References to the constants containing the class and the field signature
+    private static final long serialVersionUID = -6275762995206209402L;
+    /** References to the constants containing the class and the field signature
      */
-    protected int class_index, name_and_type_index;
+    protected int class_index; // TODO make private (has getter & setter)
+    protected int name_and_type_index; // TODO make private (has getter & setter)
 
 
     /**
@@ -54,13 +56,13 @@ public abstract class ConstantCP extends Constant {
      * @param file Input stream
      * @throws IOException
      */
-    ConstantCP(byte tag, DataInputStream file) throws IOException {
+    ConstantCP(byte tag, DataInput file) throws IOException {
         this(tag, file.readUnsignedShort(), file.readUnsignedShort());
     }
 
 
     /**
-     * @param class_index         Reference to the class containing the field
+     * @param class_index Reference to the class containing the field
      * @param name_and_type_index and the field signature
      */
     protected ConstantCP(byte tag, int class_index, int name_and_type_index) {
@@ -70,13 +72,14 @@ public abstract class ConstantCP extends Constant {
     }
 
 
-    /**
+    /** 
      * Dump constant field reference to file stream in binary format.
      *
      * @param file Output file stream
      * @throws IOException
      */
-    public final void dump(DataOutputStream file) throws IOException {
+    @Override
+    public final void dump( DataOutputStream file ) throws IOException {
         file.writeByte(tag);
         file.writeShort(class_index);
         file.writeShort(name_and_type_index);
@@ -100,9 +103,9 @@ public abstract class ConstantCP extends Constant {
 
 
     /**
-     * @param class_index points to Constant_class
+     * @param class_index points to Constant_class 
      */
-    public final void setClassIndex(int class_index) {
+    public final void setClassIndex( int class_index ) {
         this.class_index = class_index;
     }
 
@@ -110,7 +113,7 @@ public abstract class ConstantCP extends Constant {
     /**
      * @return Class this field belongs to.
      */
-    public String getClass(ConstantPool cp) {
+    public String getClass( ConstantPool cp ) {
         return cp.constantToString(class_index, Constants.CONSTANT_Class);
     }
 
@@ -118,7 +121,7 @@ public abstract class ConstantCP extends Constant {
     /**
      * @param name_and_type_index points to Constant_NameAndType
      */
-    public final void setNameAndTypeIndex(int name_and_type_index) {
+    public final void setNameAndTypeIndex( int name_and_type_index ) {
         this.name_and_type_index = name_and_type_index;
     }
 
@@ -126,6 +129,7 @@ public abstract class ConstantCP extends Constant {
     /**
      * @return String representation.
      */
+    @Override
     public final String toString() {
         return super.toString() + "(class_index = " + class_index + ", name_and_type_index = "
                 + name_and_type_index + ")";

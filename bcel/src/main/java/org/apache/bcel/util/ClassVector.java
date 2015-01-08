@@ -1,9 +1,10 @@
 /*
- * Copyright  2000-2004 The Apache Software Foundation
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -18,37 +19,42 @@ package org.apache.bcel.util;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.bcel.classfile.JavaClass;
 
-/**
- * Utility class implementing a (typesafe) collection of JavaClass objects.
- * Contains the most important methods of a Vector.
+/** 
+ * Utility class implementing a (typesafe) collection of JavaClass
+ * objects. Contains the most important methods of a Vector.
  *
- * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
- * @version $Id: ClassVector.java 386056 2006-03-15 11:31:56Z tcurdt $
+ * @version $Id: ClassVector.java 1627906 2014-09-26 22:41:39Z ebourg $
+ * @author <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A> 
+ * 
  * @deprecated as of 5.1.1 - 7/17/2005
  */
 @Deprecated
 public class ClassVector implements java.io.Serializable {
+
     private static final long serialVersionUID = 5600397075672780806L;
     protected List<JavaClass> vec = new ArrayList<JavaClass>();
 
-    public void addElement(JavaClass clazz) {
-	vec.add(clazz);
+
+    public void addElement( JavaClass clazz ) {
+        vec.add(clazz);
     }
 
-    public JavaClass elementAt(int index) {
-	return vec.get(index);
+
+    public JavaClass elementAt( int index ) {
+        return vec.get(index);
     }
 
-    public void removeElementAt(int index) {
-	vec.remove(index);
+
+    public void removeElementAt( int index ) {
+        vec.remove(index);
     }
+
 
     public JavaClass[] toArray() {
-	JavaClass[] classes = new JavaClass[vec.size()];
-	vec.toArray(classes);
-	return classes;
+        JavaClass[] classes = new JavaClass[vec.size()];
+        vec.toArray(classes);
+        return classes;
     }
 }
