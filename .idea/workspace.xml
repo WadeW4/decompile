@@ -2,12 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59351ac0-7973-46c1-8681-d99672dd8667" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bcel/bcel.iml" afterPath="$PROJECT_DIR$/bcel/bcel.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/decompile-sample-app/decompile-sample-app.iml" afterPath="$PROJECT_DIR$/decompile-sample-app/decompile-sample-app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/decompile.iml" afterPath="$PROJECT_DIR$/decompile.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="decompile.iws" />
@@ -464,7 +458,7 @@
       <workItem from="1420490947118" duration="204000" />
       <workItem from="1420553619760" duration="11000" />
       <workItem from="1420563654345" duration="118000" />
-      <workItem from="1420750654108" duration="161000" />
+      <workItem from="1420750654108" duration="216000" />
     </task>
     <task id="LOCAL-00001" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
       <created>1420491079147</created>
@@ -484,11 +478,23 @@
       <option name="project" value="LOCAL" />
       <updated>1420750748113</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="upgrade to BCEL 6.0">
+      <created>1420750829920</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1420750829920</updated>
+    </task>
+    <task id="LOCAL-00005" summary="upgrade to BCEL 6.0">
+      <created>1420750852772</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1420750852772</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="494000" />
+    <option name="totallyTimeSpent" value="549000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1036" extended-state="6" />
@@ -561,6 +567,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.179348" vertical-offset="5619" max-vertical-offset="6171">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
