@@ -14,7 +14,7 @@
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.7</java.version>
+		<java.version>1.8</java.version>
 		<maven.emma.version>1.0-alpha-3</maven.emma.version>
 		<maven.surefire.version>2.17</maven.surefire.version>
 		<maven.surefire.includes>**/*Test.java</maven.surefire.includes>
